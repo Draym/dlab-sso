@@ -1,5 +1,5 @@
 {
-  "name": "node-api-template",
+  "name": "dlab-sso",
   "version": "1.0.0",
   "main": "dist/app.js",
   "private": true,
