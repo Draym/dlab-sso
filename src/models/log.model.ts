@@ -21,7 +21,7 @@ export const init = (sequelize: Sequelize): typeof LogModel => {
             id: {
                 autoIncrement: true,
                 primaryKey: true,
-                type: DataTypes.INTEGER,
+                type: DataTypes.INTEGER
             },
             scope: {
                 allowNull: false,
@@ -33,21 +33,19 @@ export const init = (sequelize: Sequelize): typeof LogModel => {
             },
             code: {
                 allowNull: true,
-                type: DataTypes.STRING,
+                type: DataTypes.STRING
             },
             message: {
                 allowNull: true,
-                type: DataTypes.STRING,
+                type: DataTypes.STRING
             },
             createdBy: {
                 allowNull: false,
-                type: DataTypes.STRING,
-                field: "created_by"
+                type: DataTypes.STRING
             },
             createdAt: {
                 allowNull: false,
-                type: DataTypes.DATE,
-                field: "created_at"
+                type: DataTypes.DATE
             }
         },
         {

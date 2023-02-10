@@ -1,16 +1,15 @@
 import db from "../db/database"
-import {Filter, nowUTC, Page, throwIfNull} from "@d-lab/api-kit"
+import {Filter, Page, throwIfNull} from "@d-lab/api-kit"
 import {User} from "../interfaces"
 import {UserModel} from "../models"
 import Errors from "../utils/errors/Errors"
 
 class UserService {
 
-    async create(name: string, email: string): Promise<UserModel> {
+    async create(name: string, email: string | null): Promise<UserModel> {
         return await db.Users.create({
             name: name,
-            email: email,
-            createdAt: nowUTC()
+            email: email
         })
     }
     async findAll(filter: Filter, page: Page): Promise<User[]> {

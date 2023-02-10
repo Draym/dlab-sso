@@ -18,11 +18,20 @@ export const up: Migration = async ({context: queryInterface}: { context: QueryI
             type: DataTypes.STRING
         },
         email: {
-            allowNull: false,
+            allowNull: true,
             type: DataTypes.STRING,
             unique: "email"
         },
+        suspended: {
+            allowNull: false,
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
+        },
         created_at: {
+            allowNull: false,
+            type: DataTypes.DATE
+        },
+        updated_at: {
             allowNull: false,
             type: DataTypes.DATE
         }
