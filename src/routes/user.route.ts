@@ -1,16 +1,21 @@
 import {Router} from "express"
-import {Endpoint} from "../enums"
-import UserController from "../controllers/user.controller"
-import {CreateRequest, GetRequest, ListRequest} from "../api/dtos/user"
+import UserController from "../controllers/user/user.controller"
+import {validateQueryRequest} from "../middleware/validate-request.middleware"
 import authMiddleware from "../middleware/auth.middleware"
+import {ApiAccessType, ApiModule, Endpoint} from "../enums"
 import hasRole from "../middleware/has-role.middleware"
-import {handle, validatePathRequest, validateQueryRequest, validateRequest} from "@d-lab/api-kit"
+import {UserAllRequest, UserFindRequest} from "../dtos/user"
+import {ApiScopeImpl} from "./api.scope"
+import Role from "../enums/role.enum"
 
 const router = Router()
-const ctrl = new UserController()
+const userController = new UserController()
 
-router.post(Endpoint.USER_Create, authMiddleware(), hasRole("admin"), validateRequest(CreateRequest), handle.bind(ctrl.create))
-router.get(Endpoint.USER_List, authMiddleware(), hasRole("admin"), validateQueryRequest(ListRequest), handle.bind(ctrl.list))
-router.get(Endpoint.USER_Get, authMiddleware(), hasRole("admin"), validatePathRequest(GetRequest), handle.bind(ctrl.get))
+const scope = ApiScopeImpl.default(ApiModule.User, ApiAccessType.Management)
+
+
+router.get(Endpoint.USER_Find, validateQueryRequest(UserFindRequest), authMiddleware(scope), hasRole(Role.Operator), userController.find)
+
+router.get(Endpoint.USER_All, validateQueryRequest(UserAllRequest), authMiddleware(scope), hasRole(Role.Operator), userController.all)
 
 export default router

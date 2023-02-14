@@ -2,7 +2,7 @@ import {Model, DataTypes, Sequelize, Optional} from "sequelize"
 import {Log} from "../interfaces"
 import {LogEvent, LogScope} from "../enums"
 
-export type LogCreationAttributes = Optional<Log, "id">
+export type LogCreationAttributes = Optional<Log, "id" | "createdAt">
 
 export default class LogModel extends Model<Log, LogCreationAttributes> implements Log {
     public id: number
@@ -45,7 +45,8 @@ export const init = (sequelize: Sequelize): typeof LogModel => {
             },
             createdAt: {
                 allowNull: false,
-                type: DataTypes.DATE
+                type: DataTypes.DATE,
+                defaultValue: Sequelize.fn("NOW")
             }
         },
         {

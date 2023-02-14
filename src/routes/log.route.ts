@@ -2,7 +2,7 @@ import {Router} from "express"
 import {Endpoint} from "../enums"
 import {GetRequest, ListRequest} from "../api/dtos/log"
 import {handle, validatePathRequest, validateQueryRequest} from "@d-lab/api-kit"
-import LogController from "../controllers/log.controller"
+import LogController from "../controllers/log/log.controller"
 import authMiddleware from "../middleware/auth.middleware"
 import hasRole from "../middleware/has-role.middleware"
 

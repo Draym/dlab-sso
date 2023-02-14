@@ -1,6 +1,6 @@
 import {LogEvent, LogScope} from "../enums"
 import db from "../db/database"
-import {Filter, nowUTC, Page, throwIfNull} from "@d-lab/api-kit"
+import {Filter, Page, throwIfNull} from "@d-lab/api-kit"
 import {Log} from "../interfaces"
 import Errors from "../utils/errors/Errors"
 import {LogModel} from "../models"
@@ -12,8 +12,7 @@ class LogService {
             event: event,
             message: message,
             code: code,
-            createdBy: by,
-            createdAt: nowUTC()
+            createdBy: by
         })
     }
     async findAll(filter: Filter, page: Page): Promise<Log[]> {

@@ -8,10 +8,10 @@ export const up: Migration = async ({context: queryInterface}: { context: QueryI
             primaryKey: true,
             type: DataTypes.INTEGER
         },
-        identifier: {
+        uuid: {
             allowNull: false,
             type: DataTypes.UUID,
-            unique: "identifier"
+            unique: true
         },
         name: {
             allowNull: false,
@@ -20,7 +20,7 @@ export const up: Migration = async ({context: queryInterface}: { context: QueryI
         email: {
             allowNull: true,
             type: DataTypes.STRING,
-            unique: "email"
+            unique: true
         },
         suspended: {
             allowNull: false,

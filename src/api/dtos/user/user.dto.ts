@@ -1,9 +1,10 @@
+import {Role} from "../../../enums"
+
 export default interface UserDto {
     id: number
-    identifier: string
-    name: string
     email: string | null
-    suspended: boolean
+    uuid: string
+    role: Role | undefined
     createdAt: Date
     updatedAt: Date
 }

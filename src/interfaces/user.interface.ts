@@ -1,6 +1,6 @@
 export default interface User {
     id: number
-    identifier: string
+    uuid: string
     name: string
     email: string | null
     suspended: boolean
