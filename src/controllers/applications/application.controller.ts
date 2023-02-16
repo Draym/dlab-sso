@@ -11,15 +11,15 @@ import {
 } from "../../api/dtos/applications"
 import {ApplicationScopeModel} from "../../models"
 import Errors from "../../utils/errors/Errors"
-import {AuthBodyRequest, AuthRequest, groupBy, isNull, throwIfNull} from "@d-lab/api-kit"
+import {AuthBodyRequest, AuthRequest, eq, groupBy, include, isNull, Page, throwIfNull} from "@d-lab/api-kit"
 
 export default class ApplicationController {
     async allByOwner(req: AuthRequest): Promise<ApplicationAllOwnResponse> {
         const caller = req.caller
-        const applications = await applicationService.findAllByOwner(caller.id)
+        const applications = await applicationService.findAll(eq({ownerId: caller.id}))
         const appIds = applications.map(app => app.id)
 
-        const groupScopes = groupBy(await applicationScopeService.findAllByAppIds(appIds), "applicationId")
+        const groupScopes = groupBy(await applicationScopeService.findAll(include({id: appIds})), "applicationId")
 
         return {
             applications: applications.map(app => {

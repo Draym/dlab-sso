@@ -24,8 +24,8 @@ export default class ApplicationService {
         return app!
     }
 
-    async findAll(filter: Filter, page: Page): Promise<ApplicationModel[]> {
-        return db.Applications.findAll(page.paginate(filter.get()))
+    async findAll(filter: Filter): Promise<ApplicationModel[]> {
+        return db.Applications.findAll(filter.get())
     }
     async find(id: number): Promise<ApplicationModel | null> {
         return db.Applications.findByPk(id)

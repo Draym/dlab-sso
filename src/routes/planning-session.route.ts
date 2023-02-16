@@ -6,34 +6,25 @@ import {
     SessionAllRequest,
     SessionCreateRequest,
     SessionDeleteRequest,
-    SessionFindRequest,
     SessionFindNextRequest,
     SessionGetRequest,
     SessionUpdateRequest
 } from "../api/dtos/game-access/planning/session"
 import authMiddleware from "../middleware/auth.middleware"
 import hasRole from "../middleware/has-role.middleware"
-import {ApiScopeImpl} from "./api.scope"
+import {ApiScopeImpl, handle} from "@d-lab/api-kit"
 
 const router = Router()
-const planningSessionController = new PlanningSessionController()
+const ctrl = new PlanningSessionController()
 
 const scope = ApiScopeImpl.default(ApiModule.Planning, ApiAccessType.Management).write()
 
 
-
-router.post(Endpoint.PLANNING_SESSION_Create, validateRequest(SessionCreateRequest), authMiddleware(scope), hasRole(Role.Operator), planningSessionController.create)
-
-router.delete(Endpoint.PLANNING_SESSION_Delete, validateRequest(SessionDeleteRequest), authMiddleware(scope), hasRole(Role.Operator), planningSessionController.delete)
-
-router.put(Endpoint.PLANNING_SESSION_Update, validateRequest(SessionUpdateRequest), authMiddleware(scope), hasRole(Role.Operator), planningSessionController.update)
-
-router.get(Endpoint.PLANNING_SESSION_All, validateQueryRequest(SessionAllRequest), planningSessionController.all)
-
-router.get(Endpoint.PLANNING_SESSION_Get, validateQueryRequest(SessionGetRequest), planningSessionController.get)
-
-router.get(Endpoint.PLANNING_SESSION_Find, validateQueryRequest(SessionFindRequest), planningSessionController.find)
-
-router.get(Endpoint.PLANNING_SESSION_FindNext, validateQueryRequest(SessionFindNextRequest), planningSessionController.findNext)
+router.post(Endpoint.PLANNING_SESSION_Create, validateRequest(SessionCreateRequest), authMiddleware(scope), hasRole(Role.Operator), handle.bind(ctrl.create))
+router.delete(Endpoint.PLANNING_SESSION_Delete, validateRequest(SessionDeleteRequest), authMiddleware(scope), hasRole(Role.Operator), handle.bind(ctrl.delete))
+router.put(Endpoint.PLANNING_SESSION_Update, validateRequest(SessionUpdateRequest), authMiddleware(scope), hasRole(Role.Operator), handle.bind(ctrl.update))
+router.get(Endpoint.PLANNING_SESSION_All, validateQueryRequest(SessionAllRequest), handle.bind(ctrl.all))
+router.get(Endpoint.PLANNING_SESSION_Get, validateQueryRequest(SessionGetRequest), handle.bind(ctrl.get))
+router.get(Endpoint.PLANNING_SESSION_FindNext, validateQueryRequest(SessionFindNextRequest), handle.bind(ctrl.findNext))
 
 export default router
