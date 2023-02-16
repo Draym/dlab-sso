@@ -1,25 +1,39 @@
 import db, {sequelize} from "../db/database"
 import {ApplicationModel} from "../models"
-import {throwIf, throwIfNot, throwIfNull} from "../utils/validators/checks"
 import Errors from "../utils/errors/Errors"
 import {ApiAccessRequire, ApiAccessType, ApiModule} from "../enums"
 import {v4 as uuidv4} from 'uuid'
 import * as bcrypt from "bcryptjs"
-import {applicationScopeService, applicationService, applicationUserService, userRolesService} from "./index"
-import Role, {AdministrativeRoles, StaffRoles} from "../enums/role.enum"
-import {replaceAll} from "../utils/string"
+import { applicationService, applicationUserService, userRolesService} from "./index"
+import Role, {AdministrativeRoles} from "../enums/role.enum"
+import {Filter, Page, throwIf, throwIfNot, throwIfNull, replaceAll} from "@d-lab/api-kit"
 
 export default class ApplicationService {
-    public applications = db.Applications
 
-    async getById(applicationId: number): Promise<ApplicationModel> {
-        const scope = await this.findById(applicationId)
-        throwIfNull(scope, Errors.NOT_FOUND_Application(`id[${applicationId}`))
-        return scope!
+    public async getAll(): Promise<ApplicationModel[]> {
+        return await db.Applications.findAll()
     }
 
-    async findById(applicationId: number): Promise<ApplicationModel | null> {
-        return await this.applications.findByPk(applicationId)
+    async findBy(filter: Filter): Promise<ApplicationModel | null> {
+        return db.Applications.findOne(filter.get())
+    }
+
+    async getBy(filter: Filter): Promise<ApplicationModel> {
+        const app = await this.findBy(filter)
+        throwIfNull(app, Errors.NOT_FOUND_Application(filter.stringify()))
+        return app!
+    }
+
+    async findAll(filter: Filter, page: Page): Promise<ApplicationModel[]> {
+        return db.Applications.findAll(page.paginate(filter.get()))
+    }
+    async find(id: number): Promise<ApplicationModel | null> {
+        return db.Applications.findByPk(id)
+    }
+    async get(id: number): Promise<ApplicationModel> {
+        const app = await this.find(id)
+        throwIfNull(app, Errors.NOT_FOUND_Application(`id[${id}`))
+        return app!
     }
 
     async getByApiKey(apiKey: string): Promise<ApplicationModel> {
@@ -29,27 +43,15 @@ export default class ApplicationService {
     }
 
     async findByApiKey(apiKey: string): Promise<ApplicationModel | null> {
-        return await this.applications.findOne({
+        return await db.Applications.findOne({
             where: {
                 apiKey: await ApplicationService.hashApiKey(apiKey)
             }
         })
     }
 
-    async getAll(): Promise<ApplicationModel[]> {
-        return await this.applications.findAll()
-    }
-
-    async findAllByOwner(ownerId: number): Promise<ApplicationModel[]> {
-        return await this.applications.findAll({
-            where: {
-                ownerId: ownerId
-            }
-        })
-    }
-
     async requireOwnership(applicationId: number, callerId: number) {
-        const application = await applicationService.getById(applicationId)
+        const application = await applicationService.get(applicationId)
         throwIf(application.ownerId !== callerId, Errors.REQUIRE_Ownership(`You are not the owner of application[${applicationId}]`))
     }
 
@@ -63,7 +65,7 @@ export default class ApplicationService {
         return await sequelize.transaction(async (t) => {
             const apiKey = ApplicationService.newApiKey()
 
-            const application = await this.applications.create({
+            const application = await db.Applications.create({
                 ownerId: ownerId,
                 name: name,
                 description: description,
@@ -77,7 +79,7 @@ export default class ApplicationService {
             }
 
             for (const module of modules) {
-                await applicationScopeService.applicationScopes.create({
+                await db.ApplicationScopes.create({
                     applicationId: application.id,
                     module: module
                 }, {transaction: t})
@@ -88,7 +90,7 @@ export default class ApplicationService {
     }
 
     async delete(applicationId: number, callerId: number): Promise<ApplicationModel> {
-        const application = await this.getById(applicationId)
+        const application = await this.get(applicationId)
         throwIf(application.ownerId !== callerId, Errors.REQUIRE_Ownership(`You are not the owner of application[${applicationId}]`))
 
         await application.destroy()
@@ -96,7 +98,7 @@ export default class ApplicationService {
     }
 
     async generateNewApiKey(applicationId: number, callerId: number): Promise<string> {
-        const application = await this.getById(applicationId)
+        const application = await this.get(applicationId)
         throwIf(application.ownerId !== callerId, Errors.REQUIRE_Ownership(`You are not the owner of application[${applicationId}]`))
 
         const apiKey = ApplicationService.newApiKey()

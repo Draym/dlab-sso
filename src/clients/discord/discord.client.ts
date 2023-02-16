@@ -1,5 +1,5 @@
-import Http from "../../utils/Http"
 import {DiscordAutMeResponse, DiscordTokenRequest, DiscordTokenResponse, DiscordUserResponse} from "./dtos"
+import {Auth, Http} from "@d-lab/api-kit"
 
 enum API {
     AUTHORIZE = "https://discord.com/api/v10/oauth2/authorize",
@@ -13,11 +13,11 @@ export default class DiscordClient {
     private static appKey: string = process.env.DISCORD_APP_KEY!
     private static secret: string = process.env.DISCORD_CLIENT_SECRET!
 
-        public static getRequiredScopes(): string[] {
+    public static getRequiredScopes(): string[] {
         return ["identify", "connections", "email"]
     }
 
-    public static getAuthorizeURL(scopes: string[], nonce: string, redirectUri: string, requireConsent: boolean = false) {
+    public static getAuthorizeURL(scopes: string[], nonce: string, redirectUri: string, requireConsent = false) {
         const prompt = requireConsent ? "consent" : "none"
         const scope = scopes.join("%20")
         return `${API.AUTHORIZE}?response_type=code&client_id=${this.appId}&scope=${scope}&state=${nonce}&redirect_uri=${encodeURIComponent(redirectUri)}&prompt=${prompt}`
@@ -32,7 +32,7 @@ export default class DiscordClient {
             redirect_uri: redirectUri
         }
         return new Promise((resolve, reject) => {
-            Http.post<DiscordTokenResponse>(null, API.AUTH_TOKEN, null, data, (r) => {
+            Http.post<DiscordTokenResponse>(null, API.AUTH_TOKEN, null, {body: data}, (r) => {
                 resolve(r)
             }, (error) => {
                 reject(error.message)
@@ -42,7 +42,7 @@ export default class DiscordClient {
 
     public static async getAuthMe(token: string): Promise<DiscordAutMeResponse> {
         return new Promise((resolve, reject) => {
-            Http.get<DiscordAutMeResponse>(null, API.AUTH_ME, token, {}, (r) => {
+            Http.get<DiscordAutMeResponse>(null, API.AUTH_ME, Auth.token(token), {}, (r) => {
                 resolve(r)
             }, (error) => {
                 reject(error.message)
@@ -52,7 +52,7 @@ export default class DiscordClient {
 
     public static async getUserMe(token: string): Promise<DiscordUserResponse> {
         return new Promise((resolve, reject) => {
-            Http.get<DiscordUserResponse>(null, API.USERS_ME, token, {}, (r) => {
+            Http.get<DiscordUserResponse>(null, API.USERS_ME, Auth.token(token), {}, (r) => {
                 resolve(r)
             }, (error) => {
                 reject(error.message)

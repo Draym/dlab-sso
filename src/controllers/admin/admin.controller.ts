@@ -3,7 +3,7 @@ import {
     AdminCreateAccountRequest,
     AdminSuspendAccountRequest
 } from "../../api/dtos/admin"
-import {userRolesService, userService, walletService} from "../../services"
+import {userCredentialsService, userRolesService, userService, walletService} from "../../services"
 import {WalletType} from "../../enums"
 import {AuthBodyRequest, isNotNull} from "@d-lab/api-kit"
 import {UserDto} from "../../api/dtos/user"
@@ -11,7 +11,8 @@ import {UserDto} from "../../api/dtos/user"
 export default class AdminController {
     async createAccount(req: AuthBodyRequest<AdminCreateAccountRequest>): Promise<UserDto> {
         const payload = req.body
-        const user = await userService.createUser(payload.email, payload.password, undefined)
+        const user = await userService.create(payload.email)
+        await userCredentialsService.create(user.uuid, payload.email, payload.password)
         if (isNotNull(payload.role)) {
             await userRolesService.update(user.id, payload.role!)
         }
@@ -28,7 +29,7 @@ export default class AdminController {
 
     async bindWalletToAccount(req: AuthBodyRequest<AdminBindWalletRequest>): Promise<void> {
         const payload = req.body
-        const user = await userService.getById(payload.userId)
+        const user = await userService.get(payload.userId)
         await walletService.bindToUser(user.uuid, payload.walletAddress, WalletType.ETH)
     }
 }

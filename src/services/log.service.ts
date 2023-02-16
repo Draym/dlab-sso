@@ -18,11 +18,11 @@ class LogService {
     async findAll(filter: Filter, page: Page): Promise<Log[]> {
         return db.Logs.findAll(page.paginate(filter.get()))
     }
-    async findById(id: number): Promise<LogModel | null> {
+    async find(id: number): Promise<LogModel | null> {
         return db.Logs.findByPk(id)
     }
-    async getById(id: number): Promise<LogModel> {
-        const log = await this.findById(id)
+    async get(id: number): Promise<LogModel> {
+        const log = await this.find(id)
         throwIfNull(log, Errors.NOT_FOUND_Log(`NotFound for id[${id}]`))
         return log!
     }

@@ -13,10 +13,6 @@ export const up: Migration = async ({context: queryInterface}: { context: QueryI
             type: DataTypes.UUID,
             unique: true
         },
-        name: {
-            allowNull: false,
-            type: DataTypes.STRING
-        },
         email: {
             allowNull: true,
             type: DataTypes.STRING,

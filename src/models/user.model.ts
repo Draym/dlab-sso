@@ -1,12 +1,11 @@
 import {Model, DataTypes, Sequelize, Optional} from "sequelize"
 import {User} from "../interfaces"
 
-export type UserCreationAttributes = Optional<User, "id" | "uuid" | "suspended" | "createdAt" | "updatedAt">
+export type UserCreationAttributes = Optional<User, "id" | "uuid" | "email" | "suspended" | "createdAt" | "updatedAt">
 
 export default class UserModel extends Model<User, UserCreationAttributes> implements User {
     public id: number
     public uuid: string
-    public name: string
     public email: string | null
     public suspended: boolean
     public createdAt: Date
@@ -27,10 +26,6 @@ export const init = (sequelize: Sequelize): typeof UserModel => {
                 type: DataTypes.UUID,
                 unique: "identifier",
                 defaultValue: DataTypes.UUIDV4
-            },
-            name: {
-                allowNull: false,
-                type: DataTypes.STRING,
             },
             email: {
                 allowNull: true,

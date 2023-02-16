@@ -2,7 +2,7 @@ import Mailgun from "mailgun.js"
 import FormData from "form-data"
 import Errors from "../utils/errors/Errors"
 import {Mail} from "../utils/email/Email"
-import {config} from "../config/mail.config"
+import {mailConfig} from "../config/mail.config"
 import {logger} from "@d-lab/api-kit"
 
 export interface MailgunConfig {
@@ -18,20 +18,20 @@ export class Mailer {
 
     constructor() {
         this.client = MailGunInstance.client({
-            key: config.key,
-            public_key: config.pubKey,
+            key: mailConfig.key,
+            public_key: mailConfig.pubKey,
             username: "api",
         })
         this.config = {
-            from: config.from,
-            fromName: config.fromName
+            from: mailConfig.from,
+            fromName: mailConfig.fromName
         }
         return this
     }
 
     public async send(mail: Mail, target: string) {
         try {
-            await this.client.messages.create(config.domain, mail)
+            await this.client.messages.create(mailConfig.domain, mail)
         } catch (e) {
             logger.error(`[MailGun]: ${JSON.stringify(e)}`)
             throw Errors.SERVICE_PROVIDER_ApiError(`Failed to send ${target}, please try again later.`)

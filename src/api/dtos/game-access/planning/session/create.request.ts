@@ -1,7 +1,9 @@
-import {IsDateString, IsEnum} from "class-validator"
-import {SessionType} from "../../../../enums"
+import {IsDateString, IsEnum, IsString} from "class-validator"
+import {SessionType} from "../../../../../enums"
 
 export default class SessionCreateRequest {
+    @IsString()
+    public serviceUuid: string
     @IsEnum(SessionType)
     public type: SessionType
     @IsDateString(undefined, {message: "Invalid date format."})

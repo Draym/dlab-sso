@@ -1,92 +1,74 @@
-import {NextFunction, Response} from "express"
-import {AuthRequest, BodyRequest, Empty, QueryRequest} from "../../../interfaces/api.interface"
 import Errors from "../../../utils/errors/Errors"
-import {LoginRequest, RegisterRequest} from "../../../dtos/reponse/default"
-import {TokenResponse} from "../../../dtos/reponse"
 import {
     newsletterSubscriptionService,
-    tokenService,
+    tokenService, userCredentialsService,
     userService, verificationCodeService
 } from "../../../services"
-import {isNotNull, throwIfNot} from "../../../utils/validators/checks"
 import Password from "../../../utils/validators/password"
-import {EmailSendCodeRequest, EmailVerifyCodeRequest, EmailVerifyCodeResponse} from "../../../dtos/email"
+import {EmailSendCodeRequest, EmailVerifyCodeRequest, EmailVerifyCodeResponse} from "../../../api/dtos/email"
 import {VerificationCodeTarget} from "../../../enums"
 import Email from "../../../utils/email/Email"
 import mailer from "../../../clients/mail.client"
-import {Auth} from "../../../utils/response"
+import {AuthRequest, BodyRequest, eq, isNotNull, QueryRequest, throwIfNot} from "@d-lab/api-kit"
+import {LoginRequest, RegisterRequest} from "../../../api/dtos/auth/default"
+import {TokenResponse} from "../../../api/dtos/auth"
+import AuthResponse from "../../../utils/reponse/auth.response"
+import {Response} from "express"
 
 export default class AuthController {
 
-     async sendCodeForRegister(req: BodyRequest<EmailSendCodeRequest>): Promise<Empty> {
-        try {
-            const payload = req.body
-            if (await userService.emailExists(payload.email)) {
-                throw Errors.CONFLICT_Email(payload.email)
-            }
-            const code = await verificationCodeService.createCode(payload.email, VerificationCodeTarget.Register)
-            const mail = Email.generateWelcomeMessage(mailer.config.from, payload.email, code)
-            await mailer.send(mail, "verification code")
-            res.status(200).json({})
-        } catch (error) {
-            next(error)
+    async sendCodeForRegister(req: BodyRequest<EmailSendCodeRequest>): Promise<void> {
+        const payload = req.body
+        if (await userService.emailExists(payload.email)) {
+            throw Errors.CONFLICT_Email(payload.email)
+        }
+        const code = await verificationCodeService.createCode(payload.email, VerificationCodeTarget.Register)
+        const mail = Email.generateWelcomeMessage(mailer.config.from, payload.email, code)
+        await mailer.send(mail, "verification code")
+    }
+
+    async verifyCodeForRegister(req: QueryRequest<EmailVerifyCodeRequest>): Promise<EmailVerifyCodeResponse> {
+
+        const payload = req.query
+        const verificationCode = parseInt(payload.verificationCode)
+        await verificationCodeService.checkValidity(payload.email, verificationCode, VerificationCodeTarget.Register)
+        return {
+            email: payload.email,
+            verificationCode: verificationCode,
+            isValid: true
         }
     }
 
-     async verifyCodeForRegister(req: QueryRequest<EmailVerifyCodeRequest>): Promise<EmailVerifyCodeResponse> {
-        try {
-            const payload = req.query
-            const verificationCode = parseInt(payload.verificationCode)
-            await verificationCodeService.checkValidity(payload.email, verificationCode, VerificationCodeTarget.Register)
-            res.status(200).json({
-                email: payload.email,
-                verificationCode: verificationCode,
-                isValid: true
-            })
-        } catch (error) {
-            next(error)
+    async register(req: BodyRequest<RegisterRequest>, res: Response): Promise<TokenResponse> {
+        const payload = req.body
+
+        await verificationCodeService.checkValidityAndDestroy(payload.email, payload.verificationCode, VerificationCodeTarget.Register)
+
+        Password.validate(payload.password, payload.passwordConfirm)
+
+        const user = await userService.create(payload.email)
+        if (payload.newsletterSubscription) {
+            await newsletterSubscriptionService.subscribe(user.uuid)
         }
+        await userCredentialsService.create(user.uuid, payload.email, payload.password)
+        return await AuthResponse.success(user, res)
     }
 
-     async register(req: BodyRequest<RegisterRequest>): Promise<TokenResponse> {
-        try {
-            const payload = req.body
-
-            Password.validate(payload.password, payload.passwordConfirm)
-
-            const user = await userService.createUser(payload.email, payload.password, payload.verificationCode)
-            if (payload.newsletterSubscription) {
-                await newsletterSubscriptionService.subscribe(user.identifier)
-            }
-            await Auth.success(user, res)
-        } catch (error) {
-            next(error)
+    async logout(req: AuthRequest, res: Response): Promise<void> {
+        const token = req.auth.token
+        if (isNotNull(token)) {
+            await tokenService.destroyToken(token!)
         }
+        AuthResponse.clearCookieResponse(res)
     }
 
-     async logout(req: AuthRequest): Promise<Empty> {
-        try {
-            const token = req.auth.token
-            if (isNotNull(token)) {
-                await tokenService.destroyToken(token!)
-            }
-            Auth.clearCookieResponse(res)
-            res.status(200).json({})
-        } catch (error) {
-            next(error)
-        }
-    }
+    async login(req: BodyRequest<LoginRequest>, res: Response): Promise<TokenResponse> {
+        const payload = req.body
 
-     async login(req: BodyRequest<LoginRequest>): Promise<TokenResponse> {
-        try {
-            const payload = req.body
+        const credentials = await userCredentialsService.getBy(eq({email: payload.email}))
+        throwIfNot(credentials.isValidPassword(payload.password), Errors.REJECTED_Password())
+        const user = await userService.getByUuid(credentials.userUuid)
 
-            const user = await userService.getByEmail(payload.email)
-            throwIfNot(user.isValidPassword(payload.password), Errors.REJECTED_Password())
-
-            await Auth.success(user, res, payload.shortSession === true)
-        } catch (error) {
-            next(error)
-        }
+        return await AuthResponse.success(user, res, payload.shortSession === true)
     }
 }

@@ -1,4 +1,4 @@
-import {ApiAccessRequire, ApiAccessType, ApiModule} from "../../enums"
+import {ApiAccessRequire, ApiAccessType, ApiModule} from "../../../enums"
 
 export interface ApplicationResponse {
     id: number,

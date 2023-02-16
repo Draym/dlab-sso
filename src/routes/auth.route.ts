@@ -2,15 +2,12 @@ import { Router } from "express"
 import authMiddleware from "../middleware/auth.middleware"
 import AuthMeController from "../controllers/auth/auth-me.controller"
 import {ApiAccessType, ApiModule, Endpoint} from "../enums"
-import {ApiScopeImpl} from "./api.scope"
-
+import {ApiScopeImpl, handle} from "@d-lab/api-kit"
 const router = Router()
-const controller = new AuthMeController()
+const ctrl = new AuthMeController()
 
 const scope = ApiScopeImpl.default(ApiModule.User, ApiAccessType.Personal)
 
-
-
-router.get(Endpoint.ME, authMiddleware(scope), controller.getMe)
+router.get(Endpoint.ME, authMiddleware(scope), handle.bind(ctrl.getMe))
 
 export default router

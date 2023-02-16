@@ -1,4 +1,4 @@
-export default interface EarlyAccessIsAuthorizedResponse {
+export default interface PbeIsAuthorizedResponse {
     authorized: boolean
     isOpen: boolean
     isPBETester: boolean

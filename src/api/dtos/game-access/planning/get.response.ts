@@ -1,5 +1,5 @@
-import SessionResponse from "./session.response"
+import SessionDto from "./session/session.dto"
 
 export default interface PlanningGetResponse {
-    sessions: SessionResponse[]
+    sessions: SessionDto[]
 }

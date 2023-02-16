@@ -7,9 +7,9 @@ import {
     MeEmailUpdateRequest,
     MePasswordUpdateByEmailRequest,
     MeEmailUpdateByEmailRequest
-} from "../dtos/user"
+} from "../api/dtos/user"
 import {ApiAccessType, ApiModule, Endpoint} from "../enums"
-import {EmailVerifyCodeRequest, EmailSendCodeRequest} from "../dtos/email"
+import {EmailVerifyCodeRequest, EmailSendCodeRequest} from "../api/dtos/email"
 import {ApiScopeImpl} from "./api.scope"
 
 const router = Router()

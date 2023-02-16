@@ -1,39 +1,34 @@
 import {DiscordValidatorModel} from "../models"
 import db from "../db/database"
-import {isNull, throwIfNull} from "../utils/validators/checks"
 import Errors from "../utils/errors/Errors"
 import {nanoid} from "nanoid"
+import {eq, Filter, isNull, throwIfNull} from "@d-lab/api-kit"
 
 export default class DiscordValidatorService {
-    public discordValidator = db.DiscordValidator
 
-    public async getValidator(requestNonce: string, authKey: string): Promise<DiscordValidatorModel> {
-        const wallet = await this.findValidator(requestNonce, authKey)
-        throwIfNull(wallet, Errors.NOT_FOUND_DiscordValidator(requestNonce))
-        return wallet!
+    async find(id: number): Promise<DiscordValidatorModel | null> {
+        return db.DiscordValidator.findByPk(id)
+    }
+    async get(id: number): Promise<DiscordValidatorModel> {
+        const validator = await this.find(id)
+        throwIfNull(validator, Errors.NOT_FOUND_DiscordValidator(`id[${id}]`))
+        return validator!
     }
 
-    public async findValidator(requestNonce: string, authKey: string): Promise<DiscordValidatorModel | null> {
-        return await this.discordValidator.findOne({
-            where: {
-                requestNonce: requestNonce,
-                authKey: authKey
-            }
-        })
+    public async getBy(filter: Filter): Promise<DiscordValidatorModel> {
+        const validator = await this.findBy(filter)
+        throwIfNull(validator, Errors.NOT_FOUND_DiscordValidator(filter.stringify()))
+        return validator!
     }
 
-    public async findByDiscordId(discordId: string): Promise<DiscordValidatorModel | null> {
-        return await this.discordValidator.findOne({
-            where: {
-                discordId: discordId
-            }
-        })
+    public async findBy(filter: Filter): Promise<DiscordValidatorModel | null> {
+        return await db.DiscordValidator.findOne(filter.get())
     }
 
     public async generate(discordId: string, discordToken: string, discordScope: string, requestNonce: string): Promise<DiscordValidatorModel> {
-        const validator = await this.findByDiscordId(discordId)
+        const validator = await this.findBy(eq({discordId}))
         if (isNull(validator)) {
-            return await this.discordValidator.create({
+            return await db.DiscordValidator.create({
                 discordId: discordId,
                 discordToken: discordToken,
                 discordScope: discordScope,

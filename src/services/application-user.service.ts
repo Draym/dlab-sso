@@ -1,16 +1,24 @@
 import db from "../db/database"
 import {ApplicationUser} from "../interfaces"
 import {ApplicationUserModel} from "../models"
-import {isNull, throwIfNull} from "../utils/validators/checks"
 import Errors from "../utils/errors/Errors"
 import {Role} from "../enums"
 import {isAllowed} from "../enums/role.enum"
+import {isNull, throwIfNull} from "@d-lab/api-kit"
 
 export default class ApplicationUserService {
-    public applicationUsers = db.ApplicationUsers
+
+    async find(id: number): Promise<ApplicationUserModel | null> {
+        return db.ApplicationUsers.findByPk(id)
+    }
+    async get(id: number): Promise<ApplicationUserModel> {
+        const user = await this.find(id)
+        throwIfNull(user, Errors.NOT_FOUND_ApplicationUser(`id[${id}]`))
+        return user!
+    }
 
     public async getUsers(applicationId: number): Promise<ApplicationUser[]> {
-        return await this.applicationUsers.findAll({
+        return await db.ApplicationUsers.findAll({
             where: {
                 applicationId: applicationId
             }
@@ -24,22 +32,12 @@ export default class ApplicationUserService {
     }
 
     public async findUser(applicationId: number, userId: number): Promise<ApplicationUserModel | null> {
-        return await this.applicationUsers.findOne({
+        return await db.ApplicationUsers.findOne({
             where: {
                 applicationId: applicationId,
                 userId: userId
             }
         })
-    }
-
-    public async getById(id: number): Promise<ApplicationUserModel> {
-        const item = await this.findById(id)
-        throwIfNull(item, Errors.NOT_FOUND_ApplicationUser(`id[${id}]`))
-        return item!
-    }
-
-    public async findById(id: number): Promise<ApplicationUserModel | null> {
-        return await this.applicationUsers.findByPk(id)
     }
 
     public async isUserAllowed(applicationId: number, userId: number, role: Role, strict: boolean): Promise<boolean> {
@@ -51,7 +49,7 @@ export default class ApplicationUserService {
     }
 
     public async create(applicationId: number, userId: number, role: Role): Promise<ApplicationUserModel> {
-        return await this.applicationUsers.create({
+        return await db.ApplicationUsers.create({
             applicationId: applicationId,
             userId: userId,
             role: role

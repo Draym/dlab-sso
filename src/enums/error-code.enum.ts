@@ -2,6 +2,7 @@ enum ErrorCode {
     SERVICE_Closed = 403000,
     SERVICE_PROVIDER_ApiError = 400001,
     NOT_FOUND_User = 404100,
+    NOT_FOUND_UserCredentials,
     NOT_FOUND_Role,
     NOT_FOUND_VerificationCode,
     NOT_FOUND_RefreshToken,

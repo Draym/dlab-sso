@@ -1,5 +1,5 @@
-import SessionResponse from "./session.response"
+import SessionDto from "./session/session.dto"
 
 export default interface SessionOptionalResponse {
-    session: SessionResponse | null
+    session: SessionDto | null
 }

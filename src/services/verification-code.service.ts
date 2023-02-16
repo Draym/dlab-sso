@@ -1,10 +1,9 @@
 import db from "../db/database"
 import Email from "../utils/email/Email"
 import {VerificationCodeModel} from "../models"
-import {isNotNull, throwIfNull} from "../utils/validators/checks";
 import {VerificationCodeTarget} from "../enums";
 import Errors from "../utils/errors/Errors";
-import {nowUTC} from "../utils/date"
+import {isNotNull, nowUTC, throwIfNull} from "@d-lab/api-kit"
 
 const EMAIL_VERIFICATION_CODE_TIMEOUT = 10 * 60 * 1000 // 10 minutes
 const EMAIL_VERIFICATION_CODE_RESTRICTION = 60 * 1000 // 1 minute

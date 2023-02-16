@@ -12,6 +12,11 @@ export default class PbeAccessService {
         return this.isAuthorized(user)
     }
 
+    async isAuthorizedByUuid(uuid: string): Promise<PbeAccess> {
+        const user = await userService.findByUuid(uuid)
+        return this.isAuthorized(user)
+    }
+
     async isAuthorized(user: User | null): Promise<PbeAccess> {
         const now = nowUTC()
         const isStaff = isNotNull(user) && await userRolesService.hasAnyRole(user!.id, StaffRoles)

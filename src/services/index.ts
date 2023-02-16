@@ -3,8 +3,6 @@ import TokenService from "./token.service"
 import UserService from "./user.service"
 import UserRoleService from "./user-role.service"
 import VerificationCodeService from "./verification-code.service"
-import WhitelistService from "./whitelist.service"
-import WhitelistSessionService from "./whitelist-session.service"
 import PlanningSessionService from "./planning-session.service"
 import PlanningAssistantService from "./planning-assistant.service"
 import WalletValidatorService from "./wallet-validator.service"
@@ -16,15 +14,13 @@ import ApplicationScopeService from "./application-scope.service"
 import DiscordAccountService from "./discord-account.service"
 import DiscordValidatorService from "./discord-validator.service"
 import ApplicationUserService from "./application-user.service"
-
+import UserCredentialsService from "./user-credentials.service"
 
 const pbeAccessService = new PbeAccessService()
 const tokenService = new TokenService()
 const userService = new UserService()
 const userRolesService = new UserRoleService()
 const verificationCodeService = new VerificationCodeService()
-const whitelistService = new WhitelistService()
-const whitelistSessionService = new WhitelistSessionService()
 const planningSessionService = new PlanningSessionService()
 const planningAssistantService = new PlanningAssistantService()
 const walletValidatorsService = new WalletValidatorService()
@@ -36,13 +32,13 @@ const applicationScopeService = new ApplicationScopeService()
 const applicationUserService = new ApplicationUserService()
 const discordAccountService = new DiscordAccountService()
 const discordValidatorService = new DiscordValidatorService()
+const userCredentialsService = new UserCredentialsService()
 
 export {
     pbeAccessService,
     tokenService,
-    userService, userRolesService,
+    userService, userRolesService, userCredentialsService,
     verificationCodeService,
-    whitelistService, whitelistSessionService,
     planningSessionService, planningAssistantService,
     walletService, walletValidatorsService, walletHistoryService,
     newsletterSubscriptionService,

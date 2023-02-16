@@ -28,20 +28,11 @@ export default class ApplicationUserController {
         return {allowed}
     }
 
-    async allAppUsers(req: AuthQueryRequest<AppUserFindRequest>): Promise<AppUsersResponse> {
-        const caller = req.caller
+    @RequireAppOwner
+    async allUsers(req: AuthQueryRequest<AppUserFindRequest>): Promise<AppUsersResponse> {
         const payload = req.query
         const applicationId = Number.parseInt(payload.applicationId)
-        await applicationService.requireOwnership(applicationId, caller.id)
         const appUsers = await applicationUserService.getUsers(applicationId)
-        return {
-            users: appUsers
-        }
-    }
-
-    async findUsers(req: AuthQueryRequest<AppUserFindRequest>): Promise<AppUsersResponse> {
-        const payload = req.query
-        const appUsers = await applicationUserService.getUsers(Number.parseInt(payload.applicationId))
         return {
             users: appUsers
         }
@@ -50,7 +41,7 @@ export default class ApplicationUserController {
     @RequireAppOwner
     async addUser(req: AuthBodyRequest<AppUserCreateRequest>): Promise<AppUserResponse> {
         const payload = req.body
-        const application = await applicationService.getById(payload.applicationId)
+        const application = await applicationService.get(payload.applicationId)
         throwIf(application.type !== ApiAccessType.Management, Errors.REQUIRE_APP_TypeAccess(ApiAccessType.Personal, ApiAccessType.Management))
         return await applicationUserService.create(payload.applicationId, payload.userId, payload.role)
     }
@@ -58,7 +49,7 @@ export default class ApplicationUserController {
     @RequireAppOwner
     async updateUser(req: AuthBodyRequest<AppUserUpdateRequest>): Promise<AppUserResponse> {
         const payload = req.body
-        const application = await applicationService.getById(payload.applicationId)
+        const application = await applicationService.get(payload.applicationId)
         throwIf(application.type !== ApiAccessType.Management, Errors.REQUIRE_APP_TypeAccess(ApiAccessType.Personal, ApiAccessType.Management))
         return await applicationUserService.update(payload.applicationId, payload.userId, payload.role)
     }
@@ -66,7 +57,7 @@ export default class ApplicationUserController {
     @RequireAppOwner
     async deleteUser(req: AuthBodyRequest<AppUserDeleteRequest>): Promise<AppUserResponse> {
         const payload = req.body
-        const application = await applicationService.getById(payload.applicationId)
+        const application = await applicationService.get(payload.applicationId)
         throwIf(application.type !== ApiAccessType.Management, Errors.REQUIRE_APP_TypeAccess(ApiAccessType.Personal, ApiAccessType.Management))
         return await applicationUserService.delete(payload.applicationId, payload.userId)
     }

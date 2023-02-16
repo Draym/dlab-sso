@@ -1,11 +1,11 @@
-import {SessionType} from "../enums"
+import {SessionType} from "../../../../../enums"
 
-export default interface PlanningSession {
+export default interface SessionDto {
     id: number
     start: Date
     end: Date
-    type: SessionType
     serviceUuid: string
+    type: SessionType
     createdAt: Date
     updatedAt: Date
 }

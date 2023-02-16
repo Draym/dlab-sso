@@ -1,29 +1,33 @@
 import {SessionType} from "../enums"
-import {isNotEmpty, isNotNull, throwIfNull} from "../utils/validators/checks"
 import db from "../db/database"
 import {PlanningSessionModel} from "../models"
 import Errors from "../utils/errors/Errors"
 import {Op} from "sequelize"
+import {Filter, isNotNull, throwIfNull} from "@d-lab/api-kit"
+import {PlanningSession} from "../interfaces"
 
 export default class PlanningSessionService {
-    public planning = db.Planning
 
-    public async all(): Promise<PlanningSessionModel[]> {
-        return this.planning.findAll()
+    public async all(): Promise<PlanningSession[]> {
+        return db.Planning.findAll()
     }
 
-    public async getById(sessionId: number): Promise<PlanningSessionModel> {
-        const findSession = await this.planning.findByPk(sessionId)
-        throwIfNull(findSession, Errors.NOT_FOUND_PlanningSessionId(sessionId))
+    public async get(id: number): Promise<PlanningSessionModel> {
+        const findSession = await db.Planning.findByPk(id)
+        throwIfNull(findSession, Errors.NOT_FOUND_PlanningSession(`id[${id}]`))
         return findSession!
     }
 
-    public async findById(sessionId: number): Promise<PlanningSessionModel | null> {
-        return await this.planning.findByPk(sessionId)
+    public async find(id: number): Promise<PlanningSessionModel | null> {
+        return await db.Planning.findByPk(id)
+    }
+
+    public async findAll(filter: Filter): Promise<PlanningSession[]> {
+        return await db.Planning.findAll(filter.get())
     }
 
     public async findSessionForDate(type: SessionType, date: Date): Promise<PlanningSessionModel | null> {
-        return await this.planning.findOne({
+        return await db.Planning.findOne({
             where: {
                 start: {
                     [Op.lte]: date
@@ -37,7 +41,7 @@ export default class PlanningSessionService {
     }
 
     public async findSession(type: SessionType, start: Date, end: Date): Promise<PlanningSessionModel | null> {
-        return await this.planning.findOne({
+        return await db.Planning.findOne({
             where: {
                 start: start,
                 end: end,
@@ -47,7 +51,7 @@ export default class PlanningSessionService {
     }
 
     public async findNext(type: SessionType, date: Date): Promise<PlanningSessionModel | null> {
-        return this.planning.findOne({
+        return db.Planning.findOne({
             where: {
                 start: {
                     [Op.gte]: date
@@ -57,25 +61,6 @@ export default class PlanningSessionService {
         })
     }
 
-    public async findSessions(type: SessionType | undefined, before: Date | undefined = undefined, after: Date | undefined = undefined): Promise<PlanningSessionModel[]> {
-        const filter = {}
-        if (isNotEmpty(type)) {
-            filter["type"] = type
-        }
-        if (isNotEmpty(before)) {
-            filter["start"] = {
-                [Op.lte]: before
-            }
-        }
-        if (isNotEmpty(after)) {
-            filter["start"] = {
-                [Op.gte]: after
-            }
-        }
-        return this.planning.findAll({
-            where: filter
-        })
-    }
 
     public async withinSession(date: Date, type: SessionType): Promise<boolean> {
         return isNotNull(await this.findSessionForDate(type, date))
@@ -85,19 +70,20 @@ export default class PlanningSessionService {
         return isNotNull(await this.findSession(type, start, end))
     }
 
-    public async create(type: SessionType, start: Date, end: Date): Promise<PlanningSessionModel> {
+    public async create(serviceUuid: string, type: SessionType, start: Date, end: Date): Promise<PlanningSessionModel> {
         if (await this.sessionExists(type, start, end)) {
             throw Errors.CONFLICT_PlanningSession(type)
         }
-        return await this.planning.create({
+        return await db.Planning.create({
             type: type,
             start: new Date(start),
-            end: new Date(end)
+            end: new Date(end),
+            serviceUuid: serviceUuid
         })
     }
 
     public async update(id: number, start: Date, end: Date): Promise<PlanningSessionModel> {
-        const session = await this.getById(id)
+        const session = await this.get(id)
         if (await this.sessionExists(session.type, start, end)) {
             throw Errors.CONFLICT_PlanningSession(session.type)
         }
@@ -108,7 +94,7 @@ export default class PlanningSessionService {
     }
 
     public async delete(id: number): Promise<PlanningSessionModel> {
-        const session = await this.getById(id)
+        const session = await this.get(id)
         await session.destroy()
         return session
     }

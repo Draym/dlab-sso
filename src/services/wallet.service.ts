@@ -1,54 +1,35 @@
 import db from "../db/database"
 import {WalletModel} from "../models"
-import {isNotNull, throwIfNot, throwIfNotNull, throwIfNull} from "../utils/validators/checks"
 import Errors from "../utils/errors/Errors"
 import {Wallet} from "../interfaces"
 import {WalletType} from "../enums"
 import {walletHistoryService} from "."
-import {nowUTC} from "../utils/date"
+import {eq, Filter, isNotNull, nowUTC, throwIfNot, throwIfNotNull, throwIfNull} from "@d-lab/api-kit"
 
 export default class WalletService {
     private wallets = db.Wallet
 
-    public async getAll(): Promise<WalletModel[]> {
+    public async all(): Promise<WalletModel[]> {
         return await this.wallets.findAll()
     }
 
-    public async getByAddress(address: string): Promise<WalletModel> {
-        const wallet = await this.findByAddress(address)
-        throwIfNull(wallet, Errors.NOT_FOUND_WalletAddress(address))
+    async find(id: number): Promise<WalletModel | null> {
+        return db.Wallet.findByPk(id)
+    }
+    async get(id: number): Promise<WalletModel> {
+        const wallet = await this.find(id)
+        throwIfNull(wallet, Errors.NOT_FOUND_Wallet(`id[${id}]`))
         return wallet!
     }
 
-    public async getByOwner(ownerIdentifier: string, type: WalletType): Promise<WalletModel> {
-        const wallet = await this.findForOwner(ownerIdentifier, type)
-        throwIfNull(wallet, Errors.NOT_FOUND_Wallet(`User(${ownerIdentifier}) has no bound wallet.`))
+    public async getBy(filter: Filter): Promise<WalletModel> {
+        const wallet = await this.findBy(filter)
+        throwIfNull(wallet, Errors.NOT_FOUND_DiscordValidator(filter.stringify()))
         return wallet!
     }
 
-    public async findForOwner(ownerIdentifier: string, type: WalletType): Promise<WalletModel | null> {
-        return await this.wallets.findOne({
-            where: {
-                ownerIdentifier: ownerIdentifier,
-                type: type
-            }
-        })
-    }
-
-    public async findById(walletId: string): Promise<WalletModel | null> {
-        return await this.wallets.findByPk(walletId)
-    }
-
-    public async findByAddress(address: string): Promise<WalletModel | null> {
-        return await this.wallets.findOne({
-            where: {address: address}
-        })
-    }
-
-    public async findByIds(walletIds: string[]): Promise<WalletModel[]> {
-        return await this.wallets.findAll({
-            where: {id: walletIds}
-        })
+    public async findBy(filter: Filter): Promise<WalletModel | null> {
+        return await db.Wallet.findOne(filter.get())
     }
 
     public async addressExists(address: string): Promise<boolean> {
@@ -57,41 +38,41 @@ export default class WalletService {
         }))
     }
 
-    public async ownerHasWallet(ownerIdentifier: string, type: WalletType): Promise<boolean> {
-        return isNotNull(await this.findForOwner(ownerIdentifier, type))
+    public async ownerHasWallet(userUuid: string, type: WalletType): Promise<boolean> {
+        return isNotNull(await this.findBy(eq({userUuid, type})))
     }
 
-    public async bindToUser(ownerIdentifier: string, address: string, type: WalletType): Promise<Wallet> {
+    public async bindToUser(userUuid: string, address: string, type: WalletType): Promise<Wallet> {
         if (await this.addressExists(address)) {
             throw Errors.CONFLICT_WalletAddress(address)
         }
-        const existingWallet = await this.findForOwner(ownerIdentifier, type)
+        const existingWallet = await this.findBy(eq({userUuid, type}))
 
-        throwIfNotNull(existingWallet, Errors.CONFLICT_WalletBind(ownerIdentifier))
+        throwIfNotNull(existingWallet, Errors.CONFLICT_WalletBind(userUuid))
 
         const wallet = await this.wallets.create({
             address: address,
             type: type,
-            ownerIdentifier: ownerIdentifier
+            userUuid: userUuid
         })
-        await walletHistoryService.logAfterBind(wallet.address, wallet.type, wallet.ownerIdentifier, nowUTC())
+        await walletHistoryService.logAfterBind(wallet.address, wallet.type, wallet.userUuid, nowUTC())
         return wallet
     }
 
-    public async unbindFromUser(ownerIdentifier: string, address: string, type: WalletType) {
-        const ownerWallet = await this.findForOwner(ownerIdentifier, type)
+    public async unbindFromUser(userUuid: string, address: string, type: WalletType) {
+        const wallet = await this.findBy(eq({userUuid, type}))
 
-        throwIfNull(ownerWallet, Errors.NOT_FOUND_Wallet(`owner[${ownerIdentifier}] has no bound wallet.`))
-        throwIfNot(ownerWallet!.address === address, Errors.REJECTED_WalletUnbind(ownerIdentifier, address))
+        throwIfNull(wallet, Errors.NOT_FOUND_Wallet(`owner[${userUuid}] has no bound wallet.`))
+        throwIfNot(wallet!.address === address, Errors.REJECTED_WalletUnbind(userUuid, address))
 
         await walletHistoryService.logAfterUnbind(
-            ownerWallet!.address,
-            ownerWallet!.type,
-            ownerWallet!.ownerIdentifier,
-            ownerWallet!.createdAt,
+            wallet!.address,
+            wallet!.type,
+            wallet!.userUuid,
+            wallet!.createdAt,
             nowUTC()
         )
 
-        await ownerWallet!.destroy()
+        await wallet!.destroy()
     }
 }

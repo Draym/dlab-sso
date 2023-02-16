@@ -1,7 +1,7 @@
 import {IsDateString, IsEmail, IsNumberString, IsUUID, ValidateIf} from "class-validator"
-import {isNotEmpty} from "@d-lab/api-kit"
+import {isNotEmpty, PageRequest} from "@d-lab/api-kit"
 
-export default class UserAllRequest {
+export default class UserAllRequest extends PageRequest {
     @IsEmail(undefined, {each: true})
     @ValidateIf((object, value) => isNotEmpty(value))
     emails: string[] | undefined

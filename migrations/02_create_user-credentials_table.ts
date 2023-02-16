@@ -2,7 +2,7 @@ import {DataTypes, QueryInterface} from "sequelize"
 import {Migration} from "../umzug"
 
 export const up: Migration = async ({context: queryInterface}: { context: QueryInterface }) => {
-    await queryInterface.createTable("auth_email", {
+    await queryInterface.createTable("user_credentials", {
         id: {
             autoIncrement: true,
             primaryKey: true,
@@ -34,5 +34,5 @@ export const up: Migration = async ({context: queryInterface}: { context: QueryI
 }
 
 export async function down({context: queryInterface}) {
-    await queryInterface.dropTable("auth_email")
+    await queryInterface.dropTable("user_credentials")
 }

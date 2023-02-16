@@ -1,9 +1,15 @@
-import {IsEnum, ValidateIf} from "class-validator"
-import {isNotEmpty} from "../../../../utils/validators/checks"
-import {SessionType} from "../../../../enums"
+import {IsDateString, IsEnum, ValidateIf} from "class-validator"
+import {SessionType} from "../../../../../enums"
+import {isNotEmpty} from "@d-lab/api-kit"
 
 export default class SessionAllRequest {
     @IsEnum(SessionType)
     @ValidateIf((object, value) => isNotEmpty(value))
     public type: SessionType | undefined
+    @IsDateString(undefined, {message: "Invalid date format."})
+    @ValidateIf((object, value) => isNotEmpty(value))
+    public dateAfter: string | undefined
+    @IsDateString(undefined, {message: "Invalid date format."})
+    @ValidateIf((object, value) => isNotEmpty(value))
+    public dateBefore: string | undefined
 }

@@ -1,38 +1,23 @@
 import {Role} from "../enums";
 import db from "../db/database";
 import {UserRoleModel} from "../models";
-import {isNotNull, throwIfNull} from "../utils/validators/checks";
 import Errors from "../utils/errors/Errors";
+import {eq, Filter, isNotNull, throwIfNull} from "@d-lab/api-kit"
 
 export default class UserRoleService {
 
-    public async findAll(): Promise<UserRoleModel[]> {
+    public async getAll(): Promise<UserRoleModel[]> {
         return await db.UserRoles.findAll()
     }
 
-    public async findByRole(role: Role): Promise<UserRoleModel[]> {
-        return await db.UserRoles.findAll({
-            where: {
-                role: role
-            }
-        })
+    public async findAll(filter: Filter): Promise<UserRoleModel[]> {
+        return await db.UserRoles.findAll(filter.get())
     }
 
-    public async findByUserId(userId: number): Promise<UserRoleModel | null> {
-        return await db.UserRoles.findOne({
-            where: {
-                userId: userId
-            }
-        })
+    public async findBy(filter: Filter): Promise<UserRoleModel | null> {
+        return await db.UserRoles.findOne(filter.get())
     }
 
-    public async findByUserIds(userIds: number[]): Promise<UserRoleModel[]> {
-        return await db.UserRoles.findAll({
-            where: {
-                userId: userIds
-            }
-        })
-    }
 
     public async update(userId: number, role: Role): Promise<void> {
         const userRole = await db.UserRoles.findOne({
@@ -66,17 +51,17 @@ export default class UserRoleService {
     }
 
     public async getUserRole(userId: number): Promise<Role> {
-        const userRole = await this.findByUserId(userId)
+        const userRole = await this.findBy(eq({userId}))
         return isNotNull(userRole) ? userRole!.role : Role.User
     }
 
     public async hasRole(userId: number, role: Role): Promise<boolean> {
-        const current = await this.findByUserId(userId)
+        const current = await this.findBy(eq({userId}))
         return isNotNull(current) && current!.role === role
     }
 
     public async hasAnyRole(userId: number, roles: Role[]): Promise<boolean> {
-        const current = await this.findByUserId(userId)
+        const current = await this.findBy(eq({userId}))
         return isNotNull(current) && roles.includes(current!.role)
     }
 }

@@ -8,7 +8,7 @@ export default class UserRoleModel
     extends Model<UserRole, UserRolesCreationAttributes>
     implements UserRole {
     public id!: number
-    public userUuid!: string
+    public userId!: number
     public role!: Role
 }
 
@@ -20,9 +20,10 @@ export const init = (sequelize: Sequelize): typeof UserRoleModel => {
                 primaryKey: true,
                 type: DataTypes.INTEGER,
             },
-            userUuid: {
+            userId: {
                 allowNull: false,
-                type: DataTypes.UUID
+                type: DataTypes.NUMBER,
+                unique: true
             },
             role: {
                 allowNull: false,

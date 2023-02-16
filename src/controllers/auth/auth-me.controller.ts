@@ -2,14 +2,14 @@ import {AuthMeResponse} from "../../api/dtos/auth"
 import {userRolesService, userService, walletService} from "../../services"
 import {WalletType} from "../../enums"
 import {StaffRoles} from "../../enums/role.enum"
-import {AuthRequest} from "@d-lab/api-kit"
+import {AuthRequest, eq} from "@d-lab/api-kit"
 
 export default class AuthMeController {
-     async getMe(req: AuthRequest): Promise<AuthMeResponse> {
+    async getMe(req: AuthRequest): Promise<AuthMeResponse> {
         const caller = req.caller
-        const user = await userService.getById(caller.id)
+        const user = await userService.get(caller.id)
         const role = await userRolesService.getUserRole(caller.id)
-       const primaryEthWallet = await walletService.findForOwner(user.uuid, WalletType.ETH)
+        const primaryEthWallet = await walletService.findBy(eq({userUuid: user.uuid, type: WalletType.ETH}))
         return {
             id: user.id,
             uuid: user.uuid,

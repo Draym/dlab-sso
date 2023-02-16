@@ -4,7 +4,7 @@ import authMiddleware from "../middleware/auth.middleware"
 import hasRole from "../middleware/has-role.middleware"
 import WalletController from "../controllers/wallet/wallet.controller"
 import {validateQueryRequest} from "../middleware/validate-request.middleware"
-import {FindWalletOwnerRequest, FindWalletRequest} from "../dtos/wallet/history"
+import {FindWalletOwnerRequest, FindWalletRequest} from "../api/dtos/wallet/history"
 import {ApiScopeImpl} from "./api.scope"
 
 const router = Router()

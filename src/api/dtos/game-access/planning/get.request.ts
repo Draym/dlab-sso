@@ -1,6 +1,6 @@
 import {IsDateString, IsEnum, ValidateIf} from "class-validator"
-import {isNotEmpty} from "../../../utils/validators/checks"
-import {SessionType} from "../../../enums"
+import {SessionType} from "../../../../enums"
+import {isNotEmpty} from "@d-lab/api-kit"
 
 export default class PlanningGetRequest {
     @IsEnum(SessionType)

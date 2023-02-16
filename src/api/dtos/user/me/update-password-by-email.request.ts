@@ -1,6 +1,7 @@
-import {IsEmail, IsInt, IsNotEmpty, IsString, Matches, MaxLength, MinLength} from "class-validator"
-import {Match} from "../../../validators/match.decorator"
-import Password from "../../../utils/validators/password"
+import {IsEmail, IsInt, IsString, Matches, MaxLength, MinLength} from "class-validator"
+import Password from "../../../../utils/validators/password"
+import {Match} from "../../../../utils/decorators/match.decorator"
+
 
 export default class MePasswordUpdateByEmailRequest {
     @IsEmail(undefined, {message: "Please input a valid email address."})

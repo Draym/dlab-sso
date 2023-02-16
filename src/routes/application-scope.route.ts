@@ -5,17 +5,14 @@ import {Endpoint} from "../enums"
 import {
     ApplicationAddScopeRequest,
     ApplicationDeleteScopeRequest
-} from "../dtos/applications"
+} from "../api/dtos/applications"
 import ApplicationScopeController from "../controllers/applications/application-scope.controller"
+import {handle} from "@d-lab/api-kit"
 
 const router = Router()
-const controller = new ApplicationScopeController()
+const ctrl = new ApplicationScopeController()
 
-
-
-router.post(Endpoint.APPLICATION_SCOPE_Add, validateRequest(ApplicationAddScopeRequest), authMiddleware(), controller.addScope)
-
-router.delete(Endpoint.APPLICATION_SCOPE_Delete, validateRequest(ApplicationDeleteScopeRequest), authMiddleware(), controller.deleteScope)
-
+router.post(Endpoint.APPLICATION_SCOPE_Add, validateRequest(ApplicationAddScopeRequest), authMiddleware(), handle.bind(ctrl.addScope))
+router.delete(Endpoint.APPLICATION_SCOPE_Delete, validateRequest(ApplicationDeleteScopeRequest), authMiddleware(), handle.bind(ctrl.deleteScope))
 
 export default router

@@ -1,11 +1,11 @@
 import PlanningGetRequest from "./get.request"
 import PlanningGetResponse from "./get.response"
-import SessionResponse from "./session.response"
+import SessionDto from "./session/session.dto"
 import SessionOptionalResponse from "./session-opt.response"
 
 export {
     PlanningGetRequest,
     PlanningGetResponse,
-    SessionResponse,
+    SessionDto,
     SessionOptionalResponse
 }

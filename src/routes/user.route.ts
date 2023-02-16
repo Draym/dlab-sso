@@ -4,7 +4,7 @@ import {validateQueryRequest} from "../middleware/validate-request.middleware"
 import authMiddleware from "../middleware/auth.middleware"
 import {ApiAccessType, ApiModule, Endpoint} from "../enums"
 import hasRole from "../middleware/has-role.middleware"
-import {UserAllRequest, UserFindRequest} from "../dtos/user"
+import {UserAllRequest, UserFindRequest} from "../api/dtos/user"
 import {ApiScopeImpl} from "./api.scope"
 import Role from "../enums/role.enum"
 

@@ -1,11 +1,13 @@
 import "reflect-metadata"
-import {IsBoolean, IsEnum, IsISO8601, ValidateNested} from "class-validator"
-import {SessionType} from "../../../../enums"
+import {IsBoolean, IsEnum, IsISO8601, IsString, ValidateNested} from "class-validator"
+import {SessionType} from "../../../../../enums"
 import {Type} from "class-transformer"
 import TimeRequest from "./time.request"
 import DayPickerRequest from "./day-picker.request"
 
 export default class AssistantCreateSessionRequest {
+    @IsString()
+    public serviceUuid: string
     @IsEnum(SessionType)
     public type: SessionType
     @ValidateNested({message: "Invalid Time format"})

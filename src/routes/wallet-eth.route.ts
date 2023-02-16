@@ -10,8 +10,8 @@ import {
     WalletRevealAccountRequest,
     WalletUpdateAccountPasswordRequest,
     WalletUpdateAccountEmailRequest, WalletUnbindAccountRequest
-} from "../dtos/wallet/eth"
-import {EmailSendCodeRequest, EmailVerifyCodeRequest} from "../dtos/email"
+} from "../api/dtos/wallet/eth"
+import {EmailSendCodeRequest, EmailVerifyCodeRequest} from "../api/dtos/email"
 import authMiddleware from "../middleware/auth.middleware"
 
 const router = Router()

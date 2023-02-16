@@ -1,6 +1,6 @@
 import {IsString, Matches, MaxLength, MinLength} from "class-validator"
-import {Match} from "../../../validators/match.decorator"
-import Password from "../../../utils/validators/password"
+import {Match} from "../../../../utils/decorators/match.decorator"
+import Password from "../../../../utils/validators/password"
 
 export default class MePasswordUpdateRequest {
 

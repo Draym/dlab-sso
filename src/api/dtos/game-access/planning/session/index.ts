@@ -4,11 +4,9 @@ import SessionCreateRequest from "./create.request"
 import SessionDeleteRequest from "./delete.request"
 import SessionUpdateRequest from "./update.request"
 import SessionGetRequest from "./get.request"
-import SessionFindRequest from "./find.request"
 import SessionFindNextRequest from "./find-next.request"
 
 export {
-    SessionFindRequest,
     SessionUpdateRequest,
     SessionDeleteRequest,
     SessionCreateRequest,

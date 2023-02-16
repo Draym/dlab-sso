@@ -7,7 +7,6 @@ import VerificationCode from "./verification-code.interface"
 import Wallet from "./wallet.interface"
 import WalletHistory from "./wallet-history.interface"
 import WalletValidator from "./wallet-validator.interface"
-import Whitelist from "./whitelist.interface"
 import ApplicationScope from "./application-scope.interface"
 import Application from "./application.interface"
 import DiscordAccount from "./discord-account.interface"
@@ -16,6 +15,7 @@ import ApplicationUser from "./application-user.interface"
 import Log from "./log.interface"
 import TokenData from "./token.interface"
 import WhitelistAccess from "./whitelist-access.interface"
+import UserCredentials from "./user-credentials.interface"
 
 export {
     Log,
@@ -24,7 +24,7 @@ export {
     RefreshToken,
     User, UserRole,
     VerificationCode,
-    Whitelist,
+    UserCredentials,
     Wallet, WalletHistory, WalletValidator,
     Application, ApplicationScope, ApplicationUser,
     DiscordAccount, DiscordValidator,

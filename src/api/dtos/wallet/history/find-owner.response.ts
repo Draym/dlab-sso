@@ -1,6 +1,6 @@
 export interface UserResponse {
-    email: string
-    identifier: string
+    email: string | null
+    uuid: string
 }
 
 export default interface FindWalletOwnerResponse {

@@ -47,7 +47,7 @@ export default class ApplicationController {
     async details(req: AuthRequest): Promise<ApplicationDto> {
         const apiKey = req.auth.apiKey
         throwIfNull(apiKey, Errors.REQUIRE_ApiKey())
-        return await applicationService.getById(apiKey!.appId)
+        return await applicationService.get(apiKey!.appId)
     }
 
     async isOwner(req: AuthRequest): Promise<ApplicationIsOwnerResponse> {

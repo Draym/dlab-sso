@@ -1,7 +1,7 @@
 export interface UserData {
     id: number
-    email: string
-    identifier: string
+    email: string | null
+    uuid: string
     createdAt: Date
     updatedAt: Date
 }

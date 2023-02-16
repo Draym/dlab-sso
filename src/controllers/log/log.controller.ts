@@ -22,7 +22,7 @@ export default class LogController implements LogApi {
 
     async get(req: AuthPathRequest<GetRequest>): Promise<LogResponse> {
         const payload = req.params
-        const log = await logService.getById(Number.parseInt(payload.logId))
+        const log = await logService.get(Number.parseInt(payload.logId))
         return {
             log
         }

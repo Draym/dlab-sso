@@ -11,7 +11,7 @@ import {
     UserRoleDeleteRequest,
     UserRoleUpdateRequest,
     UserRoleAllRequest
-} from "../dtos/user"
+} from "../api/dtos/user"
 import {ApiScopeImpl} from "./api.scope"
 
 

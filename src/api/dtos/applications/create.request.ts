@@ -1,4 +1,4 @@
-import {ApiAccessRequire, ApiAccessType, ApiModule} from "../../enums"
+import {ApiAccessRequire, ApiAccessType, ApiModule} from "../../../enums"
 import {ArrayUnique, IsArray, IsEnum, IsString} from "class-validator"
 
 export default class ApplicationCreateRequest {

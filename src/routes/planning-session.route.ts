@@ -10,7 +10,7 @@ import {
     SessionFindNextRequest,
     SessionGetRequest,
     SessionUpdateRequest
-} from "../dtos/game-access/planning/session"
+} from "../api/dtos/game-access/planning/session"
 import authMiddleware from "../middleware/auth.middleware"
 import hasRole from "../middleware/has-role.middleware"
 import {ApiScopeImpl} from "./api.scope"

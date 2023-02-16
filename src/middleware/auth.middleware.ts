@@ -1,6 +1,5 @@
 import {NextFunction, Request, RequestHandler, Response} from "express"
 import db from "../db/database"
-import {AuthData, DataStoredInApiKey, DataStoredInToken, CallerData} from "../interfaces/reponse.interface"
 import {
     logger,
     isNotNull,
@@ -9,11 +8,10 @@ import {
     throwIfNull,
     ApiAccessRequire,
     ApiMethodAccess,
-    ApiScope
+    ApiScope, CallerData, AuthData, DataStoredInToken, DataStoredInApiKey
 } from "@d-lab/api-kit"
-import {config as jwtConfig} from "../config/jwt.config"
+import {jwtConfig} from "../config/jwt.config"
 import jwt from "jsonwebtoken"
-import {redisExists} from "../clients/redis.client"
 import Errors from "../utils/errors/Errors"
 import {UserModel} from "../models"
 import {applicationScopeService, applicationService, userService} from "../services"
@@ -51,18 +49,15 @@ export const authMiddleware = (scope: ApiScope | null = null): RequestHandler =>
                 throw Errors.INVALID_Token(e.message || e)
             }
         }
-        if (!await redisExists(tokenData.jti)) {
-            throw Errors.INVALID_Token("disbanded")
-        }
         return tokenData
     }
 
     async function verifyAppKey(ApiKey: string, apiRequire: ApiAccessRequire): Promise<DataStoredInApiKey> {
         const application = await applicationService.findByApiKey(ApiKey)
         throwIfNull(application, Errors.INVALID_ApiKey())
-        const owner = await userService.getById(application!.ownerId)
-        const scopes = await applicationScopeService.getScopes(application!.id)
-        const modules = scopes.map(scope => scope.module)
+        const owner = await userService.get(application!.ownerId)
+        const scopes = await applicationScopeService.getAll(application!.id)
+        const modules = scopes.map(scope => scope.module.toString())
         throwIfNot(modules.includes(scope!.module), Errors.REQUIRE_APP_Scope(scope!.module))
         throwIfNot(scope!.type == null || application!.type === scope!.type, Errors.REQUIRE_APP_TypeAccess(application!.type, scope!.type!))
         throwIfNot(ApiMethodAccess.hasAccess(application!.accessType, apiRequire), Errors.REQUIRE_APP_AccessRequire(apiRequire))
@@ -70,8 +65,7 @@ export const authMiddleware = (scope: ApiScope | null = null): RequestHandler =>
         return {
             appId: application!.id,
             ownerId: application!.ownerId,
-            ownerIdentifier: owner.identifier,
-            ownerEmail: owner.email
+            ownerUuid: owner.uuid
         }
     }
 
@@ -89,8 +83,7 @@ export const authMiddleware = (scope: ApiScope | null = null): RequestHandler =>
                 }
                 req.caller = {
                     id: appData.ownerId,
-                    identifier: appData.ownerIdentifier,
-                    email: appData.ownerEmail
+                    uuid: appData.ownerUuid,
                 }
             }
 
@@ -102,8 +95,7 @@ export const authMiddleware = (scope: ApiScope | null = null): RequestHandler =>
                 }
                 req.caller = {
                     id: tokenData.userId,
-                    identifier: tokenData.userIdentifier,
-                    email: tokenData.userEmail
+                    uuid: tokenData.userUuid,
                 }
             }
             if (isNull(bearerToken) && isNull(apiKey)) {

@@ -1,20 +1,18 @@
 import db from "../db/database"
 import {WalletHistoryModel} from "../models"
 import {WalletType} from "../enums"
-import {isNotNull} from "../utils/validators/checks"
 import {Op} from "sequelize"
-import {toUTCDate} from "../utils/date"
+import {isNotNull, toUTCDate} from "@d-lab/api-kit"
 
 export default class WalletHistoryService {
 
-    private walletHistory = db.WalletHistory
 
     public async findByWallet(
         address: string,
         type: WalletType,
         at: Date
     ): Promise<WalletHistoryModel | null> {
-        return await this.walletHistory.findOne({
+        return await db.WalletHistory.findOne({
             where: {
                 address: address,
                 type: type,
@@ -32,13 +30,13 @@ export default class WalletHistoryService {
     }
 
     public async findByOwner(
-        userIdentifier: string,
+        userUuid: string,
         type: WalletType,
         at: Date
     ): Promise<WalletHistoryModel | null> {
-        return await this.walletHistory.findOne({
+        return await db.WalletHistory.findOne({
             where: {
-                ownerIdentifier: userIdentifier,
+                userUuid: userUuid,
                 type: type,
                 bindAt: {
                     [Op.lte]: at
@@ -56,13 +54,13 @@ export default class WalletHistoryService {
     public async findCurrentLog(
         address: string,
         type: WalletType,
-        ownerIdentifier: string
+        userUuid: string
     ): Promise<WalletHistoryModel | null> {
-        return await this.walletHistory.findOne({
+        return await db.WalletHistory.findOne({
             where: {
                 address: address,
                 type: type,
-                ownerIdentifier: ownerIdentifier,
+                userUuid: userUuid,
                 unbindAt: {
                     [Op.eq]: null
                 }
@@ -73,13 +71,13 @@ export default class WalletHistoryService {
     public async logAfterBind(
         address: string,
         type: WalletType,
-        ownerIdentifier: string,
+        userUuid: string,
         bindAt: Date
     ): Promise<WalletHistoryModel> {
-        return await this.walletHistory.create({
+        return await db.WalletHistory.create({
             address: address,
             type: type,
-            ownerIdentifier: ownerIdentifier,
+            userUuid: userUuid,
             bindAt: toUTCDate(bindAt),
             unbindAt: null
         })
@@ -88,11 +86,11 @@ export default class WalletHistoryService {
     public async logAfterUnbind(
         address: string,
         type: WalletType,
-        ownerIdentifier: string,
+        userUuid: string,
         bindAt: Date,
         unbindAt: Date
     ): Promise<WalletHistoryModel> {
-        const currentLog = await this.findCurrentLog(address, type, ownerIdentifier)
+        const currentLog = await this.findCurrentLog(address, type, userUuid)
 
         if (isNotNull(currentLog)) {
             await currentLog!.update({
@@ -100,10 +98,10 @@ export default class WalletHistoryService {
             })
             return currentLog!
         } else {
-            return await this.walletHistory.create({
+            return await db.WalletHistory.create({
                 address: address,
                 type: type,
-                ownerIdentifier: ownerIdentifier,
+                userUuid: userUuid,
                 bindAt: toUTCDate(bindAt),
                 unbindAt: toUTCDate(unbindAt)
             })
