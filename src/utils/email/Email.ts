@@ -25,7 +25,7 @@ export default class Email {
         return {
             from: from,
             to: to,
-            subject: "Delysium email verification",
+            subject: "DLab email verification",
             html: welcomeMessage(code)
         }
     }
@@ -34,7 +34,7 @@ export default class Email {
         return {
             from: from,
             to: to,
-            subject: "Delysium email verification",
+            subject: "DLab email verification",
             html: resetPasswordMessage(code)
         }
     }
@@ -43,7 +43,7 @@ export default class Email {
         return {
             from: from,
             to: to,
-            subject: "Delysium email verification",
+            subject: "DLab email verification",
             html: updateEmailMessage(code)
         }
     }
@@ -52,7 +52,7 @@ export default class Email {
         return {
             from: from,
             to: to,
-            subject: "Delysium email verification",
+            subject: "DLab email verification",
             html: updatePasswordMessage(code)
         }
     }
@@ -61,7 +61,7 @@ export default class Email {
         return {
             from: from,
             to: to,
-            subject: "Delysium email verification",
+            subject: "DLab email verification",
             html: bindWalletMessage(code)
         }
     }
@@ -70,7 +70,7 @@ export default class Email {
         return {
             from: from,
             to: to,
-            subject: "Delysium email verification",
+            subject: "DLab email verification",
             html: bindDiscordMessage(code)
         }
     }
