@@ -61,7 +61,6 @@ export default class PlanningSessionService {
         })
     }
 
-
     public async withinSession(date: Date, type: SessionType): Promise<boolean> {
         return isNotNull(await this.findSessionForDate(type, date))
     }
@@ -70,7 +69,7 @@ export default class PlanningSessionService {
         return isNotNull(await this.findSession(type, start, end))
     }
 
-    public async create(serviceUuid: string, type: SessionType, start: Date, end: Date): Promise<PlanningSessionModel> {
+    public async create(serviceId: number, type: SessionType, start: Date, end: Date): Promise<PlanningSessionModel> {
         if (await this.sessionExists(type, start, end)) {
             throw Errors.CONFLICT_PlanningSession(type)
         }
@@ -78,7 +77,7 @@ export default class PlanningSessionService {
             type: type,
             start: new Date(start),
             end: new Date(end),
-            serviceUuid: serviceUuid
+            serviceId: serviceId
         })
     }
 

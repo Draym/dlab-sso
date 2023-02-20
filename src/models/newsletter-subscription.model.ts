@@ -7,7 +7,7 @@ export default class NewsletterSubscriptionModel
     extends Model<NewsletterSubscription, NewsletterSubscriptionCreationAttributes>
     implements NewsletterSubscription {
     public id!: number
-    public userUuid!: string
+    public userId!: number
     public createdAt!: Date
     public updatedAt!: Date
 }
@@ -20,9 +20,9 @@ export const init = (sequelize: Sequelize): typeof NewsletterSubscriptionModel =
                 primaryKey: true,
                 type: DataTypes.INTEGER,
             },
-            userUuid: {
+            userId: {
                 allowNull: false,
-                type: DataTypes.UUID
+                type: DataTypes.INTEGER
             },
             createdAt: {
                 allowNull: false,

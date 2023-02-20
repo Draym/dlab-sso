@@ -9,7 +9,7 @@ export default class PlanningAssistantController {
 
     async create(req: AuthBodyRequest<AssistantCreateSessionRequest>): Promise<AssistantCreateSessionResponse> {
         const payload = req.body
-        const sessions = await planningAssistantService.createBatch(payload.serviceUuid, payload.type, toDate(payload.from), toDate(payload.to), payload.startTime, payload.endTime, payload.dayPicker, payload.ignoreConflicts)
+        const sessions = await planningAssistantService.createBatch(payload.serviceId, payload.type, toDate(payload.from), toDate(payload.to), payload.startTime, payload.endTime, payload.dayPicker, payload.ignoreConflicts)
         return {
             sessions: sessions
         }

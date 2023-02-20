@@ -1,6 +1,6 @@
 export default interface RefreshToken {
   id: number
-  userUuid: string
+  userId: number
   token: string
   validUntil: Date
 }

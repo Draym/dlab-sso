@@ -35,10 +35,10 @@ export default class AuthWalletEthController {
         let user: User
 
         if (isNotNull(wallet)) {
-            user = await userService.getByUuid(wallet!.userUuid)
+            user = await userService.get(wallet!.userId)
         } else {
             user = await userService.create()
-            await walletService.bindToUser(user.uuid, payload.walletAddress, WalletType.ETH)
+            await walletService.bindToUser(user.id, payload.walletAddress, WalletType.ETH)
         }
         return await AuthResponse.success(user, res)
     }

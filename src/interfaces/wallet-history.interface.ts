@@ -4,7 +4,7 @@ export default interface WalletHistory {
     id: number
     type: WalletType
     address: string
-    userUuid: string
+    userId: number
     bindAt: Date
     unbindAt: Date | null
 }

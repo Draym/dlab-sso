@@ -8,10 +8,10 @@ export default class UserController {
     async find(req: AuthQueryRequest<UserFindRequest>): Promise<UserDto> {
         const payload = req.query
         const filter = new Filter()
-        filter.equals({email: payload.email, id: payload.userId, identifier: payload.userUuid})
+        filter.equals({email: payload.email, id: payload.id, uuid: payload.uuid})
         const user: User | null = await userService.findBy(filter)
         throwIfNull(user, Errors.MISSING_Filter())
-        const userRole = await userRolesService.findBy(eq({userUuid: user!.uuid}))
+        const userRole = await userRolesService.findBy(eq({userId: user!.id}))
         return {
             id: user!.id,
             email: user!.email,
@@ -26,7 +26,7 @@ export default class UserController {
         const payload = req.query
         const page = Page.from(payload)
         const filter = new Filter()
-        filter.in({email: payload.emails, id: payload.userIds, identifier: payload.userUuids})
+        filter.in({email: payload.emails, id: payload.ids, uuid: payload.uuids})
         filter.gt({createdAt: toOptDate(payload.registeredAfter)})
         filter.lt({createdAt: toOptDate(payload.registeredBefore)})
         const users = await userService.findAll(filter, page)

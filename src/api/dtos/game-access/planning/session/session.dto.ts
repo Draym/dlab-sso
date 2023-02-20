@@ -4,7 +4,7 @@ export default interface SessionDto {
     id: number
     start: Date
     end: Date
-    serviceUuid: string
+    serviceId: number
     type: SessionType
     createdAt: Date
     updatedAt: Date

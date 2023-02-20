@@ -36,10 +36,10 @@ export default class OAuthDiscordController {
 
         let user: User
         if (isNotNull(discordAccount)) {
-            user = await userService.getByUuid(discordAccount!.userUuid)
+            user = await userService.get(discordAccount!.userId)
         } else {
             user = await userService.create(discordUser.email)
-            await discordAccountService.bindToUser(user.uuid, discordUser.id, discordToken.access_token, discordUser.email!, discordToken.scope)
+            await discordAccountService.bindToUser(user.id, discordUser.id, discordToken.access_token, discordUser.email!, discordToken.scope)
         }
 
         return await AuthResponse.success(user, res)

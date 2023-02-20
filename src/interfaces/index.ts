@@ -14,8 +14,8 @@ import DiscordValidator from "./discord-validator.interface"
 import ApplicationUser from "./application-user.interface"
 import Log from "./log.interface"
 import TokenData from "./token.interface"
-import WhitelistAccess from "./whitelist-access.interface"
 import UserCredentials from "./user-credentials.interface"
+import PbeAccess from "./pbe-access.interface"
 
 export {
     Log,
@@ -28,5 +28,5 @@ export {
     Wallet, WalletHistory, WalletValidator,
     Application, ApplicationScope, ApplicationUser,
     DiscordAccount, DiscordValidator,
-    TokenData, WhitelistAccess
+    TokenData, PbeAccess
 }

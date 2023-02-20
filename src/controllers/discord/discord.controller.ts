@@ -8,7 +8,7 @@ import {AuthBodyRequest, AuthRequest, eq, throwIfNull} from "@d-lab/api-kit"
 export class DiscordController {
     async me(req: AuthRequest): Promise<DiscordMeResponse> {
         const caller = req.caller
-        const account = await discordAccountService.getBy(eq({userUuid: caller.uuid}))
+        const account = await discordAccountService.getBy(eq({userId: caller.id}))
 
         return {
             email: account.discordEmail,
@@ -25,11 +25,11 @@ export class DiscordController {
         }))
         const discordUser = await DiscordClient.getUserMe(validator.discordToken)
         throwIfNull(discordUser.email, Errors.REQUIRE_DiscordEmail())
-        await discordAccountService.bindToUser(caller.uuid, discordUser.id, validator.discordToken, discordUser.email!, validator.discordScope)
+        await discordAccountService.bindToUser(caller.id, discordUser.id, validator.discordToken, discordUser.email!, validator.discordScope)
     }
 
     async unbindAccount(req: AuthRequest): Promise<void> {
         const caller = req.caller
-        await discordAccountService.unbindFromUser(caller.uuid)
+        await discordAccountService.unbindFromUser(caller.id)
     }
 }

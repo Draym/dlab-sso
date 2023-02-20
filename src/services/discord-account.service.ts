@@ -25,25 +25,25 @@ export default class DiscordAccountService {
         return await db.DiscordAccount.findOne(filter.get())
     }
 
-    public async hasBoundDiscord(userUuid: string): Promise<boolean> {
-        return isNotNull(await this.findBy(eq({userUuid})))
+    public async hasBoundDiscord(userId: number): Promise<boolean> {
+        return isNotNull(await this.findBy(eq({userId})))
     }
 
-    public async bindToUser(userUuid: string, discordId: string, discordToken: string, discordEmail: string, scopes: string): Promise<DiscordAccountModel> {
-        if (await this.hasBoundDiscord(userUuid)) {
-            throw Errors.CONFLICT_DiscordBind(userUuid)
+    public async bindToUser(userId: number, discordId: string, discordToken: string, discordEmail: string, scopes: string): Promise<DiscordAccountModel> {
+        if (await this.hasBoundDiscord(userId)) {
+            throw Errors.CONFLICT_DiscordBind(userId)
         }
         return await db.DiscordAccount.create({
             discordId: discordId,
             discordToken: discordToken,
             discordEmail: discordEmail,
-            userUuid: userUuid,
+            userId: userId,
             scopes: scopes
         })
     }
 
-    public async unbindFromUser(userUuid: string): Promise<DiscordAccount> {
-        const account = await this.getBy(eq({userUuid}))
+    public async unbindFromUser(userId: number): Promise<DiscordAccount> {
+        const account = await this.getBy(eq({userId}))
         await account.destroy()
         return account
     }

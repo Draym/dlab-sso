@@ -9,7 +9,7 @@ export default class AuthMeController {
         const caller = req.caller
         const user = await userService.get(caller.id)
         const role = await userRolesService.getUserRole(caller.id)
-        const primaryEthWallet = await walletService.findBy(eq({userUuid: user.uuid, type: WalletType.ETH}))
+        const primaryEthWallet = await walletService.findBy(eq({userId: user.id, type: WalletType.ETH}))
         return {
             id: user.id,
             uuid: user.uuid,

@@ -48,9 +48,9 @@ export default class AuthController {
 
         const user = await userService.create(payload.email)
         if (payload.newsletterSubscription) {
-            await newsletterSubscriptionService.subscribe(user.uuid)
+            await newsletterSubscriptionService.subscribe(user.id)
         }
-        await userCredentialsService.create(user.uuid, payload.email, payload.password)
+        await userCredentialsService.create(user.id, payload.email, payload.password)
         return await AuthResponse.success(user, res)
     }
 
@@ -67,7 +67,7 @@ export default class AuthController {
 
         const credentials = await userCredentialsService.getBy(eq({email: payload.email}))
         throwIfNot(credentials.isValidPassword(payload.password), Errors.REJECTED_Password())
-        const user = await userService.getByUuid(credentials.userUuid)
+        const user = await userService.get(credentials.userId)
 
         return await AuthResponse.success(user, res, payload.shortSession === true)
     }

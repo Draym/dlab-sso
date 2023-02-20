@@ -1,4 +1,4 @@
 export default interface FindWalletResponse {
-    userUuid: string,
+    userId: number,
     walletAddress: string | null
 }

@@ -11,7 +11,7 @@ export default class PlanningSessionModel
     public start!: Date
     public end!: Date
     public type!: SessionType
-    public serviceUuid: string
+    public serviceId: number
     public createdAt!: Date
     public updatedAt!: Date
 }
@@ -36,9 +36,9 @@ export const init = (sequelize: Sequelize): typeof PlanningSessionModel => {
                 allowNull: false,
                 type: DataTypes.STRING
             },
-            serviceUuid: {
+            serviceId: {
                 allowNull: false,
-                type: DataTypes.STRING
+                type: DataTypes.INTEGER
             },
             createdAt: {
                 allowNull: false,

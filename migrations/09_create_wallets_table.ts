@@ -17,9 +17,9 @@ export const up: Migration = async ({context: queryInterface}: { context: QueryI
             allowNull: false,
             type: DataTypes.STRING
         },
-        user_uuid: {
+        user_id: {
             allowNull: false,
-            type: DataTypes.UUID
+            type: DataTypes.INTEGER
         },
         created_at: {
             allowNull: false,
@@ -32,7 +32,7 @@ export const up: Migration = async ({context: queryInterface}: { context: QueryI
     })
 
     await queryInterface.addConstraint("wallets", {
-        fields: ["owner_identifier", "type"],
+        fields: ["user_id", "type"],
         type: "unique",
         name: "unique_wallet_type_per_user",
     })

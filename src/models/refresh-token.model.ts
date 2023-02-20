@@ -8,7 +8,7 @@ export default class RefreshTokenModel
     implements RefreshToken {
     public id!: number
     public token!: string
-    public userUuid!: string
+    public userId!: number
     public validUntil!: Date
 }
 
@@ -20,9 +20,9 @@ export const init = (sequelize: Sequelize): typeof RefreshTokenModel => {
                 primaryKey: true,
                 type: DataTypes.INTEGER
             },
-            userUuid: {
+            userId: {
                 allowNull: false,
-                type: DataTypes.UUID,
+                type: DataTypes.INTEGER,
                 unique: true
             },
             token: {

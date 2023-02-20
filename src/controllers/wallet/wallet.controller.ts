@@ -18,7 +18,7 @@ export default class WalletController {
         let owner: UserResponse | null = null
 
         if (isNotNull(history)) {
-            const user = await userService.getByUuid(history!.userUuid)
+            const user = await userService.get(history!.userId)
             owner = {
                 email: user.email,
                 uuid: user.uuid
@@ -35,10 +35,10 @@ export default class WalletController {
         const payload = req.query
 
         const at = isNotNull(payload.at) ? new Date(payload.at!) : new Date()
-        const history = await walletHistoryService.findByOwner(payload.userUuid, WalletType.ETH, at)
+        const history = await walletHistoryService.findByOwner(payload.userId, WalletType.ETH, at)
 
         return {
-            userUuid: payload.userUuid,
+            userId: payload.userId,
             walletAddress: history?.address || null
         }
     }

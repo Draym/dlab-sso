@@ -15,7 +15,7 @@ export default class PlanningSessionController {
 
     async create(req: AuthBodyRequest<SessionCreateRequest>): Promise<void> {
         const payload = req.body
-        await planningSessionService.create(payload.serviceUuid, payload.type, toDate(payload.start), toDate(payload.end))
+        await planningSessionService.create(payload.serviceId, payload.type, toDate(payload.start), toDate(payload.end))
     }
 
     async update(req: AuthBodyRequest<SessionUpdateRequest>): Promise<void> {

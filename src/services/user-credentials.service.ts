@@ -34,10 +34,10 @@ export default class UserCredentialsService {
         }) != undefined
     }
 
-    public async create(userUuid: string, email: string, password: string): Promise<UserCredentialsModel> {
+    public async create(userId: number, email: string, password: string): Promise<UserCredentialsModel> {
         const hashedPassword = await bcrypt.hash(password, 10)
         return await db.UserCredentials.create({
-            userUuid: userUuid,
+            userId: userId,
             email: email,
             password: hashedPassword
         })
@@ -105,7 +105,7 @@ export default class UserCredentialsService {
             throw Errors.CONFLICT_Email(newEmail)
         }
         const credentials = await this.getBy(eq({email: oldEmail}))
-        const user = await userService.getByUuid(credentials.userUuid)
+        const user = await userService.get(credentials.userId)
         await credentials.update({
             email: newEmail,
         })

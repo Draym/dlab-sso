@@ -30,13 +30,13 @@ export default class WalletHistoryService {
     }
 
     public async findByOwner(
-        userUuid: string,
+        userId: number,
         type: WalletType,
         at: Date
     ): Promise<WalletHistoryModel | null> {
         return await db.WalletHistory.findOne({
             where: {
-                userUuid: userUuid,
+                userId: userId,
                 type: type,
                 bindAt: {
                     [Op.lte]: at
@@ -54,13 +54,13 @@ export default class WalletHistoryService {
     public async findCurrentLog(
         address: string,
         type: WalletType,
-        userUuid: string
+        userId: number
     ): Promise<WalletHistoryModel | null> {
         return await db.WalletHistory.findOne({
             where: {
                 address: address,
                 type: type,
-                userUuid: userUuid,
+                userId: userId,
                 unbindAt: {
                     [Op.eq]: null
                 }
@@ -71,13 +71,13 @@ export default class WalletHistoryService {
     public async logAfterBind(
         address: string,
         type: WalletType,
-        userUuid: string,
+        userId: number,
         bindAt: Date
     ): Promise<WalletHistoryModel> {
         return await db.WalletHistory.create({
             address: address,
             type: type,
-            userUuid: userUuid,
+            userId: userId,
             bindAt: toUTCDate(bindAt),
             unbindAt: null
         })
@@ -86,11 +86,11 @@ export default class WalletHistoryService {
     public async logAfterUnbind(
         address: string,
         type: WalletType,
-        userUuid: string,
+        userId: number,
         bindAt: Date,
         unbindAt: Date
     ): Promise<WalletHistoryModel> {
-        const currentLog = await this.findCurrentLog(address, type, userUuid)
+        const currentLog = await this.findCurrentLog(address, type, userId)
 
         if (isNotNull(currentLog)) {
             await currentLog!.update({
@@ -101,7 +101,7 @@ export default class WalletHistoryService {
             return await db.WalletHistory.create({
                 address: address,
                 type: type,
-                userUuid: userUuid,
+                userId: userId,
                 bindAt: toUTCDate(bindAt),
                 unbindAt: toUTCDate(unbindAt)
             })

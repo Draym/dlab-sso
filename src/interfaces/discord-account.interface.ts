@@ -3,7 +3,7 @@ export default interface DiscordAccount {
     discordId: string
     discordToken: string
     discordEmail: string
-    userUuid: string
+    userId: number
     scopes: string
     createdAt: Date
     updatedAt: Date

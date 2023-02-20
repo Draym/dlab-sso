@@ -20,9 +20,9 @@ export const up: Migration = async ({context: queryInterface}: { context: QueryI
             allowNull: false,
             type: DataTypes.STRING
         },
-        serviceUuid: {
+        serviceId: {
             allowNull: false,
-            type: DataTypes.STRING
+            type: DataTypes.INTEGER
         },
         created_at: {
             allowNull: false,

@@ -1,6 +1,6 @@
 export default interface UserCredentials {
     id: number
-    userUuid: string
+    userId: number
     email: string
     password: string
     createdAt: Date

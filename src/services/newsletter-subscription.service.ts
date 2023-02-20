@@ -19,18 +19,18 @@ export default class NewsletterSubscriptionService {
         return subscription!
     }
 
-    public async subscribe(userUuid: string): Promise<NewsletterSubscriptionModel> {
-        const subscription = await this.findBy(eq({userUuid}))
+    public async subscribe(userId: number): Promise<NewsletterSubscriptionModel> {
+        const subscription = await this.findBy(eq({userId}))
         if (isNull(subscription)) {
             return await db.NewsletterSubscriptions.create({
-                userUuid: userUuid
+                userId: userId
             })
         }
         return subscription!
     }
 
-    public async unsubscribe(userUuid: string): Promise<NewsletterSubscriptionModel> {
-        const subscription = await this.getBy(eq({userUuid}))
+    public async unsubscribe(userId: number): Promise<NewsletterSubscriptionModel> {
+        const subscription = await this.getBy(eq({userId}))
         await subscription.destroy()
         return subscription!
     }

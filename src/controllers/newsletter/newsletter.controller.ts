@@ -6,7 +6,7 @@ import {AuthRequest, isNotNull} from "@d-lab/api-kit"
 export default class NewsletterController {
     async getSubscribers(req: AuthRequest): Promise<GetSubscribersResponse> {
         const [results, _] = await sequelize.query(
-            "SELECT user.email FROM newsletter_subscription sub INNER JOIN users user ON sub.user_identifier = user.identifier"
+            "SELECT user.email FROM newsletter_subscription sub INNER JOIN users user ON sub.user_id = user.id"
         )
         return {
             subscribers: results.filter(isNotNull) as SubscriberResponse[]
@@ -15,11 +15,11 @@ export default class NewsletterController {
 
     async subscribe(req: AuthRequest): Promise<void> {
         const caller = req.caller
-        await newsletterSubscriptionService.subscribe(caller.uuid)
+        await newsletterSubscriptionService.subscribe(caller.id)
     }
 
     async unsubscribe(req: AuthRequest): Promise<void> {
         const caller = req.caller
-        await newsletterSubscriptionService.unsubscribe(caller.uuid)
+        await newsletterSubscriptionService.unsubscribe(caller.id)
     }
 }

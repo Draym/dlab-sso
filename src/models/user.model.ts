@@ -24,7 +24,7 @@ export const init = (sequelize: Sequelize): typeof UserModel => {
             uuid: {
                 allowNull: false,
                 type: DataTypes.UUID,
-                unique: "identifier",
+                unique: "uuid",
                 defaultValue: DataTypes.UUIDV4
             },
             email: {

@@ -1,7 +1,6 @@
 import {Model, DataTypes, Sequelize, Optional} from "sequelize"
-import * as bcrypt from "bcryptjs"
 import {ApplicationUser} from "../interfaces"
-import {ApiAccessRequire, ApiAccessType, ApiModule, Role} from "../enums"
+import {Role} from "../enums"
 
 export type ApplicationUserCreationAttributes = Optional<ApplicationUser, "id" | "createdAt" | "updatedAt">
 

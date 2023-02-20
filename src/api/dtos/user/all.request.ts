@@ -8,11 +8,11 @@ export default class UserAllRequest extends PageRequest {
 
     @IsNumberString(undefined, {each: true})
     @ValidateIf((object, value) => isNotEmpty(value))
-    userIds: string[] | undefined
+    ids: string[] | undefined
 
     @IsUUID(undefined, {each: true})
     @ValidateIf((object, value) => isNotEmpty(value))
-    userUuids: string[] | undefined
+    uuids: string[] | undefined
 
     @IsDateString(undefined, {message: "Invalid date format."})
     @ValidateIf((object, value) => isNotEmpty(value))

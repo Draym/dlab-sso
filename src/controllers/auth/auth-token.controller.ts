@@ -4,6 +4,7 @@ import {TokenRefreshRequest, TokenResponse} from "../../api/dtos/auth"
 import {BodyRequest, throwIfNull} from "@d-lab/api-kit"
 import AuthResponse from "../../utils/reponse/auth.response"
 import {Response} from "express"
+import {userService} from "../../services"
 
 export default class AuthTokenController {
 
@@ -16,9 +17,7 @@ export default class AuthTokenController {
 
         throwIfNull(existingRefreshToken, Errors.NOT_FOUND_RefreshToken())
 
-        const user = await db.Users.findOne({
-            where: {uuid: existingRefreshToken!.userUuid}
-        })
+        const user = await userService.find(existingRefreshToken!.userId)
 
         throwIfNull(user, Errors.NOT_FOUND_User('User not found for this refresh token.'))
 

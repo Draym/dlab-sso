@@ -10,7 +10,7 @@ export default class WalletHistoryModel
     public id!: number
     public address!: string
     public type!: WalletType
-    public userUuid!: string
+    public userId!: number
     public bindAt!: Date
     public unbindAt: Date | null
 }
@@ -32,9 +32,9 @@ export const init = (sequelize: Sequelize): typeof WalletHistoryModel => {
                 allowNull: false,
                 type: DataTypes.STRING
             },
-            userUuid: {
+            userId: {
                 allowNull: false,
-                type: DataTypes.UUIDV4
+                type: DataTypes.INTEGER
             },
             bindAt: {
                 allowNull: false,

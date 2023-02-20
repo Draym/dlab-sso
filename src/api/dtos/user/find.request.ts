@@ -8,9 +8,9 @@ export default class UserFindRequest {
 
     @IsNumberString()
     @ValidateIf((object, value) => isNotEmpty(value))
-    userId: string | undefined
+    id: string | undefined
 
     @IsUUID()
     @ValidateIf((object, value) => isNotEmpty(value))
-    userUuid: string | undefined
+    uuid: string | undefined
 }

@@ -3,7 +3,7 @@ import {SessionType} from "../../../../../enums"
 
 export default class SessionCreateRequest {
     @IsString()
-    public serviceUuid: string
+    public serviceId: number
     @IsEnum(SessionType)
     public type: SessionType
     @IsDateString(undefined, {message: "Invalid date format."})

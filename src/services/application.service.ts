@@ -6,7 +6,7 @@ import {v4 as uuidv4} from 'uuid'
 import * as bcrypt from "bcryptjs"
 import { applicationService, applicationUserService, userRolesService} from "./index"
 import Role, {AdministrativeRoles} from "../enums/role.enum"
-import {Filter, Page, throwIf, throwIfNot, throwIfNull, replaceAll} from "@d-lab/api-kit"
+import {Filter, throwIf, throwIfNot, throwIfNull, replaceAll} from "@d-lab/api-kit"
 
 export default class ApplicationService {
 

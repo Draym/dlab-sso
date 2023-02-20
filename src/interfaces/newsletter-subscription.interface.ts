@@ -1,6 +1,6 @@
 export default interface NewsletterSubscription {
     id: number
-    userUuid: string
+    userId: number
     createdAt: Date
     updatedAt: Date
 }

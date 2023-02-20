@@ -26,8 +26,8 @@ export default class EthWalletController {
         const payload = req.body
         const potentialUser = await userService.findByEmail(payload.email)
         if (isNotNull(potentialUser)) {
-            if (await walletService.ownerHasWallet(potentialUser!.uuid, WalletType.ETH)) {
-                throw Errors.CONFLICT_WalletBind(payload.email)
+            if (await walletService.ownerHasWallet(potentialUser!.id, WalletType.ETH)) {
+                throw Errors.CONFLICT_WalletBind(`email[${payload.email}]`)
             }
         }
         const code = await verificationCodeService.createCode(payload.email, VerificationCodeTarget.BindWallet)
@@ -73,7 +73,7 @@ export default class EthWalletController {
         const caller = req.caller
         const user = await userService.get(caller.id)
         await walletValidatorsService.validateSignatureForBind(payload.walletAddress, user.uuid, payload.signature)
-        await walletService.bindToUser(user.uuid, payload.walletAddress, WalletType.ETH)
+        await walletService.bindToUser(user.id, payload.walletAddress, WalletType.ETH)
     }
 
     async unbindAccountChallenge(req: BodyRequest<EthChallengeRequest>): Promise<EthChallengeResponse> {
@@ -90,7 +90,7 @@ export default class EthWalletController {
         const caller = req.caller
 
         await walletValidatorsService.validateSignatureForUnbind(payload.walletAddress, payload.signature)
-        await walletService.unbindFromUser(caller.uuid, payload.walletAddress, WalletType.ETH)
+        await walletService.unbindFromUser(caller.id, payload.walletAddress, WalletType.ETH)
     }
 
     async updateAccountPasswordChallenge(req: BodyRequest<EthChallengeRequest>): Promise<EthChallengeResponse> {

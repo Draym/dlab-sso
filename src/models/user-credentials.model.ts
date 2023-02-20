@@ -3,13 +3,12 @@ import * as bcrypt from "bcryptjs"
 import {UserCredentials} from "../interfaces"
 import {isEmpty, throwIf} from "@d-lab/api-kit"
 import Errors from "../utils/errors/Errors"
-import RefreshTokenModel from "./refresh-token.model"
 
 export type UserCredentialsCreationAttributes = Optional<UserCredentials, "id" | "createdAt" | "updatedAt">
 
 export default class UserCredentialsModel extends Model<UserCredentials, UserCredentialsCreationAttributes> implements UserCredentials {
     public id!: number
-    public userUuid!: string
+    public userId!: number
     public email!: string
     public password!: string
     public createdAt!: Date
@@ -26,9 +25,9 @@ export const init = (sequelize: Sequelize): typeof UserCredentialsModel => {
                 primaryKey: true,
                 type: DataTypes.INTEGER,
             },
-            userUuid: {
+            userId: {
                 allowNull: false,
-                type: DataTypes.STRING
+                type: DataTypes.INTEGER
             },
             email: {
                 allowNull: false,

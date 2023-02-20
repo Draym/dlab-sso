@@ -38,37 +38,37 @@ export default class WalletService {
         }))
     }
 
-    public async ownerHasWallet(userUuid: string, type: WalletType): Promise<boolean> {
-        return isNotNull(await this.findBy(eq({userUuid, type})))
+    public async ownerHasWallet(userId: number, type: WalletType): Promise<boolean> {
+        return isNotNull(await this.findBy(eq({userId: userId, type})))
     }
 
-    public async bindToUser(userUuid: string, address: string, type: WalletType): Promise<Wallet> {
+    public async bindToUser(userId: number, address: string, type: WalletType): Promise<Wallet> {
         if (await this.addressExists(address)) {
             throw Errors.CONFLICT_WalletAddress(address)
         }
-        const existingWallet = await this.findBy(eq({userUuid, type}))
+        const existingWallet = await this.findBy(eq({userId, type}))
 
-        throwIfNotNull(existingWallet, Errors.CONFLICT_WalletBind(userUuid))
+        throwIfNotNull(existingWallet, Errors.CONFLICT_WalletBind(`id[${userId}]`))
 
         const wallet = await this.wallets.create({
             address: address,
             type: type,
-            userUuid: userUuid
+            userId: userId
         })
-        await walletHistoryService.logAfterBind(wallet.address, wallet.type, wallet.userUuid, nowUTC())
+        await walletHistoryService.logAfterBind(wallet.address, wallet.type, wallet.userId, nowUTC())
         return wallet
     }
 
-    public async unbindFromUser(userUuid: string, address: string, type: WalletType) {
-        const wallet = await this.findBy(eq({userUuid, type}))
+    public async unbindFromUser(userId: number, address: string, type: WalletType) {
+        const wallet = await this.findBy(eq({userId, type}))
 
-        throwIfNull(wallet, Errors.NOT_FOUND_Wallet(`owner[${userUuid}] has no bound wallet.`))
-        throwIfNot(wallet!.address === address, Errors.REJECTED_WalletUnbind(userUuid, address))
+        throwIfNull(wallet, Errors.NOT_FOUND_Wallet(`owner[${userId}] has no bound wallet.`))
+        throwIfNot(wallet!.address === address, Errors.REJECTED_WalletUnbind(userId, address))
 
         await walletHistoryService.logAfterUnbind(
             wallet!.address,
             wallet!.type,
-            wallet!.userUuid,
+            wallet!.userId,
             wallet!.createdAt,
             nowUTC()
         )

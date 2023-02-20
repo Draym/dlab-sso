@@ -17,9 +17,9 @@ export const up: Migration = async ({context: queryInterface}: { context: QueryI
             allowNull: true,
             type: DataTypes.STRING
         },
-        user_uuid: {
+        user_id: {
             allowNull: false,
-            type: DataTypes.UUID
+            type: DataTypes.INTEGER
         },
         bind_at: {
             allowNull: false,

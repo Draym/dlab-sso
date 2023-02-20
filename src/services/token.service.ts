@@ -7,7 +7,7 @@ export default class TokenService {
 
     public async newRefreshToken(userId: number, userUuid: string): Promise<TokenData> {
         const existingRefreshToken = await db.RefreshTokens.findOne({
-            where: {userUuid: userUuid}
+            where: {userId: userId}
         })
         if (isNotNull(existingRefreshToken)) {
             await existingRefreshToken!.destroy()
@@ -15,20 +15,20 @@ export default class TokenService {
         const newRefreshToken = await Token.generateRefreshToken(userId, userUuid)
 
         await db.RefreshTokens.create({
-            userUuid: userUuid,
+            userId: userId,
             token: newRefreshToken.token,
             validUntil: new Date(Date.now() + newRefreshToken.expiresIn),
         })
         return newRefreshToken
     }
 
-    public async newToken(userId: number, userIdentifier: string, shortSession = false): Promise<TokenData> {
-        return await Token.generate(userId, userIdentifier, shortSession)
+    public async newToken(userId: number, userUuid: string, shortSession = false): Promise<TokenData> {
+        return await Token.generate(userId, userUuid, shortSession)
     }
 
     public async destroyToken(token: DataStoredInToken): Promise<void> {
         const existingRefreshToken = await db.RefreshTokens.findOne({
-            where: {userUuid: token.userUuid}
+            where: {userId: token.userId}
         })
         if (isNotNull(existingRefreshToken)) {
             await existingRefreshToken!.destroy()

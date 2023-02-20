@@ -5,7 +5,7 @@ export default interface PlanningSession {
     start: Date
     end: Date
     type: SessionType
-    serviceUuid: string
+    serviceId: number
     createdAt: Date
     updatedAt: Date
 }

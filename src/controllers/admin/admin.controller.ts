@@ -12,7 +12,7 @@ export default class AdminController {
     async createAccount(req: AuthBodyRequest<AdminCreateAccountRequest>): Promise<UserDto> {
         const payload = req.body
         const user = await userService.create(payload.email)
-        await userCredentialsService.create(user.uuid, payload.email, payload.password)
+        await userCredentialsService.create(user.id, payload.email, payload.password)
         if (isNotNull(payload.role)) {
             await userRolesService.update(user.id, payload.role!)
         }
@@ -30,6 +30,6 @@ export default class AdminController {
     async bindWalletToAccount(req: AuthBodyRequest<AdminBindWalletRequest>): Promise<void> {
         const payload = req.body
         const user = await userService.get(payload.userId)
-        await walletService.bindToUser(user.uuid, payload.walletAddress, WalletType.ETH)
+        await walletService.bindToUser(user.id, payload.walletAddress, WalletType.ETH)
     }
 }

@@ -8,7 +8,7 @@ export default class DiscordAccountModel extends Model<DiscordAccount, DiscordAc
     public discordId!: string
     public discordToken!: string
     public discordEmail!: string
-    public userUuid!: string
+    public userId!: number
     public scopes!: string
     public createdAt!: Date
     public updatedAt!: Date
@@ -36,9 +36,9 @@ export const init = (sequelize: Sequelize): typeof DiscordAccountModel => {
                 allowNull: false,
                 type: DataTypes.STRING
             },
-            userUuid: {
+            userId: {
                 allowNull: false,
-                type: DataTypes.UUID,
+                type: DataTypes.INTEGER,
                 unique: true
             },
             scopes: {

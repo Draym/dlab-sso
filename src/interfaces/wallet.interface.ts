@@ -4,7 +4,7 @@ export default interface Wallet {
     id: number
     type: WalletType
     address: string
-    userUuid: string
+    userId: number
     createdAt: Date
     updatedAt: Date
 }
