@@ -1,43 +1,36 @@
-# `@delysium/sso`
+# `@d-lab/sso`
 
-- **[API Documentation](https://sso-stg.delysium.com/api/docs/)**
+- **[API Documentation](https://)**
 
-This package provides the api sdk of the Delysium project
+This package provides the api sdk of the DLab SSO project
 
 ## Installation
 
-> 🚨 Please make sure to add this NPM token in your `.npmrc` file:
-> `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`.
-> 
-> You can do so by running the following command:
-> 
-> ```bash
-> echo "//registry.npmjs.org/:_authToken=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" >> .npmrc
-> ```
-
 ```bash
-yarn add @delysium/sso
+npm i @d-lab/sso
 ```
 
 ## Domain
-#### Staging: https://sso-stg.delysium.com
-#### Production: https://sso.delysium.com
+#### Production: https://sso.dlab.com
 
 ## Usage
 
 ```ts
-import Client from '@delysium/sso'
-import UserResponse from "./user.response";
-import {EmptyTokenRequest} from "./request";
+import Client from '@d-lab/sso'
 
 // 1. specify your domain
-const domain = "https://sso-stg.delysium.com"
+const domain = "https://sso.dlab.ovh"
 
 // 2. create the client and call init when the user wallet is connected
 const client = new Client(domain)
 
+// 3. login
+const payload: LoginRequest = {
+    email: "myemail@gmail.com",
+    password: "12345"
+}
+const session: TokenResponse = await client.auth.login(payload)
 
-// example of getting current user
-const request: EmptyTokenRequest = {token: "user token"}
-const me: UserResponse = await client.userMe(request)
+// 4. verifying your auth and getting current user
+const me: UserResponse = await client.auth.me()
 ```
