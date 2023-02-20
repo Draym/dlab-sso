@@ -7,19 +7,11 @@ import {
     EthIsBoundRequest,
     EthIsBoundResponse
 } from "../../api/dtos/auth/wallet/eth"
-import {VerificationCodeTarget, WalletType} from "../../enums"
-import Errors from "../../utils/errors/Errors"
-import {
-    EmailSendCodeRequest,
-    EmailSendCodeResponse,
-    EmailVerifyCodeRequest,
-    EmailVerifyCodeResponse
-} from "../../api/dtos/email"
-import Email from "../../utils/email/Email"
-import mailer from "../../clients/mail.client"
+import {WalletType} from "../../enums"
 import {AuthBodyRequest, BodyRequest, eq, isNotNull, QueryRequest} from "@d-lab/api-kit"
+import WalletEthApi from "../../api/wallet-eth.api"
 
-export default class EthWalletController {
+export default class WalletEthController implements WalletEthApi {
 
     async bindAccountChallenge(req: AuthBodyRequest<EthChallengeRequest>): Promise<EthChallengeResponse> {
         const payload = req.body

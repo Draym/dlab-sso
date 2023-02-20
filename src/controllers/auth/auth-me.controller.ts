@@ -3,8 +3,9 @@ import {userRolesService, userService, walletService} from "../../services"
 import {WalletType} from "../../enums"
 import {StaffRoles} from "../../enums/role.enum"
 import {AuthRequest, eq} from "@d-lab/api-kit"
+import AuthMeApi from "../../api/auth-me.api"
 
-export default class AuthMeController {
+export default class AuthMeController implements AuthMeApi {
     async getMe(req: AuthRequest): Promise<AuthMeResponse> {
         const caller = req.caller
         const user = await userService.get(caller.id)

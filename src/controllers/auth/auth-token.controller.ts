@@ -5,8 +5,9 @@ import {BodyRequest, throwIfNull} from "@d-lab/api-kit"
 import AuthResponse from "../../utils/reponse/auth.response"
 import {Response} from "express"
 import {userService} from "../../services"
+import AuthTokenApi from "../../api/auth-token.api"
 
-export default class AuthTokenController {
+export default class AuthTokenController implements AuthTokenApi {
 
     async refreshToken(req: BodyRequest<TokenRefreshRequest>, res: Response): Promise<TokenResponse> {
         const payload = req.body

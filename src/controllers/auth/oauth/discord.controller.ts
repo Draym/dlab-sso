@@ -14,8 +14,9 @@ import AuthResponse from "../../../utils/reponse/auth.response"
 import {TokenResponse} from "../../../api/dtos/auth"
 import {Response} from "express"
 import {User} from "../../../interfaces"
+import OAuthDiscordApi from "../../../api/auth-discord.api"
 
-export default class OAuthDiscordController {
+export default class OAuthDiscordController implements OAuthDiscordApi {
     async getAuthorizeURL(req: QueryRequest<DiscordGetAuthorizeUrlRequest>): Promise<DiscordGetAuthorizeResponse> {
         const payload = req.query
         const nonce = nanoid()

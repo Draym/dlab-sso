@@ -7,8 +7,9 @@ import Password from "../../../utils/validators/password"
 import mailer from "../../../clients/mail.client"
 import {BodyRequest, QueryRequest} from "@d-lab/api-kit"
 import {PasswordResetRequest} from "../../../api/dtos/auth/default"
+import AuthPasswordApi from "../../../api/auth-password.api"
 
-export default class AuthPasswordController {
+export default class AuthPasswordController implements AuthPasswordApi {
 
     async resetPassword(req: BodyRequest<PasswordResetRequest>): Promise<void> {
         const payload = req.body

@@ -10,8 +10,9 @@ import {
 import {planningSessionService} from "../../../services"
 import {AuthBodyRequest, Filter, isNotNull, nowUTC, PathRequest, QueryRequest, toDate, toOptDate} from "@d-lab/api-kit"
 import {SessionOptionalResponse, SessionDto} from "../../../api/dtos/game-access/planning"
+import PlanningSessionApi from "../../../api/planning-session.api"
 
-export default class PlanningSessionController {
+export default class PlanningSessionController implements PlanningSessionApi {
 
     async create(req: AuthBodyRequest<SessionCreateRequest>): Promise<void> {
         const payload = req.body

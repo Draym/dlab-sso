@@ -15,8 +15,9 @@ import {TokenResponse} from "../../../api/dtos/auth"
 import AuthResponse from "../../../utils/reponse/auth.response"
 import {Response} from "express"
 import {User} from "../../../interfaces"
+import AuthWalletEthApi from "../../../api/auth-eth.api"
 
-export default class AuthWalletEthController {
+export default class AuthWalletEthController implements AuthWalletEthApi {
 
     async loginChallenge(req: BodyRequest<EthChallengeRequest>): Promise<EthChallengeResponse> {
         const payload = req.body

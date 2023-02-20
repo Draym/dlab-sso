@@ -11,8 +11,9 @@ import {userRolesService, userService} from "../../services"
 import {Role} from "../../enums"
 import Errors from "../../utils/errors/Errors"
 import {associateBy, AuthBodyRequest, CallerData, eq, isNotNull, throwIf} from "@d-lab/api-kit"
+import UserRolesApi from "../../api/user-roles.api"
 
-export default class UserRolesController {
+export default class UserRolesController implements UserRolesApi {
     async all(req: AuthBodyRequest<UserRoleAllRequest>): Promise<UserRoleAllResponse> {
         const payload = req.body
         let userRoles: UserRoleModel[]

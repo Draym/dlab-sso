@@ -29,6 +29,7 @@ enum Endpoint {
     ETH_Challenge = "/auth/eth/challenge",
     ETH_Login = "/auth/eth/login",
     PBE_IsAuthorized = "/access/pbe/is-authorized",
+    PBE_IsAuthorizedByEmail = "/access/pbe/is-authorized-email",
     PLANNING_Get = "/access/planning",
     PLANNING_ASSISTANT_Create = "/access/planning/create-sessions",
     PLANNING_ASSISTANT_Delete = "/access/planning/delete-sessions",

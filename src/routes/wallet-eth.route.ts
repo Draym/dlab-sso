@@ -1,6 +1,6 @@
 import {Router} from "express"
 import {Endpoint} from "../enums"
-import EthWalletController from "../controllers/wallet/eth-wallet.controller"
+import WalletEthController from "../controllers/wallet/wallet-eth.controller"
 import {validateQueryRequest, validateRequest} from "../middleware/validate-request.middleware"
 import {
     EthAccountBindRequest, EthAccountUnbindRequest,
@@ -11,7 +11,7 @@ import authMiddleware from "../middleware/auth.middleware"
 import {handle} from "@d-lab/api-kit"
 
 const router = Router()
-const ctrl = new EthWalletController()
+const ctrl = new WalletEthController()
 
 router.post(Endpoint.WALLET_ETH_CHALLENGE_UnbindAccount, validateRequest(EthChallengeRequest), handle.bind(ctrl.unbindAccountChallenge))
 router.post(Endpoint.WALLET_ETH_CHALLENGE_BindAccount, validateRequest(EthChallengeRequest), handle.bind(ctrl.bindAccountChallenge))

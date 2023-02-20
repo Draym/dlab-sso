@@ -4,8 +4,9 @@ import {
 } from "../../../api/dtos/game-access/planning/assistant"
 import {planningAssistantService} from "../../../services"
 import {AuthBodyRequest, toDate} from "@d-lab/api-kit"
+import PlanningAssistantApi from "../../../api/planning-assistant.api"
 
-export default class PlanningAssistantController {
+export default class PlanningAssistantController implements PlanningAssistantApi {
 
     async create(req: AuthBodyRequest<AssistantCreateSessionRequest>): Promise<AssistantCreateSessionResponse> {
         const payload = req.body

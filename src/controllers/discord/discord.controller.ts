@@ -4,8 +4,9 @@ import {DiscordAccountBindRequest} from "../../api/dtos/auth/oauth/discord"
 import DiscordClient from "../../clients/discord/discord.client"
 import Errors from "../../utils/errors/Errors"
 import {AuthBodyRequest, AuthRequest, eq, throwIfNull} from "@d-lab/api-kit"
+import {DiscordApi} from "../../api/discord.api"
 
-export class DiscordController {
+export class DiscordController implements DiscordApi {
     async details(req: AuthRequest): Promise<DiscordMeResponse> {
         const caller = req.caller
         const account = await discordAccountService.getBy(eq({userId: caller.id}))

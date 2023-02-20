@@ -13,8 +13,9 @@ import Errors from "../../utils/errors/Errors"
 import {ApiAccessType} from "../../enums"
 import {AuthBodyRequest, AuthQueryRequest, throwIf, throwIfNull} from "@d-lab/api-kit"
 import RequireAppOwner from "../../utils/decorators/require-app-owner.decorator"
+import ApplicationUserApi from "../../api/application-user.api"
 
-export default class ApplicationUserController {
+export default class ApplicationUserController implements ApplicationUserApi {
     async isUserAllowed(req: AuthQueryRequest<AppUserIsAllowedRequest>): Promise<AppUserIsAllowedResponse> {
         const token = req.auth.token
         const appKey = req.auth.apiKey

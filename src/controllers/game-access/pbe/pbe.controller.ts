@@ -1,8 +1,9 @@
 import {PbeIsAuthorizedRequest, PbeIsAuthorizedResponse} from "../../../api/dtos/game-access/pbe"
 import {pbeAccessService} from "../../../services"
 import {AuthRequest, QueryRequest} from "@d-lab/api-kit"
+import PbeApi from "../../../api/pbe.api"
 
-export default class PbeController {
+export default class PbeController implements PbeApi {
 
     async isAuthorizedByEmail(req: QueryRequest<PbeIsAuthorizedRequest>): Promise<PbeIsAuthorizedResponse> {
         const payload = req.query

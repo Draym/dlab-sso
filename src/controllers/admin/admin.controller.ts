@@ -7,8 +7,9 @@ import {userCredentialsService, userRolesService, userService, walletService} fr
 import {WalletType} from "../../enums"
 import {AuthBodyRequest, isNotNull} from "@d-lab/api-kit"
 import {UserDto} from "../../api/dtos/user"
+import AdminApi from "../../api/admin.api"
 
-export default class AdminController {
+export default class AdminController implements AdminApi {
     async createAccount(req: AuthBodyRequest<AdminCreateAccountRequest>): Promise<UserDto> {
         const payload = req.body
         const user = await userService.create(payload.email)

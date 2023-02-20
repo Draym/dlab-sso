@@ -19,11 +19,11 @@ import {
     groupBy,
     include,
     isNull,
-    Page,
     throwIfNull
 } from "@d-lab/api-kit"
+import ApplicationApi from "../../api/application.api"
 
-export default class ApplicationController {
+export default class ApplicationController implements ApplicationApi {
     async allByOwner(req: AuthRequest): Promise<ApplicationAllOwnResponse> {
         const caller = req.caller
         const applications = await applicationService.findAll(eq({ownerId: caller.id}))

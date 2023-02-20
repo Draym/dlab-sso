@@ -14,8 +14,9 @@ import {LoginRequest, RegisterRequest} from "../../../api/dtos/auth/default"
 import {TokenResponse} from "../../../api/dtos/auth"
 import AuthResponse from "../../../utils/reponse/auth.response"
 import {Response} from "express"
+import AuthApi from "../../../api/auth.api"
 
-export default class AuthController {
+export default class AuthController implements AuthApi {
 
     async sendCodeForRegister(req: BodyRequest<EmailSendCodeRequest>): Promise<void> {
         const payload = req.body

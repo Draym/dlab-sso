@@ -9,8 +9,9 @@ import {userCredentialsService, userService, verificationCodeService} from "../.
 import Password from "../../utils/validators/password"
 import mailer from "../../clients/mail.client"
 import {AuthBodyRequest, BodyRequest, QueryRequest} from "@d-lab/api-kit"
+import UserMeApi from "../../api/user-me.api"
 
-export default class UserMeController {
+export default class UserMeController implements UserMeApi {
 
     async updatePassword(req: AuthBodyRequest<MePasswordUpdateRequest>): Promise<void> {
         const caller = req.caller
