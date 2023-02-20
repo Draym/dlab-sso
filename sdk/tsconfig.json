@@ -1,0 +1,44 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "target": "es2017",
+    "lib": [
+      "es2017",
+      "esnext.asynciterable"
+    ],
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "pretty": true,
+    "sourceMap": true,
+    "declaration": true,
+    "outDir": "./dist",
+    "allowJs": true,
+    "noEmit": false,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "importHelpers": true,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/dtos/*": [
+        "../src/api/dtos/*"
+      ],
+      "@/enums/*": [
+        "../src/enums/*"
+      ]
+    }
+  },
+  "include": [
+    "../src/api/dtos/**/*.ts",
+    "../src/enums/*.ts",
+    "./src/**/*.ts",
+    "./index.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

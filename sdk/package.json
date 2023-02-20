@@ -1,0 +1,37 @@
+{
+  "name": "@d-lab/sso",
+  "version": "0.1.0",
+  "description": "Client library for DLab SSO apis",
+  "keywords": [
+    "dlab",
+    "api",
+    "sdk",
+    "sso"
+  ],
+  "author": {
+    "name": "Kevin Andres",
+    "email": "kevin@rct.ai"
+  },
+  "homepage": "https://github.com/Draym/dlab-sso#readme",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": "https://github.com/Draym/dlab-sso/tree/main",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "bugs": {
+    "url": "https://github.com/Draym/dlab-sso/issues"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@d-lab/api-kit": "^0.2.4",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.13.2",
+    "reflect-metadata": "^0.1.13",
+    "tslib": "^2.4.0"
+  }
+}
