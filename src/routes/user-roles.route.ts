@@ -5,8 +5,7 @@ import {validateRequest} from "../middleware/validate-request.middleware"
 import {ApiAccessType, ApiModule, Endpoint, Role} from "../enums"
 import hasRole from "../middleware/has-role.middleware"
 import {
-    UserRoleBatchDeleteByEmailRequest,
-    UserRoleBatchDeleteRequest, UserRoleBatchUpdateByEmailRequest,
+    UserRoleBatchDeleteRequest,
     UserRoleBatchUpdateRequest,
     UserRoleDeleteRequest,
     UserRoleUpdateRequest,
@@ -24,7 +23,5 @@ router.post(Endpoint.USER_ROLE_Update, validateRequest(UserRoleUpdateRequest), a
 router.delete(Endpoint.USER_ROLE_Delete, validateRequest(UserRoleDeleteRequest), authMiddleware(scope), hasRole(Role.Moderator), handle.bind(ctrl.deleteRole))
 router.post(Endpoint.USER_ROLE_BatchUpdate, validateRequest(UserRoleBatchUpdateRequest), authMiddleware(scope), hasRole(Role.Moderator), handle.bind(ctrl.batchUpdateRole))
 router.delete(Endpoint.USER_ROLE_BatchDelete, validateRequest(UserRoleBatchDeleteRequest), authMiddleware(scope), hasRole(Role.Moderator), handle.bind(ctrl.batchDeleteRole))
-router.post(Endpoint.USER_ROLE_BatchUpdateByEmail, validateRequest(UserRoleBatchUpdateByEmailRequest), authMiddleware(scope), hasRole(Role.Moderator), handle.bind(ctrl.batchUpdateRoleByEmail))
-router.delete(Endpoint.USER_ROLE_BatchDeleteByEmail, validateRequest(UserRoleBatchDeleteByEmailRequest), authMiddleware(scope), hasRole(Role.Moderator), handle.bind(ctrl.batchDeleteRoleByEmail))
 
 export default router

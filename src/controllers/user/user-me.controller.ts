@@ -1,9 +1,7 @@
 import Email from "../../utils/email/Email";
 import {VerificationCodeTarget} from "../../enums";
 import {
-    MeEmailUpdateByEmailRequest,
     MeEmailUpdateRequest,
-    MePasswordUpdateByEmailRequest,
     MePasswordUpdateRequest
 } from "../../api/dtos/user"
 import {EmailSendCodeRequest, EmailVerifyCodeRequest, EmailVerifyCodeResponse} from "../../api/dtos/email"
@@ -21,23 +19,10 @@ export default class UserMeController {
         await userCredentialsService.updatePassword(caller.id, undefined, payload.newPassword)
     }
 
-    async updatePasswordByEmail(req: BodyRequest<MePasswordUpdateByEmailRequest>): Promise<void> {
-        const payload = req.body
-        Password.validate(payload.newPassword, payload.newPasswordConfirm)
-        await userCredentialsService.updatePasswordByEmail(payload.email, payload.newPassword, payload.verificationCode)
-
-    }
-
     async updateEmail(req: AuthBodyRequest<MeEmailUpdateRequest>): Promise<void> {
         const payload = req.body
         const caller = req.caller
         await userCredentialsService.updateEmail(caller.id, payload.email, payload.verificationCode)
-    }
-
-    async updateEmailByEmail(req: BodyRequest<MeEmailUpdateByEmailRequest>): Promise<void> {
-        const payload = req.body
-        await userCredentialsService.updateEmailByEmail(payload.oldEmail, payload.oldEmailVerificationCode, payload.newEmail, payload.newEmailVerificationCode)
-
     }
 
     async sendCodeForEmail(req: BodyRequest<EmailSendCodeRequest>): Promise<void> {

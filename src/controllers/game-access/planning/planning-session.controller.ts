@@ -8,7 +8,7 @@ import {
     SessionUpdateRequest
 } from "../../../api/dtos/game-access/planning/session"
 import {planningSessionService} from "../../../services"
-import {AuthBodyRequest, Filter, isNotNull, nowUTC, QueryRequest, toDate, toOptDate} from "@d-lab/api-kit"
+import {AuthBodyRequest, Filter, isNotNull, nowUTC, PathRequest, QueryRequest, toDate, toOptDate} from "@d-lab/api-kit"
 import {SessionOptionalResponse, SessionDto} from "../../../api/dtos/game-access/planning"
 
 export default class PlanningSessionController {
@@ -40,8 +40,8 @@ export default class PlanningSessionController {
         }
     }
 
-    async get(req: QueryRequest<SessionGetRequest>): Promise<SessionDto> {
-        const payload = req.query
+    async get(req: PathRequest<SessionGetRequest>): Promise<SessionDto> {
+        const payload = req.params
         return await planningSessionService.get(payload.id)
     }
 

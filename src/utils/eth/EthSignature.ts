@@ -16,32 +16,6 @@ export default class EthSignature {
   ${nonce}`
     }
 
-    public static updatePasswordMessage(address: string, nonce: string): string {
-        return `Welcome !
-
-  Click "Sign" to reveal the password attached to your account linked to the wallet(${address}).
-
-  This request will not trigger a blockchain transaction or cost any gas fees.
-
-  Wallet eth_address: ${address}
-  
-  Nonce:
-  ${nonce}`
-    }
-
-    public static updateEmailMessage(address: string, nonce: string): string {
-        return `Welcome !
-
-  Click "Sign" to update the email attached to your account linked to your wallet(${address}).
-
-  This request will not trigger a blockchain transaction or cost any gas fees.
-
-  Wallet eth_address: ${address}
-  
-  Nonce:
-  ${nonce}`
-    }
-
     public static bindMessage(address: string, uuid: string, nonce: string): string {
         return `Welcome !
 

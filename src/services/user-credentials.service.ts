@@ -56,16 +56,6 @@ export default class UserCredentialsService {
         })
     }
 
-    public async updatePasswordByEmail(email: string, newPassword: string, verificationCode: number): Promise<void> {
-        await verificationCodeService.checkValidityAndDestroy(email, verificationCode, VerificationCodeTarget.PasswordUpdate)
-
-        const credentials = await this.getBy(eq({email}))
-
-        await credentials.update({
-            password: await bcrypt.hash(newPassword, 10)
-        })
-    }
-
     public async resetPassword(email: string, newPassword: string, verificationCode: number): Promise<void> {
         await verificationCodeService.checkValidityAndDestroy(email, verificationCode, VerificationCodeTarget.PasswordReset)
 
@@ -89,23 +79,6 @@ export default class UserCredentialsService {
         }
         const credentials = await this.get(userId)
         const user = await userService.get(userId)
-        await credentials.update({
-            email: newEmail,
-        })
-        await user.update({
-            email: newEmail
-        })
-    }
-
-    public async updateEmailByEmail(oldEmail: string, oldEmailVerificationCode: number, newEmail: string, newEmailVerificationCode: number): Promise<void> {
-        await verificationCodeService.checkValidityAndDestroy(oldEmail, oldEmailVerificationCode, VerificationCodeTarget.EmailUpdate)
-        await verificationCodeService.checkValidityAndDestroy(newEmail, newEmailVerificationCode, VerificationCodeTarget.EmailUpdate)
-
-        if (await this.emailExists(newEmail)) {
-            throw Errors.CONFLICT_Email(newEmail)
-        }
-        const credentials = await this.getBy(eq({email: oldEmail}))
-        const user = await userService.get(credentials.userId)
         await credentials.update({
             email: newEmail,
         })

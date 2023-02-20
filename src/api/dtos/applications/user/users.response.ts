@@ -1,5 +1,5 @@
-import AppUserResponse from "./app-user.dto"
+import AppUserDto from "./app-user.dto"
 
 export default interface AppUsersResponse {
-    users: AppUserResponse[]
+    users: AppUserDto[]
 }

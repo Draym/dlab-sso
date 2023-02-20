@@ -1,4 +1,4 @@
-import {applicationScopeService, applicationService} from "../../services"
+import {applicationScopeService, applicationService, applicationUserService} from "../../services"
 import {
     ApiKeyResponse,
     ApplicationAllOwnResponse,
@@ -7,11 +7,21 @@ import {
     ApplicationDeleteRequest,
     ApplicationIsOwnerResponse,
     ApplicationNewApiKeyRequest,
-    ApplicationDto
+    ApplicationDto, ApplicationGetRequest
 } from "../../api/dtos/applications"
 import {ApplicationScopeModel} from "../../models"
 import Errors from "../../utils/errors/Errors"
-import {AuthBodyRequest, AuthRequest, eq, groupBy, include, isNull, Page, throwIfNull} from "@d-lab/api-kit"
+import {
+    AuthBodyRequest,
+    AuthPathRequest,
+    AuthRequest,
+    eq,
+    groupBy,
+    include,
+    isNull,
+    Page,
+    throwIfNull
+} from "@d-lab/api-kit"
 
 export default class ApplicationController {
     async allByOwner(req: AuthRequest): Promise<ApplicationAllOwnResponse> {
@@ -39,6 +49,16 @@ export default class ApplicationController {
         }
     }
 
+    async get(req: AuthPathRequest<ApplicationGetRequest>): Promise<ApplicationDto> {
+        const payload = req.params
+        const app = await applicationService.get(Number.parseInt(payload.id))
+        const users = await applicationUserService.getUsers(app.id)
+        return {
+            ...app,
+            users: users
+        }
+    }
+
     async all(_: AuthRequest): Promise<ApplicationAllResponse> {
         const applications = await applicationService.getAll()
         return {applications}
@@ -47,7 +67,12 @@ export default class ApplicationController {
     async details(req: AuthRequest): Promise<ApplicationDto> {
         const apiKey = req.auth.apiKey
         throwIfNull(apiKey, Errors.REQUIRE_ApiKey())
-        return await applicationService.get(apiKey!.appId)
+        const app = await applicationService.get(apiKey!.appId)
+        const users = await applicationUserService.getUsers(app.id)
+        return {
+            ...app,
+            users: users
+        }
     }
 
     async isOwner(req: AuthRequest): Promise<ApplicationIsOwnerResponse> {

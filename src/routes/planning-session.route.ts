@@ -12,7 +12,7 @@ import {
 } from "../api/dtos/game-access/planning/session"
 import authMiddleware from "../middleware/auth.middleware"
 import hasRole from "../middleware/has-role.middleware"
-import {ApiScopeImpl, handle} from "@d-lab/api-kit"
+import {ApiScopeImpl, handle, validatePathRequest} from "@d-lab/api-kit"
 
 const router = Router()
 const ctrl = new PlanningSessionController()
@@ -24,7 +24,7 @@ router.post(Endpoint.PLANNING_SESSION_Create, validateRequest(SessionCreateReque
 router.delete(Endpoint.PLANNING_SESSION_Delete, validateRequest(SessionDeleteRequest), authMiddleware(scope), hasRole(Role.Operator), handle.bind(ctrl.delete))
 router.put(Endpoint.PLANNING_SESSION_Update, validateRequest(SessionUpdateRequest), authMiddleware(scope), hasRole(Role.Operator), handle.bind(ctrl.update))
 router.get(Endpoint.PLANNING_SESSION_All, validateQueryRequest(SessionAllRequest), handle.bind(ctrl.all))
-router.get(Endpoint.PLANNING_SESSION_Get, validateQueryRequest(SessionGetRequest), handle.bind(ctrl.get))
+router.get(Endpoint.PLANNING_SESSION_Get, validatePathRequest(SessionGetRequest), handle.bind(ctrl.get))
 router.get(Endpoint.PLANNING_SESSION_FindNext, validateQueryRequest(SessionFindNextRequest), handle.bind(ctrl.findNext))
 
 export default router

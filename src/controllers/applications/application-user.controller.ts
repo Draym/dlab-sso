@@ -4,7 +4,7 @@ import {
     AppUserFindRequest,
     AppUserIsAllowedRequest,
     AppUserIsAllowedResponse,
-    AppUserResponse,
+    AppUserDto,
     AppUsersResponse,
     AppUserUpdateRequest
 } from "../../api/dtos/applications/user"
@@ -39,7 +39,7 @@ export default class ApplicationUserController {
     }
 
     @RequireAppOwner
-    async addUser(req: AuthBodyRequest<AppUserCreateRequest>): Promise<AppUserResponse> {
+    async addUser(req: AuthBodyRequest<AppUserCreateRequest>): Promise<AppUserDto> {
         const payload = req.body
         const application = await applicationService.get(payload.applicationId)
         throwIf(application.type !== ApiAccessType.Management, Errors.REQUIRE_APP_TypeAccess(ApiAccessType.Personal, ApiAccessType.Management))
@@ -47,7 +47,7 @@ export default class ApplicationUserController {
     }
 
     @RequireAppOwner
-    async updateUser(req: AuthBodyRequest<AppUserUpdateRequest>): Promise<AppUserResponse> {
+    async updateUser(req: AuthBodyRequest<AppUserUpdateRequest>): Promise<AppUserDto> {
         const payload = req.body
         const application = await applicationService.get(payload.applicationId)
         throwIf(application.type !== ApiAccessType.Management, Errors.REQUIRE_APP_TypeAccess(ApiAccessType.Personal, ApiAccessType.Management))
@@ -55,7 +55,7 @@ export default class ApplicationUserController {
     }
 
     @RequireAppOwner
-    async deleteUser(req: AuthBodyRequest<AppUserDeleteRequest>): Promise<AppUserResponse> {
+    async deleteUser(req: AuthBodyRequest<AppUserDeleteRequest>): Promise<AppUserDto> {
         const payload = req.body
         const application = await applicationService.get(payload.applicationId)
         throwIf(application.type !== ApiAccessType.Management, Errors.REQUIRE_APP_TypeAccess(ApiAccessType.Personal, ApiAccessType.Management))

@@ -11,7 +11,7 @@ const ctrl = new DiscordController()
 
 const scope = ApiScopeImpl.default(ApiModule.Discord, ApiAccessType.Personal)
 
-router.get(Endpoint.DISCORD_Me, authMiddleware(scope), handle.bind(ctrl.me))
+router.get(Endpoint.DISCORD_Details, authMiddleware(scope), handle.bind(ctrl.details))
 router.delete(Endpoint.DISCORD_Unbind, authMiddleware(scope), handle.bind(ctrl.unbindAccount))
 router.post(Endpoint.DISCORD_Bind, validateRequest(DiscordAccountBindRequest), authMiddleware(scope), handle.bind(ctrl.bindToAccount))
 

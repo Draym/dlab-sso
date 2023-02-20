@@ -1,9 +1,7 @@
 import {
     UserRoleAllRequest,
     UserRoleAllResponse,
-    UserRoleBatchDeleteByEmailRequest,
     UserRoleBatchDeleteRequest,
-    UserRoleBatchUpdateByEmailRequest,
     UserRoleBatchUpdateRequest,
     UserRoleDeleteRequest,
     UserRoleUpdateRequest
@@ -61,6 +59,10 @@ export default class UserRolesController {
         for (const userId of payload.userIds) {
             await userRolesService.update(userId, payload.role)
         }
+        const users = await userService.findByEmails(payload.userEmails)
+        for (const user of users) {
+            await userRolesService.update(user.id, payload.role)
+        }
     }
 
     async batchDeleteRole(req: AuthBodyRequest<UserRoleBatchDeleteRequest>): Promise<void> {
@@ -71,24 +73,6 @@ export default class UserRolesController {
         for (const userId of payload.userIds) {
             await userRolesService.delete(userId, payload.role)
         }
-    }
-
-    async batchUpdateRoleByEmail(req: AuthBodyRequest<UserRoleBatchUpdateByEmailRequest>): Promise<void> {
-        const payload = req.body
-        const caller = req.caller
-        await this.protectAdminRole(caller, payload.role)
-
-        const users = await userService.findByEmails(payload.userEmails)
-        for (const user of users) {
-            await userRolesService.update(user.id, payload.role)
-        }
-    }
-
-    async batchDeleteRoleByEmail(req: AuthBodyRequest<UserRoleBatchDeleteByEmailRequest>): Promise<void> {
-        const payload = req.body
-        const caller = req.caller
-        await this.protectAdminRole(caller, payload.role)
-
         const users = await userService.findByEmails(payload.userEmails)
         for (const user of users) {
             await userRolesService.delete(user.id, payload.role)

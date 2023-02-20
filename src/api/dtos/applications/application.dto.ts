@@ -1,4 +1,5 @@
 import {ApiAccessRequire, ApiAccessType} from "../../../enums"
+import AppUserDto from "./user/app-user.dto"
 
 export default interface ApplicationDto {
     id: number,
@@ -7,6 +8,7 @@ export default interface ApplicationDto {
     description: string,
     type: ApiAccessType,
     accessType: ApiAccessRequire,
+    users?: AppUserDto[]
     createdAt: Date,
     updatedAt: Date
 }

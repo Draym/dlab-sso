@@ -49,24 +49,6 @@ export default class WalletValidatorService {
         }
     }
 
-    public async validateSignatureForUpdatePassword(address: string, signature: string) {
-        const validator = await this.getBy(eq({address}))
-        const message = EthSignature.updatePasswordMessage(address, validator.nonce)
-        const extractedAddress: string = EthSignature.extractAddress(message, signature)
-        if (address !== extractedAddress) {
-            throw Errors.REJECTED_Signature()
-        }
-    }
-
-    public async validateSignatureForUpdateEmail(address: string, signature: string) {
-        const validator = await this.getBy(eq({address}))
-        const message = EthSignature.updateEmailMessage(address, validator.nonce)
-        const extractedAddress: string = EthSignature.extractAddress(message, signature)
-        if (address !== extractedAddress) {
-            throw Errors.REJECTED_Signature()
-        }
-    }
-
     public async validateSignatureForLogin(address: string, signature: string) {
         const validator = await this.getBy(eq({address}))
         const message = EthSignature.loginMessage(address, validator.nonce)

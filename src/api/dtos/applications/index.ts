@@ -8,6 +8,7 @@ import ApplicationDeleteScopeRequest from "./scope/delete.request"
 import ApplicationNewApiKeyRequest from "./new-api-key.request"
 import ApplicationAllOwnResponse from "./all-own.response"
 import ApplicationIsOwnerResponse from "./is-owner.response"
+import ApplicationGetRequest from "./get.request"
 
 export {
     ApplicationDeleteRequest,
@@ -19,5 +20,6 @@ export {
     ApplicationDeleteScopeRequest,
     ApplicationNewApiKeyRequest,
     ApplicationAllOwnResponse,
-    ApplicationIsOwnerResponse
+    ApplicationIsOwnerResponse,
+    ApplicationGetRequest
 }

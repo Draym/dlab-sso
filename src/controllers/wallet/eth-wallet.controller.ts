@@ -21,35 +21,6 @@ import {AuthBodyRequest, BodyRequest, eq, isNotNull, QueryRequest} from "@d-lab/
 
 export default class EthWalletController {
 
-    async sendCodeForBind(req: BodyRequest<EmailSendCodeRequest>): Promise<EmailSendCodeResponse> {
-
-        const payload = req.body
-        const potentialUser = await userService.findByEmail(payload.email)
-        if (isNotNull(potentialUser)) {
-            if (await walletService.ownerHasWallet(potentialUser!.id, WalletType.ETH)) {
-                throw Errors.CONFLICT_WalletBind(`email[${payload.email}]`)
-            }
-        }
-        const code = await verificationCodeService.createCode(payload.email, VerificationCodeTarget.BindWallet)
-        const mail = Email.generateBindWalletMessage(mailer.config.from, payload.email, code)
-        await mailer.send(mail, "verification code")
-        return {
-            userExists: isNotNull(potentialUser)
-        }
-    }
-
-    async verifyCodeForBind(req: QueryRequest<EmailVerifyCodeRequest>): Promise<EmailVerifyCodeResponse> {
-
-        const payload = req.query
-        const verificationCode = parseInt(payload.verificationCode)
-        await verificationCodeService.checkValidity(payload.email, verificationCode, VerificationCodeTarget.BindWallet)
-        return {
-            email: payload.email,
-            verificationCode: verificationCode,
-            isValid: true
-        }
-    }
-
     async bindAccountChallenge(req: AuthBodyRequest<EthChallengeRequest>): Promise<EthChallengeResponse> {
         const payload = req.body
         const caller = req.caller
@@ -91,14 +62,5 @@ export default class EthWalletController {
 
         await walletValidatorsService.validateSignatureForUnbind(payload.walletAddress, payload.signature)
         await walletService.unbindFromUser(caller.id, payload.walletAddress, WalletType.ETH)
-    }
-
-    async updateAccountPasswordChallenge(req: BodyRequest<EthChallengeRequest>): Promise<EthChallengeResponse> {
-        const payload = req.body
-        const validator = await walletValidatorsService.create(payload.walletAddress)
-        return {
-            walletAddress: validator.address,
-            message: EthSignature.updatePasswordMessage(payload.walletAddress, validator.nonce)
-        }
     }
 }

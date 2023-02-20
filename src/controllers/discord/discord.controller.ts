@@ -6,7 +6,7 @@ import Errors from "../../utils/errors/Errors"
 import {AuthBodyRequest, AuthRequest, eq, throwIfNull} from "@d-lab/api-kit"
 
 export class DiscordController {
-    async me(req: AuthRequest): Promise<DiscordMeResponse> {
+    async details(req: AuthRequest): Promise<DiscordMeResponse> {
         const caller = req.caller
         const account = await discordAccountService.getBy(eq({userId: caller.id}))
 
