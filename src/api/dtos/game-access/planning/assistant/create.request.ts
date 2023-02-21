@@ -1,5 +1,5 @@
 import "reflect-metadata"
-import {IsBoolean, IsEnum, IsInt, IsISO8601, IsString, ValidateNested} from "class-validator"
+import {IsBoolean, IsEnum, IsInt, IsISO8601, ValidateNested} from "class-validator"
 import {SessionType} from "../../../../../enums"
 import {Type} from "class-transformer"
 import TimeRequest from "./time.request"

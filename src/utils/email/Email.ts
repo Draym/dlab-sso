@@ -21,7 +21,7 @@ export default class Email {
         return Math.floor(Math.random() * (max - min) + min)
     }
 
-    public static generateWelcomeMessage(from: string, to: string, code: number) {
+    public static generateWelcomeMessage(from: string, to: string, code: number): Mail {
         return {
             from: from,
             to: to,
@@ -30,7 +30,7 @@ export default class Email {
         }
     }
 
-    public static generateResetPasswordMessage(from: string, to: string, code: number) {
+    public static generateResetPasswordMessage(from: string, to: string, code: number): Mail {
         return {
             from: from,
             to: to,
@@ -39,7 +39,7 @@ export default class Email {
         }
     }
 
-    public static generateUpdateEmailMessage(from: string, to: string, code: number) {
+    public static generateUpdateEmailMessage(from: string, to: string, code: number): Mail {
         return {
             from: from,
             to: to,
@@ -48,30 +48,12 @@ export default class Email {
         }
     }
 
-    public static generateUpdatePasswordMessage(from: string, to: string, code: number) {
+    public static generateUpdatePasswordMessage(from: string, to: string, code: number): Mail {
         return {
             from: from,
             to: to,
             subject: "DLab email verification",
             html: updatePasswordMessage(code)
-        }
-    }
-
-    public static generateBindWalletMessage(from: string, to: string, code: number) {
-        return {
-            from: from,
-            to: to,
-            subject: "DLab email verification",
-            html: bindWalletMessage(code)
-        }
-    }
-
-    public static generateBindDiscordMessage(from: string, to: string, code: number) {
-        return {
-            from: from,
-            to: to,
-            subject: "DLab email verification",
-            html: bindDiscordMessage(code)
         }
     }
 }
