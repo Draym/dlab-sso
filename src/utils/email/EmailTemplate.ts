@@ -72,8 +72,8 @@ function formatHTMLMessage(code: number, target: string, utility: string, tryAga
 <body style="position: relative; margin: 0;">
 
     <table role="presentation"
-        style="width: 100%; border-spacing: 0; border-collapse: collapse; border: 2px solid #000000; mso-table-lspace: 0; mso-table-rspace: 0; background-color: #000; background-size: 9%; margin: 0 auto; vertical-align: top;"
-        width="100%" bgcolor="#000" 
+        style="width: 100%; border-spacing: 0; border-collapse: collapse; border: 2px solid #000000; mso-table-lspace: 0; mso-table-rspace: 0; background-size: 9%; margin: 0 auto; vertical-align: top;"
+        width="100%"
         valign="top">
         <tbody style="width: 100%;">
             <tr>
@@ -83,11 +83,11 @@ function formatHTMLMessage(code: number, target: string, utility: string, tryAga
                     <p style="margin: 0 0 0 0; width:100%">
                     </p>
                     <p role="heading"
-                        style="text-transform: initial; color: #FFFFFF; font-style: normal; line-height: 21px; max-width: 470px; font-family: 'Chakra Petch', sans-serif; font-size: 20px; text-align: center; font-weight: 500; margin: 10px 0 0 0;"
+                        style="text-transform: initial; font-style: normal; line-height: 21px; max-width: 470px; font-family: 'Chakra Petch', sans-serif; font-size: 20px; text-align: center; font-weight: 500; margin: 10px 0 0 0;"
                         class="title">
                         Welcome to DLab
                     </p>
-                    <p style="text-align: left; max-width: 470px; font-family: 'Chakra Petch', sans-serif; text-transform: capitalize; color: #FFFFFF; font-style: normal; font-weight: 400; font-size: 20px; line-height: 26px; margin: 68.5px 0 29px 0;"
+                    <p style="text-align: left; max-width: 470px; font-family: 'Chakra Petch', sans-serif; text-transform: capitalize; font-style: normal; font-weight: 400; font-size: 20px; line-height: 26px; margin: 68.5px 0 29px 0;"
                         class="subtitle">
                         Your ${target} Verification Code
                     </p>
@@ -98,31 +98,31 @@ function formatHTMLMessage(code: number, target: string, utility: string, tryAga
                         ${code}</p>
 
                     <p
-                        style="font-family: 'Chakra Petch', sans-serif; text-transform: initial; color: #FFFFFF; font-style: normal; font-weight: 400; font-size: 16px; line-height: 21px; text-align: left; max-width: 470px; padding: 0 8px; margin: 50px 0 0 0;">
+                        style="font-family: 'Chakra Petch', sans-serif; text-transform: initial; font-style: normal; font-weight: 400; font-size: 16px; line-height: 21px; text-align: left; max-width: 470px; padding: 0 8px; margin: 50px 0 0 0;">
                         Hi there,</p>
                     <p
-                        style="margin: 20px 0 0 0; font-family: 'Chakra Petch', sans-serif; text-transform: initial; color: #FFFFFF; font-style: normal; font-weight: 400; font-size: 16px; line-height: 21px; text-align: left; max-width: 470px;">
+                        style="margin: 20px 0 0 0; font-family: 'Chakra Petch', sans-serif; text-transform: initial; font-style: normal; font-weight: 400; font-size: 16px; line-height: 21px; text-align: left; max-width: 470px;">
                         ${utility}
                     </p>
 
                     <p
-                        style="margin: 20px 0 0 0; font-family: 'Chakra Petch', sans-serif; text-transform: initial; color: #FFFFFF; font-style: normal; font-weight: 400; font-size: 16px; line-height: 21px; text-align: left; max-width: 470px;">
+                        style="margin: 20px 0 0 0; font-family: 'Chakra Petch', sans-serif; text-transform: initial; font-style: normal; font-weight: 400; font-size: 16px; line-height: 21px; text-align: left; max-width: 470px;">
                         Please use the code soon! Your verification code will expire in '10 minutes'.
                     </p>
                     <p
-                        style="margin: 20px 0 0 0; font-family: 'Chakra Petch', sans-serif; text-transform: initial; color: #FFFFFF; font-style: normal; font-weight: 400; font-size: 16px; line-height: 21px; text-align: left; max-width: 470px;">
+                        style="margin: 20px 0 0 0; font-family: 'Chakra Petch', sans-serif; text-transform: initial; font-style: normal; font-weight: 400; font-size: 16px; line-height: 21px; text-align: left; max-width: 470px;">
                         Thank you, <br style="height: 21px; width: 100%; margin: 10px 0;">
                     </p>
                     <p
-                        style="margin: 20px 0 0 0; font-family: 'Chakra Petch', sans-serif; text-transform: initial; color: #FFFFFF; font-style: normal; font-weight: 400; font-size: 16px; line-height: 21px; text-align: left; max-width: 470px;">
+                        style="margin: 20px 0 0 0; font-family: 'Chakra Petch', sans-serif; text-transform: initial; font-style: normal; font-weight: 400; font-size: 16px; line-height: 21px; text-align: left; max-width: 470px;">
                         If your code expired. Please ${tryAgain} to get a new code.</p>
                     <p
-                        style="margin: 20px 0 0 0; font-family: 'Chakra Petch', sans-serif; text-transform: initial; color: #FFFFFF; font-style: normal; font-weight: 400; font-size: 16px; line-height: 21px; text-align: left; max-width: 470px;">
+                        style="margin: 20px 0 0 0; font-family: 'Chakra Petch', sans-serif; text-transform: initial; font-style: normal; font-weight: 400; font-size: 16px; line-height: 21px; text-align: left; max-width: 470px;">
                         Did not request this code? Then there is no further action you need to take. ${noChanges}
                     </p>
 
                     <small class="copyright"
-                        style="font-family: 'Chakra Petch', sans-serif; font-style: normal; font-weight: 400; font-size: 12px; line-height: 16px; color: #FFFFFF; opacity: 0.6;">
+                        style="font-family: 'Chakra Petch', sans-serif; font-style: normal; font-weight: 400; font-size: 12px; line-height: 16px; opacity: 0.6;">
                         © 2022 DLab. All rights reserved.
                     </small>
                 </td>
