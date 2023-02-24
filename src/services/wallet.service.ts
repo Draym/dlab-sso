@@ -9,8 +9,8 @@ import {eq, Filter, isNotNull, nowUTC, throwIfNot, throwIfNotNull, throwIfNull} 
 export default class WalletService {
     private wallets = db.Wallet
 
-    public async all(): Promise<WalletModel[]> {
-        return await this.wallets.findAll()
+    public async all(filter: Filter): Promise<WalletModel[]> {
+        return await this.wallets.findAll(filter.get())
     }
 
     async find(id: number): Promise<WalletModel | null> {
@@ -24,7 +24,7 @@ export default class WalletService {
 
     public async getBy(filter: Filter): Promise<WalletModel> {
         const wallet = await this.findBy(filter)
-        throwIfNull(wallet, Errors.NOT_FOUND_DiscordValidator(filter.stringify()))
+        throwIfNull(wallet, Errors.NOT_FOUND_Wallet(filter.stringify()))
         return wallet!
     }
 

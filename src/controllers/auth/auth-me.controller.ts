@@ -10,7 +10,7 @@ export default class AuthMeController implements AuthMeApi {
         const caller = req.caller
         const user = await userService.get(caller.id)
         const role = await userRolesService.getUserRole(caller.id)
-        const primaryEthWallet = await walletService.findBy(eq({userId: user.id, type: WalletType.ETH}))
+        const wallets = await walletService.all(eq({userId: user.id, type: WalletType.ETH}))
         return {
             id: user.id,
             uuid: user.uuid,
@@ -19,9 +19,10 @@ export default class AuthMeController implements AuthMeApi {
                 role: role,
                 isStaff: StaffRoles.includes(role)
             },
-            wallets: {
-                ethWallet: primaryEthWallet?.address
-            },
+            wallets: wallets.map(it => ({
+                address: it.address,
+                type: it.type
+            })),
             createdAt: user.createdAt,
             updatedAt: user.updatedAt
         }
