@@ -26,7 +26,7 @@ jobs:
 
   deploy:
     name: cd-prod
-    needs: ci-prod
+    needs: build
     environment: secrets
     runs-on: ubuntu-latest
 
