@@ -1,4 +1,4 @@
-name: Production CD
+name: Production CI & CD
 
 on:
   push:
@@ -8,16 +8,28 @@ jobs:
   build:
     name: cd-prod
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: npm run test
       - name: Deploy using ssh
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USERNAME }}
-          key: ${{ secrets.PRIVATE_KEY }}
-          port: ${{ secrets.VPS_PORT }}
+          host: ${{secrets.VPS_HOST}}
+          username: ${{secrets.VPS_USERNAME}}
+          key: ${{secrets.PRIVATE_KEY}}
+          port: ${{secrets.VPS_PORT}}
           script: |
             cd ~/home/dlab/apps/dlab-sso
             git pull origin master
