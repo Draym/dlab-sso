@@ -29,6 +29,7 @@ jobs:
           host: ${{secrets.VPS_HOST}}
           username: ${{secrets.VPS_USERNAME}}
           key: ${{secrets.PRIVATE_KEY}}
+          passphrase: ${{secrets.PRIVATE_PASSPHRASE}}
           port: ${{secrets.VPS_PORT}}
           script: |
             cd ~/home/dlab/apps/dlab-sso
