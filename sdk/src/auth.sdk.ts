@@ -14,9 +14,9 @@ export default class AuthSdk extends Sdk {
         this.setSession = setSession
     }
 
-    me(): Promise<AuthMeResponse> {
+    me(jwt?: string): Promise<AuthMeResponse> {
         return new Promise((resolve, reject) => {
-            Http.get(this.domain, Endpoint.ME, Auth.token(this.getSession().jwt), {}, (data: AuthMeResponse) => {
+            Http.get(this.domain, Endpoint.ME, Auth.token(jwt || this.getSession().jwt), {}, (data: AuthMeResponse) => {
                 resolve(data)
             }, (error) => {
                 reject(error)
