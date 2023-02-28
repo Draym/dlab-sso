@@ -29,7 +29,6 @@ const Errors = {
     REJECTED_VerificationCode: (email: string, target: VerificationCodeTarget) => new HttpException(ErrorCode.REJECTED_VerificationCode, `Verification code used for another purpose. Please use the code sent to ${email} for ${target}.`),
     REQUIRE_Token: () => new HttpException(ErrorCode.REQUIRE_Token, `Authentication token missing.`),
     REQUIRE_Role: (role: string) => new HttpException(ErrorCode.REQUIRE_Role, `User has not the required[${role}] role.`),
-    REQUIRE_Whitelist: () => new HttpException(ErrorCode.REQUIRE_Whitelist, `User is not whitelisted.`),
     REQUIRE_Access: () => new HttpException(ErrorCode.REQUIRE_Access, `User has been suspended.`),
     REQUIRE_DiscordEmail: () => new HttpException(ErrorCode.REQUIRE_DiscordEmail, `Discord email scope authentication is require to create a new account.`),
     REQUIRE_Ownership: (reason: string) => new HttpException(ErrorCode.REQUIRE_Ownership, reason),
