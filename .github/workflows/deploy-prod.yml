@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    name: cd-prod
+    name: ci-prod
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -23,7 +23,14 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run test
-      - name: Deploy using ssh
+
+  deploy:
+    name: cd-prod
+    environment: secrets
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to VPS
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.VPS_HOST }}
