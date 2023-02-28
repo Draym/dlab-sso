@@ -1,6 +1,8 @@
 import AuthSdk from "./src/auth.sdk"
 import ApplicationSdk from "./src/application.sdk"
 import UserSdk from "./src/user.sdk"
+import {Role} from "@/enums/index"
+import Errors from "./src/utils/Errors"
 
 export type SetSessionCB = (jwt: string, refreshToken: string) => void
 export type GetSessionCB = () => Session
@@ -42,7 +44,9 @@ class Client {
 }
 
 export {
-    Client
+    Client,
+    Role,
+    Errors
 }
 
 export * from "../src/api/dtos/admin"
