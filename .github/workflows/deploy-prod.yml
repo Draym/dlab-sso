@@ -41,7 +41,7 @@ jobs:
           port: ${{ secrets.VPS_PORT }}
           script: |
             cd /home/dlab/apps/dlab-sso
-            git pull origin master
+            git pull origin main
             npm ci
             echo "" > .env
             echo "PORT=${{ secrets.APP_PORT }}" >> .env
@@ -55,8 +55,8 @@ jobs:
             echo "MAIL_FROM=${{ secrets.APP_MAIL_FROM }}" >> .env
             echo "MAIL_FROM_NAME=${{ secrets.APP_MAIL_FROM_NAME }}" >> .env
             echo "COOKIE_KEY=${{ secrets.APP_COOKIE_KEY }}" >> .env
-            echo "COOKIE_DOMAIN=${{ secrets.COOKIE_DOMAIN }}" >> .env
-            echo "JWT_SECRET=${{ secrets.APP_SECRET }}" >> .env
+            echo "COOKIE_DOMAIN=${{ secrets.APP_COOKIE_DOMAIN }}" >> .env
+            echo "JWT_SECRET=${{ secrets.APP_JWT_SECRET }}" >> .env
             echo "JWT_REFRESH_SECRET=${{ secrets.APP_JWT_REFRESH_SECRET }}" >> .env
             echo "AXE_SHOW_META=false" >> .env
-            pm2 run npm --name "dlab-sso" -- run start
+            pm2 run npm --name "dlab-sso" -- start
