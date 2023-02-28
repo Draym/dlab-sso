@@ -1,0 +1,25 @@
+name: Production CD
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    name: cd-prod
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Deploy using ssh
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.PRIVATE_KEY }}
+          port: ${{ secrets.VPS_PORT }}
+          script: |
+            cd ~/home/dlab/apps/dlab-sso
+            git pull origin master
+            npm ci
+            echo "PORT=${{secrets.APP_PORT}}\nLOCALHOST=false\nMYSQL_HOST=${{secrets.MYSQL_HOST}}\nMYSQL_DB_NAME=${{secrets.MYSQL_DB_NAME}}\nMYSQL_USER=${secrets.MYSQL_USER}\nMYSQL_PASSWORD=${{secrets.MYSQL_PASSWORD}}\nMYSQL_PORT=${{secrets.MYSQL_PORT}}\nMAIL_KEY=${{secrets.APP_MAIL_KEY}}\nMAIL_FROM=${{secrets.APP_MAIL_FROM}}\nMAIL_FROM_NAME=${{secrets.APP_MAIL_FROM_NAME}}\nCOOKIE_KEY=${{secrets.APP_COOKIE_KEY}}\nCOOKIE_DOMAIN=${{secrets.COOKIE_DOMAIN}}\nJWT_SECRET=${{secrets.APP_SECRET}}\nJWT_REFRESH_SECRET=${{secrets.APP_JWT_REFRESH_SECRET}}\nAXE_SHOW_META=false" > .env
