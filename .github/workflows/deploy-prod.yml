@@ -25,12 +25,13 @@ jobs:
       - run: npm run test
       - name: Deploy using ssh
         uses: appleboy/ssh-action@master
+        env:
+          HOST: ${{secrets.VPS_HOST}}
+          USERNAME: ${{secrets.VPS_USERNAME}}
+          KEY: ${{secrets.PRIVATE_KEY}}
+          PASSPHRASE: ${{secrets.PRIVATE_PASSPHRASE}}
+          PORT: ${{secrets.VPS_PORT}}
         with:
-          host: ${{secrets.VPS_HOST}}
-          username: ${{secrets.VPS_USERNAME}}
-          key: ${{secrets.PRIVATE_KEY}}
-          passphrase: ${{secrets.PRIVATE_PASSPHRASE}}
-          port: ${{secrets.VPS_PORT}}
           script: |
             cd ~/home/dlab/apps/dlab-sso
             git pull origin master
