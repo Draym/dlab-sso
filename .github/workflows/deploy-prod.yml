@@ -43,5 +43,20 @@ jobs:
             cd /home/dlab/apps/dlab-sso
             git pull origin master
             npm ci
-            echo "PORT=${{ secrets.APP_PORT }}\nLOCALHOST=false\nMYSQL_HOST=${{ secrets.MYSQL_HOST }}\nMYSQL_DB_NAME=${{ secrets.MYSQL_DB_NAME }}\nMYSQL_USER=${{ secrets.MYSQL_USER }}\nMYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }}\nMYSQL_PORT=${{ secrets.MYSQL_PORT }}\nMAIL_KEY=${{ secrets.APP_MAIL_KEY }}\nMAIL_FROM=${{ secrets.APP_MAIL_FROM }}\nMAIL_FROM_NAME=${{ secrets.APP_MAIL_FROM_NAME }}\nCOOKIE_KEY=${{ secrets.APP_COOKIE_KEY }}\nCOOKIE_DOMAIN=${{ secrets.COOKIE_DOMAIN }}\nJWT_SECRET=${{ secrets.APP_SECRET }}\nJWT_REFRESH_SECRET=${{ secrets.APP_JWT_REFRESH_SECRET }}\nAXE_SHOW_META=false" > .env
+            echo "" > .env
+            echo "PORT=${{ secrets.APP_PORT }}" >> .env
+            echo "LOCALHOST=false" >> .env
+            echo "MYSQL_HOST=${{ secrets.MYSQL_HOST }}" >> .env
+            echo "MYSQL_DB_NAME=${{ secrets.MYSQL_DB_NAME }}" >> .env
+            echo "MYSQL_USER=${{ secrets.MYSQL_USER }}" >> .env
+            echo "MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }}" >> .env
+            echo "MYSQL_PORT=${{ secrets.MYSQL_PORT }}" >> .env
+            echo "MAIL_KEY=${{ secrets.APP_MAIL_KEY }}" >> .env
+            echo "MAIL_FROM=${{ secrets.APP_MAIL_FROM }}" >> .env
+            echo "MAIL_FROM_NAME=${{ secrets.APP_MAIL_FROM_NAME }}" >> .env
+            echo "COOKIE_KEY=${{ secrets.APP_COOKIE_KEY }}" >> .env
+            echo "COOKIE_DOMAIN=${{ secrets.COOKIE_DOMAIN }}" >> .env
+            echo "JWT_SECRET=${{ secrets.APP_SECRET }}" >> .env
+            echo "JWT_REFRESH_SECRET=${{ secrets.APP_JWT_REFRESH_SECRET }}" >> .env
+            echo "AXE_SHOW_META=false" >> .env
             pm2 run npm --name "dlab-sso" -- run start
