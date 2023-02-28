@@ -59,4 +59,4 @@ jobs:
             echo "JWT_SECRET=${{ secrets.APP_JWT_SECRET }}" >> .env
             echo "JWT_REFRESH_SECRET=${{ secrets.APP_JWT_REFRESH_SECRET }}" >> .env
             echo "AXE_SHOW_META=false" >> .env
-            pm2 run npm --name "dlab-sso" -- start
+            pm2 start npm --name "dlab-sso" -- start
