@@ -1,9 +1,9 @@
 import Sdk from "./sdk"
 import {Auth, Http} from "@d-lab/api-kit"
-import {LoginRequest, RegisterRequest} from "@/dtos/auth/default"
-import {AuthMeResponse, TokenResponse} from "@/dtos/auth"
-import {EmailSendCodeRequest, EmailVerifyCodeRequest, EmailVerifyCodeResponse} from "@/dtos/email"
-import Endpoint from "@/enums/endpoint.enum"
+import {LoginRequest, RegisterRequest} from "./api/dtos/auth/default"
+import {AuthMeResponse, TokenResponse} from "./api/dtos/auth"
+import {EmailSendCodeRequest, EmailVerifyCodeRequest, EmailVerifyCodeResponse} from "./api/dtos/email"
+import Endpoint from "./enums/endpoint.enum"
 import {GetSessionCB, SetSessionCB} from "../index"
 
 export default class AuthSdk extends Sdk {

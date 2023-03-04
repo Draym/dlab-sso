@@ -1,8 +1,7 @@
 import AuthSdk from "./src/auth.sdk"
 import ApplicationSdk from "./src/application.sdk"
 import UserSdk from "./src/user.sdk"
-import {Role} from "@/enums/index"
-import Errors from "./src/utils/Errors"
+import Errors from "./src/utils/errors/Errors"
 
 export type SetSessionCB = (jwt: string, refreshToken: string) => void
 export type GetSessionCB = () => Session
@@ -45,25 +44,11 @@ class Client {
 
 export {
     Client,
-    Role,
     Errors
 }
 
-export * from "../src/enums/role.enum"
-export * from "../src/api/dtos/admin"
-export * from "../src/api/dtos/applications"
-export * from "../src/api/dtos/applications/user"
-export * from "../src/api/dtos/auth"
-export * from "../src/api/dtos/auth/default"
-export * from "../src/api/dtos/auth/oauth/discord"
-export * from "../src/api/dtos/auth/wallet/eth"
-export * from "../src/api/dtos/discord"
-export * from "../src/api/dtos/email"
-export * from "../src/api/dtos/game-access/pbe"
-export * from "../src/api/dtos/game-access/planning"
-export * from "../src/api/dtos/game-access/planning/assistant"
-export * from "../src/api/dtos/game-access/planning/session"
-export * from "../src/api/dtos/log"
-export * from "../src/api/dtos/newsletter"
-export * from "../src/api/dtos/user"
-export * from "../src/api/dtos/wallet/history"
+export * from "./src/enums"
+export * from "./src/api/dtos/applications/user"
+export * from "./src/api/dtos/auth"
+export * from "./src/api/dtos/auth/default"
+export * from "./src/api/dtos/email"

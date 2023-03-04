@@ -1,6 +1,6 @@
 {
   "name": "@d-lab/sso",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "description": "Client library for DLab SSO apis",
   "private": false,
   "keywords": [
@@ -14,8 +14,8 @@
   },
   "homepage": "https://github.com/Draym/dlab-sso#readme",
   "license": "MIT",
-  "main": "dist/sdk/index.js",
-  "types": "dist/sdk/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "repository": "https://github.com/Draym/dlab-sso/tree/main",
   "sideEffects": false,
   "files": [

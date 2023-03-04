@@ -22,19 +22,9 @@
     "resolveJsonModule": true,
     "importHelpers": true,
     "skipLibCheck": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/dtos/*": [
-        "../src/api/dtos/*"
-      ],
-      "@/enums/*": [
-        "../src/enums/*"
-      ]
-    }
+    "baseUrl": "."
   },
   "include": [
-    "../src/api/dtos/**/*.ts",
-    "../src/enums/*.ts",
     "./src/**/*.ts",
     "./index.ts"
   ],
