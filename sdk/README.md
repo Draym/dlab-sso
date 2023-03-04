@@ -21,7 +21,7 @@ import Client from '@d-lab/sso'
 // 1. specify your domain
 const domain = "https://sso.dlab.ovh"
 
-// 2. create the client and call init when the user wallet is connected
+// 2. create the client using domain
 const client = new Client(domain)
 
 // 3. login

@@ -49,6 +49,7 @@ export {
     Errors
 }
 
+export * from "../src/enums/role.enum"
 export * from "../src/api/dtos/admin"
 export * from "../src/api/dtos/applications"
 export * from "../src/api/dtos/applications/user"
@@ -64,6 +65,5 @@ export * from "../src/api/dtos/game-access/planning/assistant"
 export * from "../src/api/dtos/game-access/planning/session"
 export * from "../src/api/dtos/log"
 export * from "../src/api/dtos/newsletter"
-export * from "../src/api/dtos/log"
 export * from "../src/api/dtos/user"
 export * from "../src/api/dtos/wallet/history"
