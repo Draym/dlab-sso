@@ -20,7 +20,7 @@ export default class PbeAccessService {
     async isAuthorized(user: User | null): Promise<PbeAccess> {
         const now = nowUTC()
         const isStaff = isNotNull(user) && await userRolesService.hasAnyRole(user!.id, StaffRoles)
-        const isPBETester = isNotNull(user) && await userRolesService.hasRole(user!.id, Role.EATester)
+        const isPBETester = isNotNull(user) && await userRolesService.hasRole(user!.id, Role.PbeTester)
         const withinSession = await planningSessionService.withinSession(now, SessionType.EarlyAccess)
 
         return PbeAccessService.isAuthorized(isStaff, isPBETester, withinSession)
