@@ -7,16 +7,16 @@ import Endpoint from "./enums/endpoint.enum"
 import {GetSessionCB, SetSessionCB} from "../index"
 
 export default class AuthSdk extends Sdk {
-    private readonly setSession: SetSessionCB
+    private readonly setSession?: SetSessionCB
 
-    constructor(domain: string, getSession: GetSessionCB, setSession: SetSessionCB) {
+    constructor(domain: string, getSession?: GetSessionCB, setSession?: SetSessionCB) {
         super(domain, getSession)
         this.setSession = setSession
     }
 
     me(jwt?: string): Promise<AuthMeResponse> {
         return new Promise((resolve, reject) => {
-            Http.get(this.domain, Endpoint.ME, Auth.token(jwt || this.getSession().jwt), {}, (data: AuthMeResponse) => {
+            Http.get(this.domain, Endpoint.ME, Auth.token(jwt || this.getSession?.()?.jwt), {}, (data: AuthMeResponse) => {
                 resolve(data)
             }, (error) => {
                 reject(error)
@@ -27,7 +27,7 @@ export default class AuthSdk extends Sdk {
     login(body: LoginRequest): Promise<TokenResponse> {
         return new Promise((resolve, reject) => {
             Http.post(this.domain, Endpoint.LOGIN, null, {body}, (data: TokenResponse) => {
-                this.setSession(data.token, data.refreshToken)
+                this.setSession?.(data.token, data.refreshToken)
                 resolve(data)
             }, (error) => {
                 reject(error)
@@ -37,7 +37,7 @@ export default class AuthSdk extends Sdk {
 
     logout(): Promise<void> {
         return new Promise((resolve, reject) => {
-            Http.post(this.domain, Endpoint.LOGOUT, Auth.token(this.getSession().jwt), {}, (data: void) => {
+            Http.post(this.domain, Endpoint.LOGOUT, Auth.token(this.getSession?.()?.jwt), {}, (data: void) => {
                 this.setSession(null, null)
                 resolve(data)
             }, (error) => {
@@ -49,7 +49,7 @@ export default class AuthSdk extends Sdk {
     register(body: RegisterRequest): Promise<TokenResponse> {
         return new Promise((resolve, reject) => {
             Http.post(this.domain, Endpoint.REGISTER, null, {body}, (data: TokenResponse) => {
-                this.setSession(data.token, data.refreshToken)
+                this.setSession?.(data.token, data.refreshToken)
                 resolve(data)
             }, (error) => {
                 reject(error)

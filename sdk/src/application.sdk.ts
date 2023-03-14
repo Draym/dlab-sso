@@ -15,7 +15,7 @@ export default class ApplicationSdk extends Sdk {
     isUserAllowed(query: AppUserIsAllowedRequest, auth?: Auth): Promise<AppUserIsAllowedResponse> {
         return new Promise((resolve, reject) => {
             Http.get(this.domain, Endpoint.APPLICATION_USER_IsAllowed,
-                Auth.full(auth?.token || this.getSession().jwt, auth?.apiKey || this.apiKey),
+                Auth.full(auth?.token || this.getSession?.()?.jwt, auth?.apiKey || this.apiKey),
                 {query: {...query}},
                 (data: AppUserIsAllowedResponse) => {
                     resolve(data)

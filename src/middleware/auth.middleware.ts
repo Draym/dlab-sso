@@ -103,7 +103,6 @@ export const authMiddleware = (scope: ApiScope | null = null): RequestHandler =>
             }
             next()
         } catch (error) {
-            logger.error(error)
             next(error)
         }
     }

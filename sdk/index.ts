@@ -15,30 +15,12 @@ class Client {
     public auth: AuthSdk
     public user: UserSdk
     public application: ApplicationSdk
-    public jwt?: string
-    public refreshToken: string
 
-    constructor(domain: string, apiKey?: string, jwt?: string, refreshToken?: string) {
+    constructor(domain: string, apiKey?: string, getSession?: GetSessionCB, setSession?: SetSessionCB) {
         this.domain = domain
-        this.jwt = jwt
-        this.refreshToken = refreshToken
-        this.setSession = this.setSession.bind(this)
-        this.getSession = this.getSession.bind(this)
-        this.auth = new AuthSdk(domain, this.getSession, this.setSession)
-        this.user = new UserSdk(domain,this.getSession)
-        this.application = new ApplicationSdk(domain, this.getSession, apiKey)
-    }
-
-    setSession(jwt: string | null, refreshToken: string | null): void {
-        this.jwt = jwt
-        this.refreshToken = refreshToken
-    }
-
-    getSession(): Session {
-        return {
-            jwt: this.jwt,
-            refreshToken: this.refreshToken
-        }
+        this.auth = new AuthSdk(domain, getSession, setSession)
+        this.user = new UserSdk(domain, getSession)
+        this.application = new ApplicationSdk(domain, getSession, apiKey)
     }
 }
 

@@ -20,7 +20,6 @@ const hasRole = (required: Role, strict = false): RequestHandler => {
                 throw Errors.REQUIRE_Role(required)
             }
         } catch (error) {
-            logger.error(error)
             next(error)
         }
     }
