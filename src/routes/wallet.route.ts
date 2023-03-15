@@ -1,11 +1,11 @@
 import {Router} from "express"
-import {ApiAccessType, ApiModule, Endpoint, Role} from "../enums"
+import {ApiModule, Endpoint, Role} from "../enums"
 import authMiddleware from "../middleware/auth.middleware"
 import hasRole from "../middleware/has-role.middleware"
 import WalletController from "../controllers/wallet/wallet.controller"
 import {validateQueryRequest} from "../middleware/validate-request.middleware"
 import {FindWalletOwnerRequest, FindWalletRequest} from "../api/dtos/wallet/history"
-import {ApiScopeImpl, handle} from "@d-lab/api-kit"
+import {ApiAccessType, ApiScopeImpl, handle} from "@d-lab/api-kit"
 
 const router = Router()
 const ctrl = new WalletController()

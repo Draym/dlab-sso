@@ -2,7 +2,7 @@ import {Router} from "express"
 import UserRolesController from "../controllers/user/user-roles.controller"
 import authMiddleware from "../middleware/auth.middleware"
 import {validateRequest} from "../middleware/validate-request.middleware"
-import {ApiAccessType, ApiModule, Endpoint, Role} from "../enums"
+import {ApiModule, Endpoint, Role} from "../enums"
 import hasRole from "../middleware/has-role.middleware"
 import {
     UserRoleBatchDeleteRequest,
@@ -11,7 +11,7 @@ import {
     UserRoleUpdateRequest,
     UserRoleAllRequest
 } from "../api/dtos/user"
-import {ApiScopeImpl, handle} from "@d-lab/api-kit"
+import {ApiAccessType, ApiScopeImpl, handle} from "@d-lab/api-kit"
 
 const router = Router()
 const ctrl = new UserRolesController()

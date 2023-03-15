@@ -1,10 +1,10 @@
 import {Router} from "express"
-import {ApiAccessType, ApiModule, Endpoint} from "../enums"
+import {ApiModule, Endpoint} from "../enums"
 import authMiddleware from "../middleware/auth.middleware"
 import hasRole from "../middleware/has-role.middleware"
 import NewsletterController from "../controllers/newsletter/newsletter.controller"
 import Role from "../enums/role.enum"
-import {ApiScopeImpl, handle} from "@d-lab/api-kit"
+import {ApiAccessType, ApiScopeImpl, handle} from "@d-lab/api-kit"
 
 const router = Router()
 const ctrl = new NewsletterController()

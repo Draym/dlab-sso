@@ -70,7 +70,14 @@ export default class ApplicationController implements ApplicationApi {
         const app = await applicationService.get(apiKey!.appId)
         const users = await applicationUserService.getUsers(app.id)
         return {
-            ...app,
+            id: app.id,
+            ownerId: app.ownerId,
+            name: app.name,
+            description: app.description,
+            type: app.type,
+            accessType: app.accessType,
+            createdAt: app.createdAt,
+            updatedAt: app.updatedAt,
             users: users
         }
     }

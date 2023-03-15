@@ -6,7 +6,6 @@ import {
     EthAccountBindRequest, EthAccountUnbindRequest,
     EthChallengeRequest, EthIsBoundRequest
 } from "../api/dtos/auth/wallet/eth"
-import {EmailSendCodeRequest, EmailVerifyCodeRequest} from "../api/dtos/email"
 import authMiddleware from "../middleware/auth.middleware"
 import {handle} from "@d-lab/api-kit"
 

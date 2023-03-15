@@ -1,11 +1,11 @@
 import {Router} from "express"
 import {PlanningAssistantController} from "../controllers/game-access/planning"
-import {ApiAccessType, ApiModule, Endpoint, Role} from "../enums"
+import {ApiModule, Endpoint, Role} from "../enums"
 import {validateRequest} from "../middleware/validate-request.middleware"
 import {AssistantCreateSessionRequest, AssistantDeleteSessionRequest} from "../api/dtos/game-access/planning/assistant"
 import authMiddleware from "../middleware/auth.middleware"
 import hasRole from "../middleware/has-role.middleware"
-import {ApiScopeImpl, handle} from "@d-lab/api-kit"
+import {ApiAccessType, ApiScopeImpl, handle} from "@d-lab/api-kit"
 
 const router = Router()
 const ctrl = new PlanningAssistantController()

@@ -1,6 +1,6 @@
 import {Router} from "express"
 import {PlanningSessionController} from "../controllers/game-access/planning"
-import {ApiAccessType, ApiModule, Endpoint, Role} from "../enums"
+import {ApiModule, Endpoint, Role} from "../enums"
 import {validateRequest, validateQueryRequest} from "../middleware/validate-request.middleware"
 import {
     SessionAllRequest,
@@ -12,7 +12,7 @@ import {
 } from "../api/dtos/game-access/planning/session"
 import authMiddleware from "../middleware/auth.middleware"
 import hasRole from "../middleware/has-role.middleware"
-import {ApiScopeImpl, handle, validatePathRequest} from "@d-lab/api-kit"
+import {ApiAccessType, ApiScopeImpl, handle, validatePathRequest} from "@d-lab/api-kit"
 
 const router = Router()
 const ctrl = new PlanningSessionController()

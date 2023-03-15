@@ -1,5 +1,6 @@
-import {ApiAccessRequire, ApiAccessType, ApiModule} from "../../../enums"
+import {ApiModule} from "../../../enums"
 import {ArrayUnique, IsArray, IsEnum, IsString} from "class-validator"
+import {ApiAccessRequire, ApiAccessType} from "@d-lab/api-kit"
 
 export default class ApplicationCreateRequest {
     @IsString()

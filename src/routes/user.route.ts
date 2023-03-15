@@ -2,11 +2,11 @@ import {Router} from "express"
 import UserController from "../controllers/user/user.controller"
 import {validateQueryRequest} from "../middleware/validate-request.middleware"
 import authMiddleware from "../middleware/auth.middleware"
-import {ApiAccessType, ApiModule, Endpoint} from "../enums"
+import {ApiModule, Endpoint} from "../enums"
 import hasRole from "../middleware/has-role.middleware"
 import {UserAllRequest, UserFindRequest} from "../api/dtos/user"
 import Role from "../enums/role.enum"
-import {ApiScopeImpl, handle} from "@d-lab/api-kit"
+import {ApiAccessType, ApiScopeImpl, handle} from "@d-lab/api-kit"
 
 const router = Router()
 const ctrl = new UserController()

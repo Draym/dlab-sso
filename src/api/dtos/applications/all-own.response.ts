@@ -1,4 +1,5 @@
-import {ApiAccessRequire, ApiAccessType, ApiModule} from "../../../enums"
+import {ApiModule} from "../../../enums"
+import {ApiAccessRequire, ApiAccessType} from "@d-lab/api-kit"
 
 export interface ApplicationResponse {
     id: number,

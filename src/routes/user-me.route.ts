@@ -6,9 +6,9 @@ import {
     MePasswordUpdateRequest,
     MeEmailUpdateRequest
 } from "../api/dtos/user"
-import {ApiAccessType, ApiModule, Endpoint} from "../enums"
+import {ApiModule, Endpoint} from "../enums"
 import {EmailVerifyCodeRequest, EmailSendCodeRequest} from "../api/dtos/email"
-import {ApiScopeImpl, handle} from "@d-lab/api-kit"
+import {ApiAccessType, ApiScopeImpl, handle} from "@d-lab/api-kit"
 
 const router = Router()
 const ctrl = new UserMeController()
