@@ -1,7 +1,6 @@
 import AuthSdk from "./src/auth.sdk"
 import ApplicationSdk from "./src/application.sdk"
 import UserSdk from "./src/user.sdk"
-import Errors from "./src/utils/errors/Errors"
 
 export type SetSessionCB = (jwt: string, refreshToken: string) => void
 export type GetSessionCB = () => Session
@@ -25,8 +24,7 @@ class Client {
 }
 
 export {
-    Client,
-    Errors
+    Client
 }
 
 export * from "./src/enums"

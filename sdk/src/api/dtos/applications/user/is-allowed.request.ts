@@ -1,13 +1,7 @@
-import {IsBooleanString, IsEnum, IsNumberString} from "class-validator"
-import {SkipNull} from "@d-lab/api-kit"
 import {Role} from "../../../../enums"
 
-export default class AppUserIsAllowedRequest {
-    @IsNumberString()
-    @SkipNull()
+export default interface AppUserIsAllowedRequest {
     userId?: string
-    @IsBooleanString()
-    public strict: string
-    @IsEnum(Role)
-    public requiredRole: Role
+    strict: string
+    requiredRole: Role
 }

@@ -1,6 +1,6 @@
 {
   "name": "@d-lab/sso",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "Client library for DLab SSO apis",
   "private": false,
   "keywords": [
@@ -28,10 +28,7 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@d-lab/api-kit": "^0.5.0",
-    "class-transformer": "^0.5.1",
-    "class-validator": "^0.13.2",
-    "reflect-metadata": "^0.1.13",
+    "@d-lab/common-kit": "^0.7.0",
     "tslib": "^2.4.0"
   }
 }

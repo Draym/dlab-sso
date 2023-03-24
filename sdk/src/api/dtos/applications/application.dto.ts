@@ -1,5 +1,5 @@
 import AppUserDto from "./user/app-user.dto"
-import {ApiAccessRequire, ApiAccessType} from "@d-lab/api-kit"
+import {ApiAccessRequire, ApiAccessType} from "../../../enums"
 
 export default interface ApplicationDto {
     id: number,

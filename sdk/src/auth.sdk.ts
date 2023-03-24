@@ -1,5 +1,5 @@
 import Sdk from "./sdk"
-import {Auth, Http} from "@d-lab/api-kit"
+import {Auth, Http} from "@d-lab/common-kit"
 import {LoginRequest, RegisterRequest} from "./api/dtos/auth/default"
 import {AuthMeResponse, TokenResponse} from "./api/dtos/auth"
 import {EmailSendCodeRequest, EmailVerifyCodeRequest, EmailVerifyCodeResponse} from "./api/dtos/email"

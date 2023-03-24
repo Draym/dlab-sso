@@ -1,5 +1,5 @@
 import Sdk from "./sdk"
-import {Auth, Http} from "@d-lab/api-kit"
+import {Auth, Http} from "@d-lab/common-kit"
 import Endpoint from "./enums/endpoint.enum"
 import {AppUserIsAllowedRequest, AppUserIsAllowedResponse} from "./api/dtos/applications/user"
 import {GetSessionCB} from "../index"
