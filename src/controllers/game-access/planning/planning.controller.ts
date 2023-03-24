@@ -1,7 +1,8 @@
 import {PlanningGetRequest, PlanningGetResponse} from "../../../api/dtos/game-access/planning"
 import {planningSessionService} from "../../../services"
-import {Filter, QueryRequest, toOptDate} from "@d-lab/api-kit"
+import {Filter, QueryRequest} from "@d-lab/api-kit"
 import PlanningApi from "../../../api/planning.api"
+import {toOptDate} from "@d-lab/common-kit"
 
 export default class PlanningController implements PlanningApi {
     async get(req: QueryRequest<PlanningGetRequest>): Promise<PlanningGetResponse> {

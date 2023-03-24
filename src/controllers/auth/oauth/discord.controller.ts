@@ -9,12 +9,13 @@ import {
 } from "../../../services"
 import {nanoid} from "nanoid"
 import Errors from "../../../utils/errors/Errors"
-import {BodyRequest, eq, isNotNull, QueryRequest} from "@d-lab/api-kit"
+import {BodyRequest, eq, QueryRequest} from "@d-lab/api-kit"
 import AuthResponse from "../../../utils/reponse/auth.response"
 import {TokenResponse} from "../../../api/dtos/auth"
 import {Response} from "express"
 import {User} from "../../../interfaces"
 import OAuthDiscordApi from "../../../api/auth-discord.api"
+import {isNotNull} from "@d-lab/common-kit"
 
 export default class OAuthDiscordController implements OAuthDiscordApi {
     async getAuthorizeURL(req: QueryRequest<DiscordGetAuthorizeUrlRequest>): Promise<DiscordGetAuthorizeResponse> {

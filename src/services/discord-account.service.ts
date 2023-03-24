@@ -2,7 +2,8 @@ import {DiscordAccountModel} from "../models"
 import db from "../db/database"
 import Errors from "../utils/errors/Errors"
 import {DiscordAccount} from "../interfaces"
-import {eq, Filter, isNotNull, throwIfNull} from "@d-lab/api-kit"
+import {eq, Filter} from "@d-lab/api-kit"
+import {isNotNull, throwIfNull} from "@d-lab/common-kit"
 
 export default class DiscordAccountService {
 

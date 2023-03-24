@@ -2,7 +2,7 @@ import db from "../db/database"
 import {WalletHistoryModel} from "../models"
 import {WalletType} from "../enums"
 import {Op} from "sequelize"
-import {isNotNull, toUTCDate} from "@d-lab/api-kit"
+import {isNotNull, toUTCDate} from "@d-lab/common-kit"
 
 export default class WalletHistoryService {
 

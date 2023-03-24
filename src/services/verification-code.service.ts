@@ -3,7 +3,7 @@ import Email from "../utils/email/Email"
 import {VerificationCodeModel} from "../models"
 import {VerificationCodeTarget} from "../enums";
 import Errors from "../utils/errors/Errors";
-import {isNotNull, nowUTC, throwIfNull} from "@d-lab/api-kit"
+import {isNotNull, nowUTC, throwIfNull} from "@d-lab/common-kit"
 
 const EMAIL_VERIFICATION_CODE_TIMEOUT = 10 * 60 * 1000 // 10 minutes
 const EMAIL_VERIFICATION_CODE_RESTRICTION = 60 * 1000 // 1 minute

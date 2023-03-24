@@ -1,8 +1,7 @@
 import 'dotenv/config'
 import {connectionParams, sequelize} from "./db/database"
 import {logger} from "@d-lab/api-kit"
-
-const app = require("./app");
+import app from "./app"
 
 const PORT = process.env.PORT || 4000
 

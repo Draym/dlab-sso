@@ -1,8 +1,9 @@
 import {ApiModule} from "../enums"
 import {ApplicationScopeModel} from "../models"
 import Errors from "../utils/errors/Errors"
-import {eq, Filter, throwIfNull} from "@d-lab/api-kit"
+import {eq, Filter} from "@d-lab/api-kit"
 import db from "../db/database"
+import {throwIfNull} from "@d-lab/common-kit"
 
 export default class ApplicationScopeService {
 

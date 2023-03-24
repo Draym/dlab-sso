@@ -3,8 +3,9 @@ import {DiscordMeResponse} from "../../api/dtos/discord"
 import {DiscordAccountBindRequest} from "../../api/dtos/auth/oauth/discord"
 import DiscordClient from "../../clients/discord/discord.client"
 import Errors from "../../utils/errors/Errors"
-import {AuthBodyRequest, AuthRequest, eq, throwIfNull} from "@d-lab/api-kit"
+import {AuthBodyRequest, AuthRequest, eq} from "@d-lab/api-kit"
 import {DiscordApi} from "../../api/discord.api"
+import {throwIfNull} from "@d-lab/common-kit"
 
 export class DiscordController implements DiscordApi {
     async details(req: AuthRequest): Promise<DiscordMeResponse> {

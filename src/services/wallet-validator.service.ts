@@ -3,7 +3,8 @@ import {WalletValidatorModel} from "../models"
 import {nanoid} from "nanoid"
 import Errors from "../utils/errors/Errors"
 import EthSignature from "../utils/eth/EthSignature"
-import {eq, Filter, isNotNull, throwIfNull} from "@d-lab/api-kit"
+import {eq, Filter} from "@d-lab/api-kit"
+import {isNotNull, throwIfNull} from "@d-lab/common-kit"
 
 export default class WalletValidatorService {
     

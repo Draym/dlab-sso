@@ -9,12 +9,13 @@ import {EmailSendCodeRequest, EmailVerifyCodeRequest, EmailVerifyCodeResponse} f
 import {VerificationCodeTarget} from "../../../enums"
 import Email from "../../../utils/email/Email"
 import mailer from "../../../clients/mail.client"
-import {AuthRequest, BodyRequest, eq, isNotNull, QueryRequest, throwIfNot} from "@d-lab/api-kit"
+import {AuthRequest, BodyRequest, eq, QueryRequest} from "@d-lab/api-kit"
 import {LoginRequest, RegisterRequest} from "../../../api/dtos/auth/default"
 import {TokenResponse} from "../../../api/dtos/auth"
 import AuthResponse from "../../../utils/reponse/auth.response"
 import {Response} from "express"
 import AuthApi from "../../../api/auth.api"
+import {isNotNull, throwIfNot} from "@d-lab/common-kit"
 
 export default class AuthController implements AuthApi {
 

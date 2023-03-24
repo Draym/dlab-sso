@@ -8,8 +8,9 @@ import {
     EthIsBoundResponse
 } from "../../api/dtos/auth/wallet/eth"
 import {WalletType} from "../../enums"
-import {AuthBodyRequest, BodyRequest, eq, isNotNull, QueryRequest} from "@d-lab/api-kit"
+import {AuthBodyRequest, BodyRequest, eq, QueryRequest} from "@d-lab/api-kit"
 import WalletEthApi from "../../api/wallet-eth.api"
+import {isNotNull} from "@d-lab/common-kit"
 
 export default class WalletEthController implements WalletEthApi {
 

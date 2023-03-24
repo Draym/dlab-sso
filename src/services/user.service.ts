@@ -2,7 +2,8 @@ import db from "../db/database"
 import {User} from "../interfaces"
 import {UserModel} from "../models"
 import Errors from "../utils/errors/Errors"
-import {Filter, isNotNull, Page, throwIfNull} from "@d-lab/api-kit"
+import {Filter, Page} from "@d-lab/api-kit"
+import {isNotNull, throwIfNull} from "@d-lab/common-kit"
 
 export default class UserService {
 

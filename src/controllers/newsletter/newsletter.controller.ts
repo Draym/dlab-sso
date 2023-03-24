@@ -1,8 +1,9 @@
 import {GetSubscribersResponse, SubscriberResponse} from "../../api/dtos/newsletter"
 import {sequelize} from "../../db/database"
 import {newsletterSubscriptionService} from "../../services"
-import {AuthRequest, isNotNull} from "@d-lab/api-kit"
+import {AuthRequest} from "@d-lab/api-kit"
 import NewsletterApi from "../../api/newsletter.api"
+import {isNotNull} from "@d-lab/common-kit"
 
 export default class NewsletterController implements NewsletterApi {
     async getSubscribers(req: AuthRequest): Promise<GetSubscribersResponse> {

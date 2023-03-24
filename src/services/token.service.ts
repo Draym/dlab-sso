@@ -1,7 +1,8 @@
 import Token from "../utils/jwt/Token"
 import db from "../db/database"
-import {DataStoredInToken, isNotNull} from "@d-lab/api-kit"
+import {DataStoredInToken} from "@d-lab/api-kit"
 import {TokenData} from "../interfaces"
+import {isNotNull} from "@d-lab/common-kit"
 
 export default class TokenService {
 

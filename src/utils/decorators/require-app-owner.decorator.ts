@@ -1,5 +1,5 @@
 import {applicationService} from "../../services"
-import {isString, throwIfNull} from "@d-lab/api-kit"
+import {isString, throwIfNull} from "@d-lab/common-kit"
 import Errors from "../errors/Errors"
 
 const requireAppOwner = (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {

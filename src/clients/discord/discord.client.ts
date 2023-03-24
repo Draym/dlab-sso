@@ -1,5 +1,5 @@
 import {DiscordAutMeResponse, DiscordTokenRequest, DiscordTokenResponse, DiscordUserResponse} from "./dtos"
-import {Auth, Http} from "@d-lab/api-kit"
+import {Auth, Http} from "@d-lab/common-kit"
 
 enum API {
     AUTHORIZE = "https://discord.com/api/v10/oauth2/authorize",

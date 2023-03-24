@@ -10,8 +10,9 @@ import {UserRoleModel} from "../../models"
 import {userRolesService, userService} from "../../services"
 import {Role} from "../../enums"
 import Errors from "../../utils/errors/Errors"
-import {associateBy, AuthBodyRequest, CallerData, eq, isNotNull, throwIf} from "@d-lab/api-kit"
+import {AuthBodyRequest, CallerData, eq} from "@d-lab/api-kit"
 import UserRolesApi from "../../api/user-roles.api"
+import {associateBy, isNotNull, throwIf} from "@d-lab/common-kit"
 
 export default class UserRolesController implements UserRolesApi {
     async all(req: AuthBodyRequest<UserRoleAllRequest>): Promise<UserRoleAllResponse> {

@@ -1,6 +1,6 @@
 import {Role} from "../enums"
 import {RequestHandler} from "express"
-import {logger, throwIfNull} from "@d-lab/api-kit";
+import {throwIfNull} from "@d-lab/common-kit";
 import Errors from "../utils/errors/Errors";
 import {userRolesService} from "../services"
 import {isAllowed} from "../enums/role.enum"

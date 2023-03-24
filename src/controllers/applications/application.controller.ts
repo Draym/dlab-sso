@@ -16,12 +16,10 @@ import {
     AuthPathRequest,
     AuthRequest,
     eq,
-    groupBy,
     include,
-    isNull,
-    throwIfNull
 } from "@d-lab/api-kit"
 import ApplicationApi from "../../api/application.api"
+import {groupBy, isNull, throwIfNull} from "@d-lab/common-kit"
 
 export default class ApplicationController implements ApplicationApi {
     async allByOwner(req: AuthRequest): Promise<ApplicationAllOwnResponse> {

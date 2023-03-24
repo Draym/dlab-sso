@@ -3,8 +3,9 @@ import db from "../db/database"
 import {PlanningSessionModel} from "../models"
 import Errors from "../utils/errors/Errors"
 import {Op} from "sequelize"
-import {Filter, isNotNull, throwIfNull} from "@d-lab/api-kit"
+import {Filter} from "@d-lab/api-kit"
 import {PlanningSession} from "../interfaces"
+import {isNotNull, throwIfNull} from "@d-lab/common-kit"
 
 export default class PlanningSessionService {
 

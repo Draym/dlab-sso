@@ -4,7 +4,7 @@ import {ApplicationUserModel} from "../models"
 import Errors from "../utils/errors/Errors"
 import {Role} from "../enums"
 import {isAllowed} from "../enums/role.enum"
-import {isNull, throwIfNull} from "@d-lab/api-kit"
+import {isNull, throwIfNull} from "@d-lab/common-kit"
 
 export default class ApplicationUserService {
 

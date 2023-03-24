@@ -2,7 +2,7 @@ import {plainToInstance} from 'class-transformer'
 import {validate, ValidationError} from 'class-validator'
 import {RequestHandler} from 'express'
 import Errors from "../utils/errors/Errors"
-import {isNotNull} from "@d-lab/api-kit"
+import {isNotNull} from "@d-lab/common-kit"
 
 const validateRequest = (
     type: any,

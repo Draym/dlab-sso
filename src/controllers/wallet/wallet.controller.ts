@@ -7,8 +7,9 @@ import {
 } from "../../api/dtos/wallet/history"
 import {userService, walletHistoryService} from "../../services"
 import {WalletType} from "../../enums"
-import {AuthQueryRequest, isNotNull} from "@d-lab/api-kit"
+import {AuthQueryRequest} from "@d-lab/api-kit"
 import WalletApi from "../../api/wallet.api"
+import {isNotNull} from "@d-lab/common-kit"
 
 export default class WalletController implements WalletApi {
     async findOwner(req: AuthQueryRequest<FindWalletOwnerRequest>): Promise<FindWalletOwnerResponse> {

@@ -1,4 +1,5 @@
-import {isNotEmpty, PageRequest} from "@d-lab/api-kit";
+import {PageRequest} from "@d-lab/api-kit"
+import {isNotEmpty} from "@d-lab/common-kit"
 import {IsDateString, IsEnum, IsString, ValidateIf} from "class-validator"
 import {LogEvent, LogScope} from "../../../enums"
 

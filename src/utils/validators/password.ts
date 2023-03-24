@@ -1,5 +1,5 @@
 import Errors from "../../utils/errors/Errors"
-import {Regex, throwIf, throwIfNot} from "@d-lab/api-kit"
+import {Regex, throwIf, throwIfNot} from "@d-lab/common-kit"
 
 export default class Password {
     public static validate(password: string, passwordConfirm: string): void {

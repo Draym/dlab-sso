@@ -10,7 +10,8 @@ import {
 } from "../../api/dtos/applications/user"
 import {applicationService, applicationUserService} from "../../services"
 import Errors from "../../utils/errors/Errors"
-import {ApiAccessType, AuthBodyRequest, AuthQueryRequest, isNotNull, throwIf, throwIfNull} from "@d-lab/api-kit"
+import {ApiAccessType, AuthBodyRequest, AuthQueryRequest} from "@d-lab/api-kit"
+import {isNotNull, throwIf, throwIfNull} from "@d-lab/common-kit"
 import RequireAppOwner from "../../utils/decorators/require-app-owner.decorator"
 import ApplicationUserApi from "../../api/application-user.api"
 

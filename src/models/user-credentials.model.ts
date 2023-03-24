@@ -1,7 +1,7 @@
 import {Model, DataTypes, Sequelize, Optional} from "sequelize"
 import * as bcrypt from "bcryptjs"
 import {UserCredentials} from "../interfaces"
-import {isEmpty, throwIf} from "@d-lab/api-kit"
+import {isEmpty, throwIf} from "@d-lab/common-kit"
 import Errors from "../utils/errors/Errors"
 
 export type UserCredentialsCreationAttributes = Optional<UserCredentials, "id" | "createdAt" | "updatedAt">

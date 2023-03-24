@@ -1,6 +1,6 @@
 import {IsEmail, IsEnum, IsNotEmpty, IsString, Matches, MaxLength, MinLength, ValidateIf} from "class-validator"
 import {Role} from "../../../enums"
-import {isNotEmpty} from "@d-lab/api-kit"
+import {isNotEmpty} from "@d-lab/common-kit"
 import Password from "../../../utils/validators/password"
 
 export default class AdminCreateAccountRequest {

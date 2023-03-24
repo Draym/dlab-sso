@@ -1,7 +1,8 @@
 import {NewsletterSubscriptionModel} from "../models"
 import db from "../db/database"
 import Errors from "../utils/errors/Errors"
-import {eq, Filter, isNull, throwIfNull} from "@d-lab/api-kit"
+import {eq, Filter} from "@d-lab/api-kit"
+import {isNull, throwIfNull} from "@d-lab/common-kit"
 
 export default class NewsletterSubscriptionService {
 

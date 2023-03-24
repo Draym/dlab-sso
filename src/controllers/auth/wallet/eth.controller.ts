@@ -10,12 +10,13 @@ import {
 } from "../../../services"
 import EthSignature from "../../../utils/eth/EthSignature"
 import {WalletType} from "../../../enums"
-import {BodyRequest, eq, isNotNull} from "@d-lab/api-kit"
+import {BodyRequest, eq} from "@d-lab/api-kit"
 import {TokenResponse} from "../../../api/dtos/auth"
 import AuthResponse from "../../../utils/reponse/auth.response"
 import {Response} from "express"
 import {User} from "../../../interfaces"
 import AuthWalletEthApi from "../../../api/auth-eth.api"
+import {isNotNull} from "@d-lab/common-kit"
 
 export default class AuthWalletEthController implements AuthWalletEthApi {
 

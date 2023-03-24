@@ -1,7 +1,7 @@
 import {Role, SessionType} from "../enums"
 import {StaffRoles} from "../enums/role.enum"
 import {planningSessionService, userRolesService, userService} from "."
-import {isNotNull, nowUTC} from "@d-lab/api-kit"
+import {isNotNull, nowUTC} from "@d-lab/common-kit"
 import {User} from "../interfaces"
 import PbeAccess from "../interfaces/pbe-access.interface"
 

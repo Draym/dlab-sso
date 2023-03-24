@@ -1,8 +1,9 @@
-import {Role} from "../enums";
-import db from "../db/database";
-import {UserRoleModel} from "../models";
-import Errors from "../utils/errors/Errors";
-import {eq, Filter, isNotNull, throwIfNull} from "@d-lab/api-kit"
+import {Role} from "../enums"
+import db from "../db/database"
+import {UserRoleModel} from "../models"
+import Errors from "../utils/errors/Errors"
+import {eq, Filter} from "@d-lab/api-kit"
+import {isNotNull, throwIfNull} from "@d-lab/common-kit"
 
 export default class UserRoleService {
 

@@ -4,7 +4,8 @@ import Errors from "../utils/errors/Errors"
 import {Wallet} from "../interfaces"
 import {WalletType} from "../enums"
 import {walletHistoryService} from "."
-import {eq, Filter, isNotNull, nowUTC, throwIfNot, throwIfNotNull, throwIfNull} from "@d-lab/api-kit"
+import {eq, Filter} from "@d-lab/api-kit"
+import {isNotNull, nowUTC, throwIfNot, throwIfNotNull, throwIfNull} from "@d-lab/common-kit"
 
 export default class WalletService {
     private wallets = db.Wallet

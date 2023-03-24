@@ -1,7 +1,8 @@
-import {AuthPathRequest, AuthQueryRequest, Filter, Page, toOptDate} from "@d-lab/api-kit"
+import {AuthPathRequest, AuthQueryRequest, Filter, Page} from "@d-lab/api-kit"
 import {GetRequest, ListRequest, LogResponse, LogsResponse} from "../../api/dtos/log"
 import logService from "../../services/log.service"
 import LogApi from "../../api/log.api"
+import {toOptDate} from "@d-lab/common-kit"
 
 export default class LogController implements LogApi {
 
@@ -13,7 +14,8 @@ export default class LogController implements LogApi {
         filter.like({message: params.message})
         filter.gt({createdAt: toOptDate(params.createdAfter)})
         filter.lt({createdAt: toOptDate(params.createdBefore)})
-        const logs = await logService.findAll(filter, page)
+        filter.paginate(page)
+        const logs = await logService.findAll(filter)
         return {
             logs,
             ...page.result(logs)

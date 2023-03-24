@@ -3,8 +3,9 @@ import {
     AssistantCreateSessionResponse, AssistantDeleteSessionRequest, AssistantDeleteSessionResponse
 } from "../../../api/dtos/game-access/planning/assistant"
 import {planningAssistantService} from "../../../services"
-import {AuthBodyRequest, toDate} from "@d-lab/api-kit"
+import {AuthBodyRequest} from "@d-lab/api-kit"
 import PlanningAssistantApi from "../../../api/planning-assistant.api"
+import {toDate} from "@d-lab/common-kit"
 
 export default class PlanningAssistantController implements PlanningAssistantApi {
 

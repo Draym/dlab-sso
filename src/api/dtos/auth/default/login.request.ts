@@ -1,5 +1,5 @@
 import {IsBoolean, IsEmail, IsNotEmpty, IsString, ValidateIf} from "class-validator"
-import {isNotEmpty} from "@d-lab/api-kit"
+import {isNotEmpty} from "@d-lab/common-kit"
 
 export default class LoginRequest {
     @IsEmail(undefined, {message: "Please input a valid email address."})

@@ -5,9 +5,10 @@ import {
 } from "../../api/dtos/admin"
 import {userCredentialsService, userRolesService, userService, walletService} from "../../services"
 import {WalletType} from "../../enums"
-import {AuthBodyRequest, isNotNull} from "@d-lab/api-kit"
+import {AuthBodyRequest} from "@d-lab/api-kit"
 import {UserDto} from "../../api/dtos/user"
 import AdminApi from "../../api/admin.api"
+import {isNotNull} from "@d-lab/common-kit"
 
 export default class AdminController implements AdminApi {
     async createAccount(req: AuthBodyRequest<AdminCreateAccountRequest>): Promise<UserDto> {

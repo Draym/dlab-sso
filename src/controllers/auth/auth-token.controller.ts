@@ -1,11 +1,12 @@
 import db from "../../db/database";
 import Errors from "../../utils/errors/Errors";
 import {TokenRefreshRequest, TokenResponse} from "../../api/dtos/auth"
-import {BodyRequest, throwIfNull} from "@d-lab/api-kit"
+import {BodyRequest} from "@d-lab/api-kit"
 import AuthResponse from "../../utils/reponse/auth.response"
 import {Response} from "express"
 import {userService} from "../../services"
 import AuthTokenApi from "../../api/auth-token.api"
+import {throwIfNull} from "@d-lab/common-kit"
 
 export default class AuthTokenController implements AuthTokenApi {
 

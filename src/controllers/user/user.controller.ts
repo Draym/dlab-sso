@@ -2,8 +2,9 @@ import Errors from "../../utils/errors/Errors"
 import {UserAllRequest, UserAllResponse, UserFindRequest, UserDto} from "../../api/dtos/user"
 import {userRolesService, userService} from "../../services"
 import {User} from "../../interfaces"
-import {AuthQueryRequest, eq, Filter, Page, QueryRequest, throwIfNull, toOptDate} from "@d-lab/api-kit"
+import {AuthQueryRequest, eq, Filter, Page, QueryRequest} from "@d-lab/api-kit"
 import UserApi from "../../api/user.api"
+import {throwIfNull, toOptDate} from "@d-lab/common-kit"
 
 export default class UserController implements UserApi {
     async find(req: AuthQueryRequest<UserFindRequest>): Promise<UserDto> {

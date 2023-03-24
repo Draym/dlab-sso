@@ -2,7 +2,7 @@ import {SessionType} from "../enums"
 import {DayPickerRequest, TimeRequest} from "../api/dtos/game-access/planning/assistant"
 import Errors from "../utils/errors/Errors"
 import {SessionData} from "./planning-assistant.service"
-import {numberOdfDays, throwIf, UTCDate} from "@d-lab/api-kit"
+import {numberOfDays, throwIf, UTCDate} from "@d-lab/common-kit"
 
 export default class PlanningAssistantLogic {
     public static generateSessions(type: SessionType, from: Date, to: Date, startTime: TimeRequest, endTime: TimeRequest, dayPicker: DayPickerRequest): SessionData[] {
@@ -11,7 +11,7 @@ export default class PlanningAssistantLogic {
         const allowedDays = [dayPicker.sunday, dayPicker.monday, dayPicker.tuesday, dayPicker.wednesday, dayPicker.thursday, dayPicker.friday, dayPicker.saturday]
 
         const sessions: SessionData[] = []
-        const days = numberOdfDays(from, to)
+        const days = numberOfDays(from, to)
         for (let i = 0; i < days; ++i) {
             const sessionStart = UTCDate(from.getUTCFullYear(), from.getUTCMonth(), from.getUTCDate() + i, startTime.hour, startTime.minute, startTime.second)
             const sessionEnd = UTCDate(from.getUTCFullYear(), from.getUTCMonth(), from.getUTCDate() + i, endTime.hour, endTime.minute, endTime.second)

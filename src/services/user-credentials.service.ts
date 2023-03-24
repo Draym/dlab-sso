@@ -1,4 +1,5 @@
-import {eq, Filter, isNotNull, throwIfNot, throwIfNull} from "@d-lab/api-kit"
+import {eq, Filter} from "@d-lab/api-kit"
+import {isNotNull, throwIfNot, throwIfNull} from "@d-lab/common-kit"
 import Errors from "../utils/errors/Errors"
 import {userService, verificationCodeService} from "./index"
 import {VerificationCodeTarget} from "../enums"

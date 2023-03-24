@@ -1,5 +1,5 @@
 import {IsDateString, IsInt, ValidateIf} from "class-validator"
-import {isNotEmpty} from "@d-lab/api-kit"
+import {isNotEmpty} from "@d-lab/common-kit"
 
 export default class FindWalletRequest {
     @IsInt()

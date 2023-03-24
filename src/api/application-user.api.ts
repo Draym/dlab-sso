@@ -8,7 +8,7 @@ import {
     AppUsersResponse,
     AppUserUpdateRequest
 } from "./dtos/applications/user"
-import {AuthBodyRequest, AuthQueryRequest,} from "@d-lab/api-kit"
+import {AuthBodyRequest, AuthQueryRequest} from "@d-lab/api-kit"
 
 export default interface ApplicationUserApi {
     isAllowed(req: AuthQueryRequest<AppUserIsAllowedRequest>): Promise<AppUserIsAllowedResponse>
