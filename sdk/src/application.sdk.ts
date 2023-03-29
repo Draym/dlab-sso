@@ -8,7 +8,7 @@ import {ApplicationDto} from "./api/dtos/applications"
 export default class ApplicationSdk extends Sdk {
     private readonly apiKey?: string
 
-    constructor(domain: string, getSession: GetSessionCB, apiKey?: string) {
+    constructor(domain: string, getSession?: GetSessionCB, apiKey?: string) {
         super(domain, getSession)
         this.apiKey = apiKey
     }

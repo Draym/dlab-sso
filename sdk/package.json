@@ -1,6 +1,6 @@
 {
   "name": "@d-lab/sso",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Client library for DLab SSO apis",
   "private": false,
   "keywords": [
