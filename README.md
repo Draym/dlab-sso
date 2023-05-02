@@ -31,8 +31,7 @@ docker build .
 ```
 
 ### API Documentation
-API documentation can be viewed on
-Link:
+API documentation can be viewed on [ApiFox](https://dlab-sso.apifox.cn/)
 
 
 ## Branch Workflow
